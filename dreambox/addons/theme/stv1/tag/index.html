@@ -1,0 +1,215 @@
+<div class="tag-row">
+	<div class="tag-textarea">
+		<span class="pla">点击添加下列标签：</span>
+		<volist name="tempTags" id="tag"> <a href="javascript:;"
+			id="{$tag.id}" class="tag-item color1">{$tag.name}<span>X</span></a>
+		</volist>
+	</div>
+	<div class="tags-item"></div>
+</div>
+<div class="dialog none">
+	<div class="overlayer"></div>
+	<!--dialog-box start -->
+	<div class="dialog-box tags" style="display: block;">
+		<h1 class="title">标签</h1>
+		<!--dialog-main start -->
+		<div class="dialog-main">
+			<div class="tags-part">
+				<h6 class="title">课程标签</h6>
+				<div class="tags-part-main"></div>
+			</div>
+			<div class="tags-part">
+				<h6 class="title">热门标签</h6>
+				<div class="tags-part-main"></div>
+			</div>
+		</div>
+		<!--dialog-main end -->
+		<!--dialog-footer start -->
+		<div class="dialog-footer">
+			<p>
+				<input class="btn footer-cancel" type="button" value="取消"><input
+					class="btn footer-submit fr" type="button" value="确定">
+			</p>
+		</div>
+		<!--dialog-footer start -->
+	</div>
+	<!--dialog-box end -->
+</div>
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		$('.tag-row')
+				.click(
+						function(event) {
+							_this = $(event.target);
+							if (_this.is('.tag-textarea .tag-item span')) {
+								/* Act on the event */
+								_this.parent().remove();
+								if ($('.tag-textarea .tag-item').size() === 0) {
+									$('.tag-textarea span.pla').show();
+								}
+							} else if (_this.is('.tags-item .btn.more')) {
+								if ($('.tags-part .tag-item').length == 0) {
+									$
+											.get(
+													U('public/Index/getMoreTag'),
+													'',
+													function(json) {
+														var course = json.data.course;
+														var _more = $('<div class="dialog none"> <div class="overlayer"></div> <!--dialog-box start --> <div class="dialog-box tags" style="display: block;"> <h1 class="title">标签</h1> <!--dialog-main start --> <div class="dialog-main"> <div class="tags-part"> <h6 class="title">课程标签</h6> <div class="tags-part-main"></div> </div> <div class="tags-part"> <h6 class="title">热门标签</h6> <div class="tags-part-main"></div> </div> </div> <!--dialog-main end --> <!--dialog-footer start --> <div class="dialog-footer"> <p> <input class="btn footer-cancel" type="button" value="取消"><input class="btn footer-submit fr" type="button" value="确定"> </p> </div> <!--dialog-footer start --> </div> <!--dialog-box end --> </div>');
+
+														var courseItems = _more
+																.find(
+																		'.tags-part')
+																.eq(0)
+																.find(
+																		'.tags-part-main');
+														for ( var i in course) {
+															var item = course[i];
+															_a = $('<a href="javascript:;" class="tag-item"></a>');
+															_a.attr('id',
+																	item.id);
+															_a.text(item.name);
+															courseItems
+																	.append(_a);
+														}
+														var hot = json.data.hot;
+														var hotItems = _more
+																.find(
+																		'.tags-part')
+																.eq(1)
+																.find(
+																		'.tags-part-main');
+														for ( var i in hot) {
+															item = hot[i];
+															_a = $('<a href="javascript:;" class="tag-item"></a>');
+															_a.attr('id',
+																	item.id);
+															_a.text(item.name);
+															hotItems.append(_a);
+														}
+														_more
+																.find(
+																		'.dialog-box.tags')
+																.click(
+																		function(
+																				event) {
+																			_this = $(event.target);
+																			if (_this
+																					.is('.btn.footer-cancel')) {
+																				_this
+																						.parents(
+																								'.dialog')
+																						.remove();
+																				return;
+																			} else if (_this
+																					.is('.btn.footer-submit')) {
+																				var _ele = $(
+																						'.tags-part .tag-item.active')
+																						.removeClass(
+																								'active')
+																						.clone();
+																				appendTag(_ele);
+																				_this
+																						.parents(
+																								'.dialog')
+																						.remove();
+																				return;
+																			} else if (_this
+																					.is('.tags-part .tag-item')) {
+																				if (_this
+																						.hasClass('active')) {
+																					_this
+																							.removeClass('active')
+																					return;
+																				}
+																				var id = _this
+																						.attr('id');
+																				items = $('.tags-part .tag-item.active');
+																				for (i = 0; i < items.length; i++) {
+																					var text = items
+																							.eq(
+																									i)
+																							.attr(
+																									'id');
+																					if (id == text) {
+																						dreambox
+																								.alert('不能选择重复标签');
+																						return;
+																					}
+																				}
+																				items = $('.tag-textarea .tag-item');
+																				for (i = 0; i < items.length; i++) {
+																					var text = items
+																							.eq(
+																									i)
+																							.attr(
+																									'id');
+																					if (id == text) {
+																						dreambox
+																								.alert('该标签已经被添加,不能重复添加');
+																						return;
+																					}
+																				}
+																				_this
+																						.toggleClass('active');
+																			}
+																		});
+														_more.show();
+														_more.css('position',
+																'fixed');
+														$('body').append(_more);
+														var box = _more
+																.find('.dialog-box');
+														eleCenter(box);
+													}, 'json');
+								}
+							} else if (_this.is('.tags-item .tag-item')) {
+								var clone = _this.clone();
+								var id = _this.attr('id');
+								items = $('.tag-textarea .tag-item');
+								for (i = 0; i < items.length; i++) {
+									var text = items.eq(i).attr('id');
+									if (id == text) {
+										dreambox.alert('该标签已经被添加,不能重复添加');
+										return;
+									}
+								}
+								appendTag(clone);
+							}
+						});
+
+		//初始化加载一级标签
+		$.get(U('public/Index/getFirstTag'), '', function(json) {
+			_items = $('.tags-item');
+			_btn = $('<a href="javascript:;" class="btn more">更多</a>');
+			for ( var i in json.data) {
+				var item = json.data[i];
+				var condition = 'a[id=' + item.id + ']';
+				//去重复
+				if (_items.find(condition).length > 0) {
+					continue;
+				}
+				_a = $('<a href="javascript:;" class="tag-item color1"></a>');
+				_class = "tag-item color" + Math.ceil(Math.random() * 4);
+				_a.attr('class', _class);
+				_a.attr('id', item.id);
+				_a.text(item.name);
+				_items.append(_a);
+				if (i < json.data.length - 1) {
+					_items.append('<span>,</span>');
+				}
+			}
+			_items.append($('<a href="javascript:;" class="btn more">更多</a>'));
+		}, 'json');
+	});
+	function appendTag(clone) {
+		var length = $('.tag-textarea a').length + clone.length;
+		if (length > 3) {
+			dreambox.alert('标签个数不能超过3个');
+			return;
+		}
+		clone.append('<span>X</span>');
+		$('.tag-textarea').append(clone);
+	}
+</script>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box photoset">
+			<h1 class="title">头像设置<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-box-center">
+				<div class="center-header">
+					<div class="input-box">
+						<input type="text" placeholder="支持jpg,jped,png格式，大小限制在15M以内" />
+					</div>
+ 					<div class="upload-position">
+ 						<input class="btn upload-submit submit1" type="submit" value="浏览">
+ 					</div>	
+				</div>
+				<div class="center-main">
+					<div class="display-big">
+					</div>	
+				</div>
+			</div>
+			<div class="dialog-box-footer">
+ 				<ul>
+					<li class="active"><a href="#">本地上传</a></li>
+				</ul>		
+			</div>			
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			eleCenter('.dialog-box.login');
+		})
+	</script>
+</body>
+</html>

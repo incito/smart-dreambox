@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box login">
+			<h1 class="title">登录<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="row">
+					<div class="input-group error">
+						<span class="input-group-addon"><i class="icons user"></i></span>
+						<input class="input-group-control" type="text" id="account">
+						<span class="err-text">请输入手机号</span>
+						<label for="account" class="placeholder">帐号</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control" type="text" id="password">
+						<span class="err-text">请输入手机号</span>
+						<label  for="password" class="placeholder">密码</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="checkbox"><input type="hidden" value="0"><i class="icons checked"></i>记住我</div>
+					<a class="forget fr" href="javascript:;">忘记密码</a>
+				</div>
+				<div class="row">
+					<input type="submit" class="btn login-submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+				</div>
+				<div class="row tr">
+					<a class="login-reg" href="javascript:;">注册</a>
+				</div>
+
+			</div>
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			eleCenter('.dialog-box.login');
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="person-top">
+			<div class="person-top-main">
+				<div class="person-top-box">
+					<a class="avatar self">
+							<img src="{$school['avatar_url']}" alt="我的头像" title="我的头像">
+					</a>
+					<p class="line1" style="">
+						<label class="p-name">{$school['name']}</label>
+						<php>if(!empty($school['sponsors'])){</php>
+						<label class="p-school"><a class="cyellow" href="javascript:void(0)">{$school['sponsors']}</a>  捐赠</label>
+						<php>}</php>
+					</p>
+					<p class="line2" style="height:40px; margin:0;">
+						<label>{$school['prov']}{$school['city']}{$school['area']}</label>
+						<a class="fr" href="javascript:;" style="position: absolute; right: 88px;"><i class="p-icons gold"></i><span class="number">{$integral['integral']}</span></a>
+					</p>
+					<p class="line5"><php>if(empty($school['intro'])){</php>这人很懒，什么也没留下o(╯□╰)o<php>}else{</php>{$school['intro']}<php>}</php></p>
+					<p class="line6">学校管理员：<php>if($school['admin_uid']){</php><a class="cblue" href="{:U('public/Profile/index',array('uid'=>$school['admin_uid']))}">{$school['admin_name']}</a><php>}</php> <label class="fr">超越学校：<php>echo floor(($integral['count']-$integral['over'])/$integral['count']*100);</php>%</label></p>
+					<p class="line6"><a class="cblue" href="{:U('public/School/detail',array('sid'=>$school['id']))}">更多资料</a><label class="fr">积分排名：<php>echo $integral['over']+1;</php></label> </p>
+				</div>
+				<input type='hidden' id='sid' value='{$school['id']}' />
+			</div>
+		</div>
+	</script>

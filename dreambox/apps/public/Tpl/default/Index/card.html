@@ -1,0 +1,87 @@
+<div class="p-dialog">
+	<input id="cardUid" type="hidden" value="{$user.cardUid}" /> <i
+		class="t-top"></i>
+	<div class="p-dialog-hd">
+		<div class="p-hd-l fl">
+			<a href="{:U('public/Profile/index',array('uid'=>$uid))}"
+				class="avatar medium"><img src="{$user.user_small}" alt="头像"
+				title="{$user.uname}"></a>
+		</div>
+		<div class="p-hd-r fl">
+			<h2>{$user.uname}</h2>
+			<p><a href="{:U('public/Profile/index',array('uid'=>$user['schoolUid']))}">{$user.school_name}</a></p>
+			<if condition="$mid!=0 && $mid!=$uid"> <if condition="$user.status == 1">
+			<span
+				style="width: 50px; color: #5e5e5e; background-color: transparent;"
+				class="btn gz">已关注</span> <span style="color: #5e5e5e;">|</span> <a
+				class="qxgz"
+				style="color: #629cef; background-color: transparent; width: 30px;"
+				onclick="qxgz({$uid})">取消</a> <else /> <a href="javascript:;"
+				class="btn gz"
+				style="color: #629cef; background-color: transparent;"><i
+				class="i-icons add" onclick="gz({$uid})"></i><span
+				onclick="gz({$uid})">关注</span></a> </if></if>
+		</div>
+	</div>
+	<div class="p-dialog-con">
+		<p>{$user.intro}</p>
+		<p>
+			<span>关注 {$user.follow_count}</span> <span class="ml10 mr10">|</span>
+			<span>粉丝 {$user.fans_count}</span> <span class="ml10 mr10">|</span> <span>文章
+				{$user.blog_count}</span>
+		</p>
+	</div>
+	<script>
+	function qxgz(fid) {
+		//取消关注
+			if ($('#cardUid').val() == '0') {
+				dreambox.alert('请先登录');
+				return;
+			}
+		_this = $(this);
+			data = {
+					'fid' : fid
+				}
+			var url = 'public/Follow/unFollow';
+			$.post(U(url),data,function(json){
+				if (json.status) {
+					var parent = _this.parents('.p-hd-r');
+					$('.p-hd-r >a').remove();
+					parent.find('span').remove();
+					_a =$('<a href="javascript:;"class="btn gz"style="color: #629cef; background-color: transparent;"><i class="i-icons add"></i><span onclick="gz({$uid})">关注</span></a>');
+					_a.attr('onclick',fid);
+					parent.append(_a);
+				} else {
+					alert("取消关注失败！");
+				}
+			},'json');
+	}
+	function gz(fid) {
+		//关注
+		if ($('#cardUid').val() == '0') {
+			dreambox.alert('请先登录');
+			return;
+		}
+		_this = $(this);
+		data = {
+				'fid' : fid
+			}
+		var url = 'public/Follow/doFollow';
+		$.post(U(url),data,function(json){
+			if (json.status) {
+				var parent = _this.parents('.p-hd-r');
+				$('.p-hd-r >a').remove();
+				_span1 = $('<span style="width: 50px; color: #5e5e5e; background-color: transparent;" class="btn gz">已关注</span>');
+				_span2 = $('<span style="color: #5e5e5e;">|</span>');
+				_a = $(' <a class="qxgz" style="cursor: pointer;color: #629cef; background-color: transparent; width: 30px;" onclick="qxgz({$uid})">取消</a> ');
+				parent.append(_span1);
+				parent.append(_span2);
+				parent.append(_a);
+			} else {
+				alert("关注失败！");
+			}
+		},'json');
+	}
+</script>
+</div>
+

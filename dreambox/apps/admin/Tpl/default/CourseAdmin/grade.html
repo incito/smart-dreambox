@@ -1,0 +1,43 @@
+<include file="_header" />
+<script type="text/javascript" src="../Public/Js/json2select.js"></script>
+<div class="so_main"><include file="_tab" />
+<div class="form2">
+<form method="post" action="{:U('admin/CourseAdmin/addGrade')}">
+<dl class="lineD">
+	<dt>年级名称：</dt>
+	<dd><input type="text" name="name"><p>年级名最多25个字</p></dd>
+</dl>
+<dl>
+	<dd><input type="submit" class="btn_b" value="添加" /></dd>
+</dl>
+</form>
+</div>
+<div class="list">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<th class="line_l">ID</th>
+		<th class="line_l">年级名称</th>
+		<th class="line_l">操作</th>
+	</tr>
+
+	<volist name="list" id="vo">
+	<tr>
+		<td>{$vo['id']}</td>
+		<td>{$vo['name']}</td>
+		<td><a href="javascript:update({$vo['id']})">修改</a> <a
+			href="{:U('admin/CourseAdmin/delGrade', array('id'=>$vo['id']))}"
+			onclick="javascript:return confirm('确实删除“{$vo['name']}”？');">删除</a></td>
+	</tr>
+	</volist>
+</table>
+</div>
+</div>
+<script>
+
+function update(id) {
+	ui.box.load('{:U('admin/CourseAdmin/updateGrade')}' + '&id=' + id, '修改');
+}
+
+</script>
+<include file="_footer" />

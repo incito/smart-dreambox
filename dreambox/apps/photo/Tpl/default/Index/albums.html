@@ -1,0 +1,52 @@
+<include file="__THEME__/public_header" />
+	<include file="__THEME__/editor/index" />
+	<!--content start -->
+	<div id="content">
+		<eq name="isSchool" value="1">
+			<include file="__THEME__/school_header"/>
+		<else/>
+			<include file="__THEME__/person_header"/>
+		</eq>
+		<div class="content-main personPhotoList">
+			<div class="photo-box">
+				<div class="photo-box-title">
+					<span>相册</span>
+					<eq name="mid" value="$userInfo['uid']">
+					<a href="javascript:;" class="btn" onclick='create_update_album()' id="xjxc">新建相册</a>
+					<a href="javascript:;" class="btn mr10" id="sczp" onclick="uploadPhoto()">上传照片</a>
+					</eq>
+				</div>
+				
+				<div class="photo-box-main" id='mao_ts'>
+				 <volist name="data.data" id="vo" mod="4">
+					<div class="photo-item <eq name='mod' value='0'>nomr</eq>">
+						<a href="<?php echo str_concat(U('photo/Index/album', array('id'=>$vo['id'], 'uid'=>$vo['userId'])),'#mao_ts');?>" class="photo-item-img">
+							<php>
+								$cover=get_album_cover($vo.id,$vo,$relationship,205,121);
+								$lock=0;
+								if(strlen($cover)<10){
+									$lock=1;
+									$cover = APP_PUBLIC_URL."/images/photo_unknow.png";
+								}
+							</php>
+							<img src="{$cover}">
+						</a>
+						<p><a href="<?php echo str_concat(U('photo/Index/album', array('id'=>$vo['id'], 'uid'=>$vo['userId'])),'#mao_ts');?>">{$vo.name|getShort=12}</a><span>（{$vo.photoCount|default=0}张）</span> <i class="p-icons <eq name="lock" value="1">lock <else/>unlock</eq> fr"></i></p>
+					</div>
+				</volist>
+				{:W('Page',array('data'=>$data,'href'=>U('photo/Index/albums', array('uid'=>$userInfo['uid']))))}
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="__THEME__/js/person.js?v={$site.sys_version}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var person = Person;
+			person.init({$uid}, {$mid});
+		});
+	</script>
+	<script type="text/javascript" src="__APP__/js/albums.js?v={$site.sys_version}"></script>
+	{:W('UploadPhoto',array('createAlbumId'=>'xjxc'))}
+	<!--content end -->
+	<include file="__THEME__/public_footer" />

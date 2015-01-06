@@ -1,0 +1,156 @@
+<include file="__THEME__/public_header" />
+<link type="text/css" rel="stylesheet" href="__THEME__/css/module.css?v={$site.sys_version}">
+<link type="text/css" rel="stylesheet" href="__THEME__/css/style.css?v={$site.sys_version}">
+<script src="__THEME__/js/module.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/common.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/module.common.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/jquery.form.js?v={$site.sys_version}"></script>
+<style type="text/css">
+.btn {
+	display: inline-block;
+	text-align: center;
+	border: none;
+	cursor: pointer;
+}
+
+.btn.photoset-confirm {
+	width: 118px;
+	height: 40px;
+	margin-top: 10px;
+	margin-left: 120px;
+	line-height: 40px;
+	background: url('__THEME__/images/photoset_confirm_btn.png') no-repeat
+		transparent;
+	color: #fff;
+	font-size: 16px;
+}
+
+.btn.photoset-cancel {
+	width: 118px;
+	height: 40px;
+	margin-top: 10px;
+	margin-left: 25px;
+	line-height: 40px;
+	background: url('__THEME__/images/photoset_cancel_btn.png') no-repeat
+		transparent;
+	color: #fff;
+	font-size: 16px;
+}
+</style>
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">头像设置</h2>
+				<div class="peradd-r-con photoset">
+					<div class="photoset-header" style="height: 60px">
+						<ul class="ps-nav">
+							<li class="active"><a href="#">本地上传</a></li>
+						</ul>
+					</div>
+
+					<form id='noflashUpload' model-node="avatar_upload_form"
+						enctype="multipart/form-data"
+						action="{:U('public/Account/doSaveAvatar',array('step'=>'upload'))}"
+						method="post">
+						<dl class="form-avatar">
+							<dd>
+								<input event-node="select_file" type="file" name="Filedata"
+									class="" /> <span event-node="loading" style="display: none;"><img
+									src="__THEME__/image/load.gif" />加载中...</span>
+								<p>支持GIF,JPG,JPGE,PNG格式，大小限制15M以内</p>
+							</dd>
+							<dd>
+								<div model-node="avatar_scan" class="mod-avatar">
+									<div class="cut-1">
+										<img event-node="avatar_big" src="{$user_info['avatar_big']}"
+											width="200" />
+										<p>200*200</p>
+									</div>
+								</div>
+							</dd>
+						</dl>
+					</form>
+					<form model-node="avatar_setting_form"
+						enctype="multipart/form-data"
+						action="{:U('public/Account/doSaveAvatar',array('step'=>'save'))}"
+						method="post" style="display: none;">
+						<dl class="form-avatar" style="margin: 30px 0 0 30px;">
+							<dd>
+								<div model-node="avatar_area" class="mod-avatar left"
+									style="width: 300px; margin-bottom: 10px; border-right: 1px solid #E5E5E5; vertical-align: top; float: left;"></div>
+								<div class="mod-avatar left"
+									style="padding-left: 15px; display: inline-block;">
+									<div model-node="avatar_preview" class="left"
+										style="width: 200px; height: 200px; border: 1px solid #B4B5AF; overflow: hidden;"></div>
+								</div>
+							</dd>
+							<dd>
+								<input event-node="avatar_picurl" type="hidden" name="picurl">
+								<input event-node="avatar_picwidth" type="hidden"
+									name="picwidth"> <input event-node="avatar_fullpicurl"
+									type="hidden" name="fullpicurl"> <input
+									event-node="avatar_x1" type="hidden" name="x1"> <input
+									event-node="avatar_y1" type="hidden" name="y1"> <input
+									event-node="avatar_x2" type="hidden" name="x2"> <input
+									event-node="avatar_y2" type="hidden" name="y2"> <input
+									event-node="avatar_w" type="hidden" name="w"> <input
+									event-node="avatar_h" type="hidden" name="h"> <a
+									event-node="avatar_save" event-args="tip=确认保存头像？"
+									class="btn-green-small" href="#"><span
+									class="btn photoset-confirm">保存</span></a> <a
+									event-node="avatar_reset" class="btn-cancel ml10" href="#"><span
+									class="btn photoset-cancel" style="padding: 0 0;">取消</span></a>
+							</dd>
+						</dl>
+					</form>
+					<script
+						src="__THEME__/js/module.form.js?v={$site.sys_version}"></script>
+					<script
+						src="__THEME__/js/avatar/module.avatar.js?v={$site.sys_version}"></script>
+					<script
+						src="__THEME__/js/avatar/avatar.js?v={$site.sys_version}"></script>
+					<script type="text/javascript">
+						var upload_callback = "nocallback"
+						var avatar_success = function(msg) {
+							if (upload_callback != 'nocallback') {
+								ui.success('头像保存成功');
+								setTimeout(function() {
+									eval(upload_callback + '()');
+								}, 2000);
+							} else {
+								dreambox.dialog('提示','头像保存成功', function(){
+									location.reload(true);
+								}, 5);
+							}
+						};
+
+						var avatar_error = function() {
+							ui.error('头像保存失败');
+						};
+					</script>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		var height = document.body.scrollHeight;
+		var height_header = $("#header").height();
+		var height_foot = $("#footer").height();
+		var height_content = document.body.scrollHeight - height_foot
+				- height_header;
+		$("#content").height(height_content);
+
+	})
+</script>
+<include file="__THEME__/public_footer" />

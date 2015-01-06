@@ -1,0 +1,235 @@
+<include file="_header" />
+<div class="so_main">
+	<include file="_tab" />
+
+	<input type="button" class="kctn_btn uploadbtn"
+		style="color: #3e3e3e; cursor: pointer;" title="课程简介上传" value="上传课程介绍" />
+
+	<div class="list">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th class="line_l">序号</th>
+				<th class="line_l">视频名称</th>
+				<th class="line_l">创建日期</th>
+				<th class="line_l">操作</th>
+			</tr>
+			<volist name="videoList" id="data" empty="暂无文件下载，您可以上传文件哦！">
+			<tr>
+				<td>{$key+1}</td>
+				<td title="{$data['title']}">{$data['title']}
+
+					<div class="videoIfreamHtml" title="{$data['remarks']}" isRead="0"
+						videotype="{$data['isHtml']}" id="video_{$key}"
+						style="display: none;">{$data['video_src']}</div></td>
+				<td>{$data['ctime']}</td>
+				<td>
+					<!--   <a href="uploadvideo{$key}" class="editFile">查看 </a>--> <a
+					href="{:U('admin/CourseAdmin/del_video_intro', array('id'=>$data['id']))}"
+					onclick="javascript:return confirm('确实删除“{$data['title']}”？');">删除</a>
+			</tr>
+			</volist>
+		</table>
+
+		<div class="dialogParent">
+			<div class="dialog" style="z-index: -1200; margin-top: 5px;">
+				<div class="dialogTitle">
+					<span>上传文件</span> <a id="close" class="close">关闭</a>
+				</div>
+				<div id="dialogContent"
+					style="position: relative; width: 600px; height: 500px"></div>
+				<div style="width: 100%;">
+					<a id="OK" href="#" class="btnOk" style="display: none;">确定</a>
+				</div>
+			</div>
+		</div>
+		<!--对话框-->
+		<style type="text/css">
+.location {
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 2px solid #9CB8CC;
+}
+
+.location em {
+	margin: 0 4px;
+	color: #537197;
+}
+
+#dialogContent input {
+	height: 20px;
+}
+
+input,select {
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+.s-ck {
+	margin: 0 3px 0 0;
+	_margin: -3px 0 0;
+	padding: 0;
+}
+
+.dialogParent {
+	display: block;
+	height: 1px;
+	overflow: hidden;
+	top: 40px;
+	left: 1px;
+	position: absolute;
+	background-color: transparent;
+}
+
+.videoIfreamHtml {
+	min-height: 400px;
+	min-width: 400px;
+}
+
+.dialogTitle {
+	min-height: 13px;
+	background-color: #000000;
+	padding: 10px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	position: relative;
+}
+
+.dialog {
+	-moz-box-shadow: 0 5px 27px #000;
+	-webkit-box-shadow: 0 5px 27px black;
+	max-width: 600px;
+	min-height: 400px;
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: left;
+	z-index: 200;
+	background-color: #FFF;
+	border: 2px solid #000000;
+	filter: alpha(opacity =       0);
+	-moz-opacity: 0;
+	opacity: 0;
+	border-bottom: #000 2px solid;
+}
+
+.close {
+	z-index: 1200;
+	cursor: pointer;
+	text-decoration: underline;
+	position: absolute;
+	display: block;
+	font: 12px;
+	color: #ffffff;
+	height: 35px;
+	width: 35px;
+	top: 5px;
+	right: 5px;
+}
+
+.lineD {
+	border-bottom: 1px dashed #E2E2E2;
+}
+
+dd {
+	margin-left: 155px;
+	padding: 8px 0 8px 5px;
+	vertical-align: middle;
+}
+
+dt {
+	float: left;
+	margin: 0;
+	display: block;
+	padding-top: 10px;
+	text-align: right;
+	width: 150px;
+	color: #333;
+}
+</style>
+		<script type="text/javascript">
+		function check(){
+			var name = $('#videoName').val().trim();
+			var src = $('#videoIfreamHtml').attr('value');
+			if(name==''){
+				alert('文件名不能为空');
+				return false;
+			}	
+			else if(src==''){
+				alert('视频文件不能为空');
+				return false;
+			}
+			return true;
+		}
+    $(document).ready(function () {
+        $('.videoIfreamHtml').find('embed').css({'width':600, 'height':450})
+        var isOPen = false;
+        //关闭登陆框
+        $(".close").click(function () {
+            close();
+        });
+        //登陆窗的随界面变化移动位置  保证永远在中间
+        $(window).resize(function () {
+            if (isOPen) {
+                var height = $(document).height();
+                var width = $(window).width();
+                $('.dialogParent').css({'height':$(document).height(), 'width':width});
+                $('#loginclose').css({
+                    'width':width + 'px',
+                    'height':height + 'px'
+                });
+            }
+
+        });
+        $('.editFile').click(function () {
+            var html = $('#' + $(this).attr('href')).html();
+            OpenDialog(html, '编辑视频信息');
+            return false;
+        });
+        $('.uploadbtn').click(function () {
+        	//ui.box.load('{:U('admin/CourseAdmin/uploadvideointro')}','上传视频');
+           	var url = U('admin/CourseAdmin/uploadvideointro');
+        	$.post(url,null,function(res){
+        		$('body').append(res);
+        		eleCenter('.tsbox');
+        	});
+        });
+
+        $('a.view_video').click(function () {
+            var id = $(this).attr('href');
+            var videoContent = $("#" + id);
+            var html = videoContent.html();
+            var dialogTitle = videoContent.attr('title');
+            var videoType = parseInt(videoContent.attr('videotype'));
+            if (videoType == 1) {
+                html = "<iframe src=\"" + html + "\"  width=\"100%\" scrolling=\"no\" height=\"100%\" frameborder=\"0\" border=\"0\" allowtransparency=\"true\">";
+            }
+            OpenDialog(html, dialogTitle);
+            return false;
+        });
+        function close() {
+            $('.dialog').animate({ opacity:0 }, 500);
+            $("#loginclose").remove();
+            $('#dialogContent').html('');
+            $('.dialogParent').css('z-index', '-1200');
+            $('.dialogParent').height(1);
+            isOPen = false;
+        }
+
+        function OpenDialog(html, dialogTitle) {
+            var height = $(document).height();
+            var width = $(window).width();
+
+            $('.dialogParent').css({'height':$(window).height(), 'width':width});
+
+            var div = "<div id='loginclose' style=' background-color:black;filter:alpha(opacity=20); z-index:50; -moz-opacity:0.2; opacity: 0.2;display:block; position:absolute; top:0; left:0;" + "width:" + $(document).width() + "px" + ";height:" + height + "px;'></div>"
+            $("body").append(div);
+            $('.dialog').animate({ opacity:1 }, 500);
+            $('#dialogContent').html(html);
+            $('.dialogTitle').find('span').text(dialogTitle);
+            $('.dialogParent').css('z-index', '1200');
+            isOPen = true;
+        }
+    });
+</script>
+		<include file="_footer" />
+		<link rel="stylesheet" href="../Public/css/kecheng.css" />

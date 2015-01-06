@@ -1,0 +1,100 @@
+<include file="_header" />
+<script>
+	var photo_preview = '1';
+</script>
+<script src="__APP__/../Tpl/default/Public/js/preview.js" type="text/javascript"></script>
+<script>
+function getChecked() {
+    var ids = new Array();
+    $.each($('table input:checked'), function(i, n){
+        ids.push( $(n).val() );
+    });
+    return ids;
+}
+
+function checkon(o){
+    if( o.checked == true ){
+        $(o).parents('tr').addClass('bg_on') ;
+    }else{
+        $(o).parents('tr').removeClass('bg_on') ;
+    }
+}
+
+function checkAll(o){
+    if( o.checked == true ){
+        $('input[name="checkbox"]').attr('checked','true');
+        $('tr[overstyle="on"]').addClass("bg_on");
+    }else{
+        $('input[name="checkbox"]').removeAttr('checked');
+        $('tr[overstyle="on"]').removeClass("bg_on");
+    }
+}
+
+//搜索用户
+var isSearchHidden = <neq name="isSearch" value="1">1<else/>0</neq>;
+function searchAlbum() {
+    if(isSearchHidden == 1) {
+        $("#searchAlbum_div").slideDown("fast");
+        $(".searchAlbum_action").html("搜索完毕");
+        isSearchHidden = 0;
+    }else {
+        $("#searchAlbum_div").slideUp("fast");
+        $(".searchAlbum_action").html("搜索相册");
+        isSearchHidden = 1;
+    }
+}
+
+var ctrl = function(){
+}
+ctrl.prototype = {
+	del:function(id){
+		var id = id ? id : getChecked();
+		id = id.toString();
+		if(id=='' || id==0){
+			ui.error("请选择要删除的相册");return false;
+		}
+		if( confirm("是否删除{$ts['app']['app_alias']}？") ){
+		  $.post( '__URL__&act=delete_album',{id:id},function(text ){
+			  if( text == 1 ){
+				  ui.success( "删除多张{$ts['app']['app_alias']}成功" );
+				  var id_list = id.split( ',' );   
+				  for (var j=0 ; j< id_list.length ; j++   ){
+					  $('#list_'+id_list[j]).remove(); 
+				  }
+			  }else if( text == 2 ){
+				  ui.success( "删除成功" );
+				  $('#list_'+id).remove();
+			  }else{
+				  ui.error( "删除失败" );
+			  }
+		  });
+		}
+	},
+	edit:function(id,act){
+	  if( act == 'recommend' ){
+		  v= "推荐";
+		  v2 = "取消推荐";
+		  act2 = 'cancel';
+		
+	  }else{
+		  v = "取消推荐";
+		  v2 = "推荐";
+		  act2 = 'recommend';
+	  }
+	    $.post('__URL__&act=doChangeIsHot',{id:id,type:act},function( text ){
+			  if( text == 1 ){
+			  ui.success( "操作成功" );
+			  $('#button'+id).html('<a href="javascript:void(0);" onclick="c.edit('+id+',\''+act2+'\')">'+v2+'</a>');
+		   }else{
+			  ui.error( "设置失败" );
+		   }
+	    });
+	}
+}
+var c = null;
+</script>
+<div class="so_main">
+  <include file="_tab" />
+
+  
+<include file="_footer" />

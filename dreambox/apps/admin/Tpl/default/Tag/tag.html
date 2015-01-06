@@ -1,0 +1,141 @@
+<include file="__THEME__/admin_header" />
+<div class="so_main">
+  <div class="page_tit">标签配置</div>
+  <div class="Toolbar_inbox">
+    <if condition="$ch eq 'ch'"><a href="{:U('admin/Tag/index')}" class="btn_a"><span>返回</span></a></if>
+    <a href="javascript:void(0);" class="btn_a" onclick="addHidTag();"><span>添加标签</span></a>
+    <a href="javascript:void(0);" class="btn_a" onclick="del();"><span>删除标签</span></a>
+  </div>
+  
+  <div class="list">
+  <table id="area_list" width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <th style="width:30px;">
+        <input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0">
+        <label for="checkbox"></label>
+    </th>
+    <th class="line_l">ID</th>
+    <th class="line_l">标签名称</th>
+    <th class="line_l">操作</th>
+  </tr>
+  <volist id="vo" name="data">
+      <tr overstyle='on' id="area_{$vo.tag_id}">
+        <td><input type="checkbox" name="checkbox" id="checkbox2" onclick="checkon(this)" value="{$vo.tag_id}" <if condition="$vo['tag_id'] lt 5">disabled="disabled"</if> /></td>
+        <td>{$vo.tag_id}</td>
+		<td><a href="{:U('admin/Tag/getChildTag',array('id'=>$vo['tag_id']))}">{$vo['name']}</a></td>
+        <td>
+            <a href="javascript:void(0);" onclick="update({$vo['tag_id']});">编辑</a> 
+            			<if condition="$vo['tag_id'] GT 4"><a id="{$vo.tag_id}" hid="{$vo.tag_hid}" href="javascript:void(0);" onclick="delTag(this)"
+			tag_name='{$vo.name}'>删除</a>&nbsp;&nbsp;</if>
+            <if condition="($vo['tag_hid'] eq 0) and ($vo['tag_id'] neq 3) and ($vo['tag_id'] neq 4)"><a href="javascript:addChildTag({$vo['tag_id']})">添加二级标签</a></if></td>  
+        </td>
+      </tr>
+  </volist>
+  </table>
+
+  </div>
+  <div class="Toolbar_inbox">
+    <if condition="$ch eq 'ch'"><a href="{:U('admin/Tag/index')}" class="btn_a"><span>返回</span></a></if>
+    <a href="javascript:void(0);" class="btn_a" onclick="addHidTag();"><span>添加标签</span></a>
+    <a href="javascript:void(0);" class="btn_a" onclick="del();"><span>删除标签</span></a>
+  </div>
+</div>
+
+<script>
+    //鼠标移动表格效果
+    $(document).ready(function(){
+        $("tr[overstyle='on']").hover(
+          function () {
+            $(this).addClass("bg_hover");
+          },
+          function () {
+            $(this).removeClass("bg_hover");
+          }
+        );
+    });
+    
+    function checkon(o){
+        if( o.checked == true ){
+            $(o).parents('tr').addClass('bg_on') ;
+        }else{
+            $(o).parents('tr').removeClass('bg_on') ;
+        }
+    }
+    
+    function checkAll(o){
+        if( o.checked == true ){
+            $('input[name="checkbox"]').attr('checked','true');
+            $('tr[overstyle="on"]').addClass("bg_on");
+        }else{
+            $('input[name="checkbox"]').removeAttr('checked');
+            $('tr[overstyle="on"]').removeClass("bg_on");
+        }
+    }
+
+    //获取已选择用户的ID数组
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+
+    function update(id) {
+    	ui.box.load('{:U('admin/Tag/editTag')}' + '&id=' + id, '修改');
+    }
+    function addChildTag(id){
+    	ui.box.load('{:U('admin/Tag/addChildTag')}' + '&id=' + id, '添加二级标签');
+    }
+    function addHidTag(){
+    	ui.box.load("{:U('admin/Tag/addTag')}", '添加一级标签');
+    }
+    //删除地区
+    function del() {
+            aid    = getChecked();
+            length = aid.length;
+            aid    = aid.toString();
+
+        if(aid=='') {
+            ui.error('请先选择标签');
+            return ;
+        }
+        //提交删除
+        if(confirm('您将删除'+length+'个标签，确定继续？')) {
+        $.post("{:U('admin/Tag/doDeleteTags')}", {ids:aid}, function(res){
+	        if(res == '1') {
+	            ui.success('删除成功');
+              removeItem(aid);
+	        }else {
+	        	ui.error('删除失败');
+	        }
+        });
+      }
+           
+    }
+
+    function removeItem(ids) {
+      ids = ids.toString().split(',');
+        for(i = 0; i < ids.length; i++) {
+            $('#area_'+ids[i]).remove();
+        }
+    }
+    
+    function delTag(obj){
+    	_this = $(obj);
+    	var data = {
+    			'id' : _this.attr('id'),
+    			'hid' : _this.attr('hid')
+    		}
+    	$.post(U('admin/Tag/delTag'), data, function(res) {
+			if (res.status == 1) {
+				ui.success('删除成功');
+				ui.box.close();
+				window.location.href = window.location.href;
+			} else {
+				ui.success('删除失败');
+			}
+		}, 'json');
+    }
+    
+</script>

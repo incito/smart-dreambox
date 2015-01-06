@@ -1,0 +1,19 @@
+<include file="_header" />
+<script type="text/javascript" src="../Public/Js/json2select.js"></script>
+<div class="so_main"><include file="_tab" />
+<script type="text/javascript" src="__PUBLIC__/js/xheditor/xheditor-1.1.12-zh-cn.min.js"></script>
+<div class="form2">
+	
+<form method="post" action="{:U('admin/CourseAdmin/addcourseinfo')}">
+    <div style="font-size:14px; margin:0 0 10px 0;">请输入梦想课程简介：</div>
+	<div><textarea id="elm1" name="course" class="xheditor" rows="12" cols="80" style="width: 50%">{$value['value']}</textarea></div>
+	<div style="margin-top:10px;"><input type="submit" value="提交" /></div>
+</form>
+</div>
+<div class="list">
+
+
+</div>
+</div>
+
+<include file="_footer" />

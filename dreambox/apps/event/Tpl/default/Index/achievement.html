@@ -1,0 +1,122 @@
+<include file="__THEME__/header" />
+<include file="__THEME__/editor" />
+<link rel="stylesheet" href="__APP__/css/event.css" type="text/css" media="screen" charset="utf-8" />
+<script  type="text/javascript" src="__PUBLIC__/js/rcalendar.js" ></script>
+<script type="text/javascript" src="__APP__/js/event.js"></script>
+<script>
+//dsy.add();
+</script>
+<div class="content_holder">
+<div class="content no_bg">
+  <!-- 内容 begin  -->
+<include file="../Public/_mainNav" />
+  <div class="main no_l">
+    <!-- 画布 begin  -->
+    <div class="mainbox">
+		<include file="../Public/_isHotList" />
+      <div class="mainbox_appC">
+        <div class=page_title2>
+          <!-- page_title begin -->
+          <h2><span class="right fn f12px"><a href="javascript:history.back( -1 )">返回上一页</a></span>活动成果</h2>
+        </div>
+        <!-- page_title end -->
+        <div class="groupBox">
+            <div class="box1">
+              <form method="post" action="{:U('event/Index/doAddAchievement')}"  enctype="multipart/form-data" ">
+              <div class="elist">
+                <dl class="add_event">
+                  <dd>
+                    <label><span class="txt_impt">*</span>活动成果内容：</label>
+                    <div class="c2">
+                      <textarea id="explain" name="explain" style="width:100%; height:350px;">{$result.achievement_content}</textarea>
+                    </div>
+                    <div class="c"></div>
+                  </dd>
+                  
+
+				  <dd id="dd_appendix_1">
+					<label>上传附件：</label>
+					<div class="c2">
+					  <input name="appendix_1" onchange="change(this)" type="file"  res="1"/><span id="old_file_1">{$result.appendix_list.0.name}</span>
+					  <span><a href="javascript:add()">添加</a></span>
+					</div>
+					<input name="appendix_id[]" id="old_file_id_1" type="hidden" value='{$result.appendix_list.0.id}'>
+				  </dd>
+
+				<volist name="result.appendix_list" id="vo">
+				<if condition="$key neq 0">
+					<dd id="dd_appendix_{$key+1}">
+						<label>上传附件：</label>
+						<div class="c2">
+						  <input name="appendix_{$key+1}" onchange="change(this)" type="file" res="{$key+1}"/><span id="old_file_{$key+1}">{$vo.name}</span>
+						  <span><a href="javascript:del({$key+1})">删除</a></span>
+						</div>
+						<input name="appendix_id[]" id="old_file_id_{$key+1}" type="hidden" value='{$vo.id}'>
+					  </dd>
+				  </if>
+				 </volist>
+
+				 <dd id="dd_appendix"></dd>
+                  <!--<li>
+                  <div class="c1">将图片上传到：&nbsp;&nbsp;&nbsp;</div> 
+               <div class="c2">
+            {:W('AlbumList',array( 'uid'=>$mid , 'form_name'=>'albumId' , 'selected'=>intval($_GET['albumId']) ) )}
+            </div>
+          </li>-->
+                  <dd>
+                    <label>&nbsp;</label>
+                    <div class="c2">
+					  <input type="hidden" name="id" value="{$id}"/>
+                      <input name="button" type="submit" class="btn_b" id="button" value="保存" />
+                    </div>
+                    <div class="c"></div>
+                  </dd>
+                </dl>
+              </div>
+              </form>
+            </div>
+          </div>
+          <!-- end  -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- 画布 end  -->
+
+<!-- 内容 end -->
+<include file="__THEME__/footer" />
+<script>
+$(document).ready(function(){
+    loadEditor("explain");
+});
+function selectArea(){
+    var typevalue = $("#current").val();
+	ui.box.load(U('event/Area/area')+'&selected='+typevalue,{title:'选择城市'});
+}
+
+var i = 100;
+function add(){
+	var str = '<dd id="dd_appendix_'+i+'">'
+			+	'<label>上传附件：</label>'
+			+	'<div class="c2">'
+			+	  '<input name="appendix_'+i+'" onchange="change(this)" res="'+i+'"  type="file" />'
+			+	  '<span><a href="javascript:del('+i+')">删除</a></span>'
+			+	'</div>'
+			+ '</dd>';
+	$("#dd_appendix").before(str);
+	i++;
+}
+
+function del(id){
+	$("#dd_appendix_"+id).remove();
+}
+
+function change(id){
+	var res = $(id).attr("res");
+	$("#old_file_id_"+res).remove();
+	$("#old_file_"+res).remove();
+}
+
+
+</script>

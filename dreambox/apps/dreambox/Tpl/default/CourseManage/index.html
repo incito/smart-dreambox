@@ -1,0 +1,108 @@
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/courseManagement.css?v={$site.sys_version}"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__THEME__/js/jquery.form.js"></script>
+<!--content start -->
+<div id="content">
+	<div class="content-main white" style="padding-top: 50px;">
+		<div class="courseManagement">
+			<ul class="tabtop clearfix">
+				<li><a href="{:U('dreambox/Course/showCourse')}">课程管理</a></li>
+				<li class="active"><a
+					href="{:U('dreambox/CourseManage/index')}">批量排课</a></li>
+			</ul>
+			<div class="uploadExcel">
+				<div class="title">
+					<span>第一步</span> 下载课程模板
+				</div>
+				<div class="clearfix pr">
+					<div class="line">&nbsp;</div>
+					<div class="left fl">
+						<div>
+							<img src="__THEME__/images/upload1.png" height="120" alt="">
+						</div>
+						<a href="{:U('dreambox/CourseManage/template')}">下载模板</a>
+					</div>
+					<div class="right">
+						<p>本站所有的资料都是RAR压缩格式，如果下载后为PHP格式有以下几种原因：</p>
+						<p>1、没有用鼠标直接点击，没有查看下载的提示。</p>
+						<p>2、用迅雷7或者用除IE外的浏览器下载。像这种情况解决办法：删除迅雷7，或者用IE浏览器下载。</p>
+						<p>&nbsp;</p>
+						<p>解决方法：</p>
+						<p>1、用鼠标直接点击下载，不要用下载软件。</p>
+						<p>2、用IE浏览器进行查看下载。</p>
+						<p>3、安装了迅雷7而且不用IE浏览器，可能下载第一个后，第二个下载格式就成PHP了，此类解决方法，就是删除迅雷7或者用IE下载，或者就是把下载后的文件扩展名改成RAR就可以了</p>
+					</div>
+				</div>
+				<div class="title">
+					<span>第二步</span> 上传编辑好的梦想课表
+				</div>
+				<div class="clearfix pr">
+					<div class="line">&nbsp;</div>
+					<div class="left fl">
+						<div>
+							<img src="__THEME__/images/upload2.png" height="120" alt="">
+						</div>
+						<form id="uploadCourse" enctype="multipart/form-data"
+							action="{:U('dreambox/CourseManage/uploadCourse')}" method="post">
+							<input type="file" style="display: none;" id="upload" name="upload"
+								accept=".xlsx">
+						</form>
+						<a href="javascript:;" onclick="uploadOpen()">上传课表</a>
+					</div>
+					<div class="right">
+						<p>本站所有的资料都是RAR压缩格式，如果下载后为PHP格式有以下几种原因：</p>
+						<p>1、没有用鼠标直接点击，没有查看下载的提示。</p>
+						<p>2、用迅雷7或者用除IE外的浏览器下载。像这种情况解决办法：删除迅雷7，或者用IE浏览器下载。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="error-info" style="display: none">
+	<!--dialog-box start -->
+	<div class="overlayer"></div>
+	<div class="dialog-box" style="overflow: visible;top:250px;left:50%;margin-left:-220px">
+		<h1 class="title pr">
+			错误信息<span id="close"
+				style="font-size: 30px; cursor: pointer; position: absolute; right: 10px; top: 6px; line-height: normal;">×</span>
+		</h1>
+		<div class="dialog-content"
+			style="height: 250px; padding: 10px; overflow-y: auto"></div>
+	</div>
+	<!--dialog-box end -->
+</div>
+<script>
+	function uploadOpen() {
+		$('#upload').click()
+	}
+	function uploadChange() {
+		$('#uploadCourse').ajaxSubmit(options);
+	}
+	var options = {
+		dataType : "json",
+		success : function(json) {
+			if (json.status == 0) {
+				var data = json.data;
+				var log = $('.dialog-content');
+				for ( var i in data) {
+					var line = "<p>" + data[i].content + "</p>";
+					log.append($(line));
+				}
+				$('#error-info').show();
+			} else {
+				dreambox.dialog('提示', '导入成功');
+			}
+			var _input = '<input type="file" style="display: none;" name="upload" id="upload" accept=".xlsx">';
+			$('#upload').remove();
+			$('#uploadCourse').append($(_input));
+			$('#upload').on('change', uploadChange);
+		}
+	};
+	$('#upload').on('change', uploadChange);
+	$('#close').on('click', function() {
+		$('.dialog-content').empty();
+		$('#error-info').hide();
+	});
+</script>

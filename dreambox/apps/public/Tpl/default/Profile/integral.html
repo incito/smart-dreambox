@@ -1,0 +1,94 @@
+<include file="__THEME__/public_header" />
+
+<div id="content" class="clearfix">
+		<include file="__THEME__/person_header" />
+		<div class="person-mid">
+			<div class="person-mid-main">
+				<div class="userList-mid-box">
+					<h1 class="title clearfix">
+						<span class="active">积分记录</span>
+						<span>积分规则</span>
+					</h1>
+					<div class="intergral-part jfmx">
+						<h2>
+							<label>可用积分:<span class="cblue">{$user_addition['available_integral']}</span></label>
+							<label>累计积分:<span class="cblue">{$user_addition['sum_integral']}</span></label>
+						</h2>
+						<div class="intergral-search">
+							<label>时间范围 </label>
+							<input class="input begin" readonly="readonly" type="text">-<input class="input end" readonly="readonly" type="text">
+							<label>收支类型 </label>
+							<div class="selectGroup type">
+								<div class="select" date-value="0"><label class="text">不限</label><em class="bottomdirection"></em></div>
+								<ul class="select-items">
+									<li date-value="0">不限</li>
+									<volist name="integralSetting" id="vo">
+										<li date-value="{$vo.id}">{$vo.title}</li>
+									</volist>
+								</ul>
+							</div>
+							<a href="javascript:;" class="btn cx"><i class="icons search"></i>查询</a>
+						</div>
+						<div class="table">
+							<table>
+								<thead>
+									<tr>
+										<th class="th1">操作</th>
+										<th class="th2">积分变更</th>
+										<th class="th3">详情</th>
+										<th class="th4">变更时间</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+							<span style='display:none;'>没有找到相关数据！</span>
+							<div class='tc p-loading' style='display:none;'><img src='__THEME__/images/loading.gif' class='in-loading'></div>
+						</div>
+					</div>
+					<div class="intergral-part jfgz" style="display:none;">
+						<h2>
+							<label>可用积分:<span class="cblue">{$user_addition['available_integral']}</span></label>
+							<label>累计积分:<span class="cblue">{$user_addition['sum_integral']}</span></label>
+						</h2>
+						<div class="table ">
+							<table>
+								<thead>
+									<tr>
+										<th class="th1">操作</th>
+										<th class="th2">周期范围</th>
+										<th class="th3">周期内最多奖励次数</th>
+										<th class="th4">积分</th>
+									</tr>
+								</thead>
+								<tbody>
+									<volist name="integralSetting" id="vo">
+									<tr <eq name="i % 2" value="0"> class="odd"</eq>>
+										<td class="td1">{$vo.title}</td>
+										<td>不限周期</td>
+										<td>不限周期</td>
+										<td class="td4">{$vo.value}</td>
+									</tr>
+									</volist>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-main person">
+			
+		</div>
+	</div>
+	<!--script -->
+	<script type="text/javascript" src="__APP__/js/integral.js"></script>
+	<script type="text/javascript">
+	//content height
+	$(function(){
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').innerHeight() < minHeight?$('#content').innerHeight(minHeight):0;
+	})
+	
+	</script>
+<include file="__THEME__/public_footer" />

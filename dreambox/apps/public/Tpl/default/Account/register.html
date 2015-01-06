@@ -1,0 +1,188 @@
+<include file="__THEME__/public_header" />
+
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">注册信息</h2>
+				<div class="peradd-r-con">
+					<form action="{:U('public/Account/doSaveRegister')}" method="post"
+						id="registerInfo" onsubmit='return false'>
+						<table class="peradd-table">
+							<tbody>
+								<tr>
+									<td class="td11"><span>★</span>注册邮箱：</td>
+									<td><label>{$user_info.login}</label></td>
+								</tr>
+								<tr>
+									<td class="td11"><span>★</span>昵称：</td>
+									<td>
+										<div class="input-box">
+											<input name="old_name" type="hidden"
+												value="{$user_info.uname}" /> <input name="uname"
+												type="text" value="{$user_info.uname}" />
+										</div>
+
+									</td>
+								</tr>
+								<tr>
+									<td class="td11"><span>★</span>身份：</td>
+									<td><input name="utype" type="hidden"
+										value="{$user_info.utype}" autocomplete="off" />
+										<div class="selectGroup identity">
+											<div class="select" date-value="{$user_info.utype}">
+												<label class="text"><if
+														condition="$user_info['utype'] eq 1">教师</if> <if
+														condition="$user_info['utype'] eq 2">学生</if></label> <em
+													class="bottomdirection"></em>
+											</div>
+											<ul class="select-items">
+												<li <if condition="$user_info['utype'] eq 1"> class="active"</if>
+													date-value="1">教师</li>
+												<li <if condition="$user_info['utype'] eq 2"> class="active"</if>
+													date-value="2">学生</li>
+											</ul>
+										</div></td>
+								</tr>
+								<tr
+									<if condition="$user_info['utype'] != 1">style="display:none"</if>
+									>
+									<td class="td11"><span>★</span>所教科目：</td>
+									<td>
+										<div class="input-box">
+											<input name="subject" type="text"
+												value="{$user_info.subject}" />
+
+										</div>
+									</td>
+								</tr>
+								<tr
+									<if condition="$user_info['utype'] != 1">style="display:none"</if>
+									>
+									<td class="td11"><span>★</span>教龄：</td>
+									<td>
+										<div class="input-box">
+											<input name="age" type="text" value="{$user_info.school-age}"
+												maxlength='2' />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td11" style="vertical-align: top;"><span class="sp1">★</span>个人说明：</td>
+									<td>
+										<div class="input-box">
+											<textarea name="intro" class="register-textarea"
+												maxlength="49" >{$user_info.intro}</textarea>
+										</div>
+										<div class="info">
+											<label>你还可以输入49个字 </label>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="td11"></td>
+									<td><input class="btn register-submit"
+										type="submit" value="保存"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript"
+	src="{:APPS_URL}/public/_static/js/personCheck.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	$(function() {
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').css("height","auto");
+		$('#content').innerHeight() <= minHeight?$('#content').innerHeight(minHeight):$('#content').css("height","auto");
+	
+		var length = 49 - $("textarea[name=intro]").val().length;
+		$('.info label').text("你还可以输入" + length + "个汉字");
+
+		$('.identity li').click(function() {
+			_this = $(this);
+			$('input[name=utype]').val(_this.attr('date-value'));
+			if (_this.attr('date-value') == 1) {
+				$('tr:hidden').show();
+			} else {
+				$('input[name=subject]').val('');
+				$('input[name=age]').val('');
+				$('input[name=subject]').parents('tr').hide();
+				$('input[name=age]').parents('tr').hide();
+			}
+			var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+			$('#content').css("height","auto");
+			$('#content').innerHeight() <= minHeight?$('#content').innerHeight(minHeight):$('#content').css("height","auto");
+		});
+
+		$('input[name=age]').keyup(function() {
+			replaceChar($('input[name=age]'));
+		});
+
+		$("textarea[name=intro]").keyup(function() {
+			_this = $(this);
+			var length = 49 - _this.val().length;
+			if(length<0){
+				length = 0;
+			}
+			$('.info label').text("你还可以输入" + length + "个汉字");
+		});
+
+		$('.register-submit').click(
+				function() {
+					clearErrorMsg();
+					var uname = trim($('input[name=uname]').val());
+					var bool = true;
+					if (uname == "") {
+						bool = false;
+						addErrorMsg("uname","姓名不能为空");
+					}
+					var utype = trim($('input[name=utype]').val());
+					if (utype == "0") {
+						bool = false;
+						addErrorMsg("utype","身份不能为空");
+					}
+					if ($('.identity .select').attr('date-value') == 1) {
+						var subject = trim($('input[name=subject]').val());
+						if (subject == "") {
+							bool = false;
+							addErrorMsg("subject","所教科目不能为空");
+						}
+						var age = trim($('input[name=age]').val());
+						if (age == "") {
+							bool = false;
+							addErrorMsg("age","教龄不能为空");
+						}
+					}
+					if(!bool){
+						return;
+					}
+					$.post(U('public/Account/doSaveRegister'), $(
+							'#registerInfo').serialize(), function(json) {
+						if (json.status == 1) {
+							dreambox.dialog('信息', json.info);
+						} else {
+							addErrorMsg(json.data,json.info);
+						}
+					}, 'json');
+
+				});
+
+	})
+</script>
+<include file="__THEME__/public_footer" />

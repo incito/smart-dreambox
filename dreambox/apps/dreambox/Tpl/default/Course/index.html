@@ -1,0 +1,269 @@
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/courseManagement.css?v={$site.sys_version}"
+	rel="stylesheet" type="text/css" />
+
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main">
+		<div class="courseManagement">
+			<if condition="$isAdmin == true">
+			<ul class="tabtop clearfix">
+				<li <if condition='$tab eq "showCourse"'>class="active"</if>><a
+					href="{:U('dreambox/Course/showCourse')}">课程管理</a></li>
+				<li <if condition='$tab eq "uploadCourse"'>class="active"</if>><a
+					href="{:U('dreambox/CourseManage/index')}">批量排课</a></li>
+			</ul>
+			<div class="selectTeacher">
+				<div class="title">
+					<h3>选择梦想老师</h3>
+				</div>
+				<ul class="clearfix">
+					<volist name="teachers" id="teacher">
+					<li <if condition="$uid eq $teacher['uid']">
+						class="active" </if>><a uid="{$teacher.uid}"
+						href="{:U('dreambox/Course/showCourse',array('uid'=>$teacher['uid']))}">{$teacher.realname}</a><i></i></li>
+					</volist>
+				</ul>
+			</div>
+			</if>
+			<div class="selectActive clearfix">
+				<h3>
+					<span class="red">&ldquo;{$realname}&rdquo;</span>的{$termName}梦想课表
+				</h3>
+				<p class="tr">
+					<if condition='$classSize gt 0'> <a
+						href="{:U('dreambox/Course/previewCourse',array('uid'=>$uid))}">预览{$realname}的梦想课程</a> </if>
+				</p>
+			</div>
+			<div class="szkb">
+				<div class="table">
+					<hr class="ftr" />
+					<table>
+						<thead>
+							<tr>
+								<th class="ftth tableTitle" valign="middle">
+									<div>
+										<span></span> <img height="40"
+											src="__THEME__/images/courseicon.png" alt="">
+									</div>
+								</th>
+								<th>星期一</th>
+								<th>星期二</th>
+								<th>星期三</th>
+								<th>星期四</th>
+								<th>星期五</th>
+								<th>星期六</th>
+								<th>星期日</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name='sections' id='section'>
+							<tr
+								<if condition="(($section['id']+1) %2) eq 0">class="odd" </if>
+								>
+								<td class="ftth">{$section.name}</td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 1) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="1"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='1'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='1'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 2) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="2"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='2'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='2'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 3) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="3"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='3'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='3'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 4) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="4"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='4'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='4'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 5) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="5"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='5'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='5'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 6) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="6"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='6'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='6'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+								<td class="nobdr"><div class="sch-wrap">
+										<volist name='selectClass' id='class'> <volist
+											name='courses' id='course'> <if
+											condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 0) AND ($class['course_id'] eq $course['id'])">
+										<a section_num="{$section.id}" week_day="0"
+											course_id="{$course.id}" href="javascript:;"
+											style="margin-top: 7px;">{$course.class_name}</a> </if></volist> </volist>
+										<p class="tip tc">
+											<span title="添加"><i class="icons2" week_day='0'
+												section_num='{$section.id}'></i></span><span title="管理"><i
+												class="icons2 modify" week_day='0'
+												section_num='{$section.id}'></i></span>
+										</p>
+									</div></td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id='inner_box'></div>
+</div>
+<!--content end -->
+<script type="text/javascript">
+	$(function() {
+		rez();
+		removeModify();
+		$(window).resize(function(event) {
+			//remove i.modify
+			removeModify();
+			rez();
+		});
+		////init i.modify
+		function removeModify() {
+			var items = $('.tip span i.modify');
+			for ( var i = 0; i < items.length; i++) {
+				var item = items.eq(i);
+				if (item.closest('.sch-wrap').find('a').size() === 0) {
+					item.parent().remove();
+				}
+			}
+		}
+		//tip size
+		function rez() {
+			$('.sch-wrap').height(function() {
+				return $(this).closest('td').innerHeight();
+			});
+			$('.tip').height(function() {
+				return $(this).closest('td').innerHeight();
+			}).css({
+				'top' : function() {
+					return -$(this).height();
+				},
+				'display' : 'table'
+			});
+		}
+		$('.table td').hover(function() {
+			var _this = $(this);
+			if (_this.hasClass('ftth'))
+				return;
+			if (_this.find('a').size() == 0) {
+				_this.find('.tip span i.modify').parent().remove();
+			} else {
+				if (_this.find('.tip span i.modify').size() == 0) {
+					var str = '<span><i class="icons modify"></i></span>';
+					_this.find('.tip').append(str);
+				}
+			}
+			$(this).find('.tip').stop().animate({
+				'top' : 0
+			}, '100');
+		}, function() {
+			var _this = $(this), height;
+			if (_this.hasClass('ftth'))
+				return;
+			height = _this.innerHeight();
+			$(this).find('.tip').stop().animate({
+				'top' : -height
+			}, '100');
+
+		});
+
+		$('.icons2:not(.modify)').click(
+				function() {
+					var _this = $(this);
+					var section_num = _this.attr('section_num');
+					var week_day = _this.attr('week_day');
+					var uid = $('div.selectTeacher li.active a').length>0?'&uid='+$('div.selectTeacher li.active a').attr('uid'):'&uid='+MID;
+					var href = "{:U('dreambox/Course/selectCourse')}"
+							+ '&section_num=' + section_num + '&week_day='
+							+ week_day+uid;
+					var href1 = "{:U('dreambox/Course/showCourse')}"+uid;
+					$.get(href, null, function(data) {
+						$('#inner_box').html(data);
+						eleCenter('.dialog-box');
+						window.location = href1 + "#select-course";
+					});
+				});
+
+		$('.icons2.modify').click(
+				function() {
+					var _this = $(this);
+					var section_num = _this.attr('section_num');
+					var week_day = _this.attr('week_day');
+					var uid = $('div.selectTeacher li.active a').length>0?'&uid='+$('div.selectTeacher li.active a').attr('uid'):'&uid='+MID;
+					var href = "{:U('dreambox/Course/editCourse')}"
+							+ '&section_num=' + section_num + '&week_day='
+							+ week_day+uid;
+					var href1 = "{:U('dreambox/Course/showCourse')}"+uid;
+					$.get(href, null, function(data) {
+						$('#inner_box').html(data);
+						eleCenter('.dialog-box');
+						window.location = href1 + "#edit-course";
+					});
+				});
+	})
+</script>
+
+<include file="__THEME__/public_footer" />

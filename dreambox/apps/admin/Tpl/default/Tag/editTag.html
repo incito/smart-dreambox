@@ -1,0 +1,32 @@
+
+<script type="text/javascript" src="../Public/Js/json2select.js"></script>
+<div class="so_main">
+<dl class="lineD">
+	<dt>标签名称：</dt>
+	<dd><label><input id="tag_name" type="text" value="{$info.name}"/></label></dd>
+</dl>
+
+<div class="page_btm"><input id="tag_id" type="hidden" value="{$info.tag_id}"/><input type="button" class="btn_b" value="确定" /></div>
+<script type="text/javascript">
+	$('.btn_b').click(function() {
+		var name = $('#tag_name').val().trim();
+		if ($('#tag_name').val().trim() == '') {
+			alert('标签名不能为空');
+			return;
+		}
+		var data = {
+			'id' : $('#tag_id').val(),
+			'name' : name
+		}
+		$.post(U('admin/Tag/editTag'), data, function(res) {
+			if (res.status == 1) {
+				ui.success(res.info);
+				ui.box.close();
+				window.location.href = window.location.href;
+			} else {
+				ui.error(res.info);
+			}
+		}, 'json');
+	});
+</script>
+</div>

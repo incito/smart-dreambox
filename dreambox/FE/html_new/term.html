@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box term">
+			<h1 class="title">请确认学期时间</h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="row tc">
+					<input class="input" type="text" placeholder="开始时间" value="2014年2月1日"><span>-</span><input class="input" type="text" placeholder="结束时间" value="2014年2月1日">
+				</div>
+			</div>
+			<!--dialog-main end -->
+			<!--dialog-footer start -->
+			<div class="dialog-footer">
+				<p><input class="btn footer-cancel" type="button" value="取消"><input class="btn footer-submit fr" type="submit" value="确定"></p>
+			</div>
+			<!--dialog-footer start -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			eleCenter('.dialog-box.term');
+		})
+	</script>
+</body>
+</html>

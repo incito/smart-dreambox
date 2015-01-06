@@ -1,0 +1,26 @@
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/index.css?v={$site.sys_version}" rel="stylesheet" type="text/css" />
+<!--content start -->
+<div id="content">
+	<div class="content-main board-article clearfix">
+		<div class="article-part article-part-board">
+			<h2 class="title1">
+				{$content.title}<span class="fr"><php>echo
+					date('Y-m-d',$content['create_time']);</php></span>
+			</h2>
+			<div class="artical-content1">{$content.content}</div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		//content height
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').innerHeight() < minHeight?$('#content').innerHeight(minHeight):0;
+	})
+</script>
+
+<include file="__THEME__/public_footer" />

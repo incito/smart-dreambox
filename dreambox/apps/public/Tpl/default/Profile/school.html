@@ -1,0 +1,185 @@
+<include file="__THEME__/public_header" />
+<include file="__THEME__/editor/index" />
+	<!--content start -->
+	<style type="text/css">
+		.person-top-box p{line-height: 28px;}
+		.person-top-box p a{color: #5e5e5e;}
+		.person-top-box p a.cblue{color: #629cef;}
+		.person-top-box p.line1{top:-35px;}
+		.person-top-box p.line6 label.fr{width: 120px;text-align: left;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+		.person-top-box p.line5{width: 600px;}	
+</style>
+	<div id="content">
+		<include file="__THEME__/school_header"/>
+		
+		<div class="person-mid">
+			<div class="person-mid-main">
+				<div class="person-mid-box">
+					<ul class="school-ul">
+						<li class='teachers'>
+							<h6><span>梦想老师<span class='tc' style='display:inline-block;width:45px;'></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='prev' href='javascript:void(0);'>&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a class='next' href='javascript:void(0);'>&gt;&gt;</a></h6>
+							<div class="person-img-box">
+								<dl class="school-avatar">
+								</dl>
+							</div>
+						</li>
+						<li class='courses'>
+							<h6><span>梦想课程<span class='tc' style='display:inline-block;width:45px;'></span></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='prev' href='javascript:void(0);'>&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a class='next' href='javascript:void(0);'>&gt;&gt;</a></h6>
+							<ul class="mxkc-ul">
+							</ul>
+						</li>
+						<li style="border:none;">
+							<h6><span>学校综合评级 </span></h6>
+							<div class="xxzhpj-div">
+								<img src="__THEME__/images/pic7.png">
+								<p>本学期正在进行中……</p>
+								<p>学期结束后将展示学校综合评级</p>
+								<p>的详细数据</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="person-mid">
+			<div class="person-mid-main">
+				<div class="person-mid-box">
+					<div class="person-mid-l">
+						<h6>相册</h6>
+						<div class="person-img">
+							<a href="{:U('photo/Index/albums', array('uid'=>$uid))}">
+							<img src="{$user_addition['photoIndex']}" alt="相册" title="我的相册">
+							</a>
+						</div>
+					</div>
+					<div class="person-mid-r feedback">
+						<div class="school-signup-box">
+							<h1 class="title">{$feedback['term']}</h1>
+							<p class="op">
+							<if condition="$feedback['preMondayTime']!=0">
+								<a class="prev toweek pw" href="javascript:void(0);" time="{$feedback['preMondayTime']}">上一周</a>
+								<span class="ml10 mr10 pw">|</span>
+							<else/>
+								<a class="prev toweek pw" style='display:none;' href="javascript:void(0);" time="0">上一周</a>
+								<span class="ml10 mr10 pw" style='display:none;'>|</span>
+							</if>
+							<if condition="$feedback['nextMondayTime']!=0">
+								<a class="next toweek nw" href="javascript:void(0);" time="{$feedback['nextMondayTime']}">下一周</a>
+								<span class="ml10 mr10 nw">|</span>
+							<else/>
+								<a class="next toweek nw" href="javascript:void(0);" style='display:none;'  time="{$feedback['nextMondayTime']}">下一周</a>
+								<span class="ml10 mr10 nw" style='display:none;' >|</span>
+							</if>
+								<a class="now toweek" href="javascript:void(0);" time="{$thisMonday}">本周</a>
+							</p>
+							<input type='hidden' id='week_num' value='{$feedback['week_num']}' />
+							<input type='hidden' id='term_id' value='{$feedback['term_id']}' />
+							<div class="school-table">
+								<table>
+									<thead>
+										<tr>
+											<th class="th1"></th>
+											<th <eq name="feedback['data'][1]['isToday']" value="1"> class='active'</eq>>
+												<p>星期一</p>
+												<span>{$feedback['data'][1]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][2]['isToday']" value="1"> class='active'</eq>>
+												<p>星期二</p>
+												<span>{$feedback['data'][2]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][3]['isToday']" value="1"> class='active'</eq>>
+												<p>星期三</p>
+												<span>{$feedback['data'][3]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][4]['isToday']" value="1"> class='active'</eq>>
+												<p>星期四</p>
+												<span>{$feedback['data'][4]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][5]['isToday']" value="1"> class='active'</eq>>
+												<p>星期五</p>
+												<span>{$feedback['data'][5]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][6]['isToday']" value="1"> class='active'</eq>>
+												<p>星期六</p>
+												<span>{$feedback['data'][6]['date']}</span>
+											</th>
+											<th <eq name="feedback['data'][7]['isToday']" value="1"> class='active'</eq> class="nobdr">
+												<p>星期日</p>
+												<span>{$feedback['data'][7]['date']}</span>
+											</th>
+										</tr>	
+									</thead>
+									<tbody>
+										<tr status='0'>
+											<td>待签到</td>
+											<td <eq name="feedback['data'][1]['isToday']" value="1"> class='active'</eq>>
+												<div class="s-td-wrap">{$feedback['data'][1]['notfeedback']}</div>
+											</td>
+											<td <eq name="feedback['data'][2]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][2]['notfeedback']}</div></td>
+											<td <eq name="feedback['data'][3]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][3]['notfeedback']}</div></td>
+											<td <eq name="feedback['data'][4]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][4]['notfeedback']}</div></td>
+											<td <eq name="feedback['data'][5]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][5]['notfeedback']}</div></td>
+											<td <eq name="feedback['data'][6]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][6]['notfeedback']}</div></td>
+											<td <eq name="feedback['data'][7]['isToday']" value="1"> class='active'</eq>  class="nobdr"><div class="s-td-wrap">{$feedback['data'][7]['notfeedback']}</div></td>
+										</tr>
+										<tr class="lttr"  status='1'>
+											<td>已签到</td>
+											<td <eq name="feedback['data'][1]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][1]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][2]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][2]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][3]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][3]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][4]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][4]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][5]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][5]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][6]['isToday']" value="1"> class='active'</eq>><div class="s-td-wrap">{$feedback['data'][6]['feedbacked']}</div></td>
+											<td <eq name="feedback['data'][7]['isToday']" value="1"> class='active'</eq>  class="nobdr"><div class="s-td-wrap">{$feedback['data'][7]['feedbacked']}</div></td>
+										</tr>
+									</tbody>			
+								</table>
+							</div>
+							<p class="info">开课老师：<span>{$feedback['teacherCount']?$feedback['teacherCount']:'0'}</span>   开课班级数：<span>{$feedback['classCount']?$feedback['classCount']:'0'}</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-main person">
+			<div class="person-box">
+				<h6 class="title">学校动态</h6>
+				<div class="person-box-l">
+					<div class="timeline-nav">
+						<ul>
+							<php>$index = 0;</php>
+							<volist name="blogYears" id="vo">
+							<php>$index++;if($index == 1){</php>
+								<li class="active" data-time="{$vo}">
+									<a href="javascript:;">现在</a>
+								</li>
+							<php>}else if($index == sizeof($blogYears)){</php>
+								<li data-time="{$vo}" class="birthday">
+									<a href="javascript:;">出生</a>
+								</li>
+							<php>}else{</php>
+								<li data-time="{$vo}">
+									<a href="javascript:;">{$vo}</a>
+								</li>
+							<php>}</php>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="person-box-r">
+					<p class="loading"><img src="__THEME__/images/loading.gif" alt="加载中">正在加载中...</p>
+				</div>
+				</div>
+			</div>		
+	</div>
+
+	<script type="text/javascript" src="__APP__/js/school.js?v={$site.sys_version}"></script>
+	<script type="text/javascript" src="__THEME__/js/person.js?v={$site.sys_version}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var person = Person;
+			person.init({$uid}, {$mid},true);
+		});
+	</script>	
+	<!--content end -->
+	<include file="__THEME__/public_footer" />

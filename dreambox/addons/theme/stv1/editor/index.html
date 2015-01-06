@@ -1,0 +1,334 @@
+<div class="dialog-blog" style='display: none;'>
+	<include file="__THEME__/editor" />
+	<link rel="stylesheet" href="__THEME__/css/blog.css" type="text/css"
+		media="screen" charset="utf-8" />
+	<link href="__PUBLIC__/js/pagination/pagination.css" rel="stylesheet"
+		type="text/css" />
+
+	<style type="text/css">
+/************dialog**************/
+.dialog-blog {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100000;
+}
+
+.overlayer-blog {
+	width: 100%;
+	height: 100%;
+	background: url('__THEME__/images/bg_black.png') repeat 0 0 transparent;
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.dialog-box-blog {
+	width: 635px;
+	height: 550px;
+	overflow: hidden;
+	display: inline-block;
+	background-color: #fff;
+	position: fixed;
+	top: 20%;
+	left: 30%;
+	z-index: 10000;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.dialog-box-blog>.title {
+	height: 60px;
+	line-height: 60px;
+	padding: 0 30px 0 45px;
+	background: url('__THEME__/images/bg_gradient_1.png') repeat-x 0 bottom
+		transparent;
+	-moz-box-shadow: 0 0 0 #fff, 0 0 0 #fff, 0 2px 3px #ccc, 0 0 0 #fff;
+	-webkit-box-shadow: 0 0 0 #fff, 0 0 0 #fff, 0 2px 3px #ccc, 0 0 0 #fff;
+	box-shadow: 0 0 0 #fff, 0 0 0 #fff, 0 2px 3px #ccc, 0 0 0 #fff;
+	color: #797978;
+	font-size: 24px;
+}
+
+.dialog-box-blog>.title label {
+	color: #282828;
+	font-size: 14px;
+}
+
+.dialog-box-blog .dialog-main {
+	padding: 25px 30px;
+	height: 80%;
+}
+
+.dialog-box-blog .row {
+	width: 100%;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+.dialog-box-blog .dialog-footer {
+	width: 100%;
+	height: 60px;
+	-moz-box-shadow: 0 0 0 #fff, 0 -3px 6px #ccc, 0 0 0 #fff, 0 0 0 #fff;
+	-webkit-box-shadow: 0 0 0 #fff, 0 -3px 6px #ccc, 0 0 0 #fff, 0 0 0 #fff;
+	box-shadow: 0 0 0 #fff, 0 -3px 6px #ccc, 0 0 0 #fff, 0 0 0 #fff;
+}
+
+.dialog-footer p {
+	padding: 10px 15px;
+}
+
+.dialog-footer .btn.cancel {
+	
+}
+
+.blog-text {
+	border: 1px solid #bdc7d8;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	overflow: hidden;
+	padding: 3px;
+	vertical-align: middle;
+	font-weight: normal;
+}
+
+.LogList {
+	margin: 0
+}
+
+.LogList ul li {
+	padding: 15px 0
+}
+
+.LogList .edit li {
+	margin-bottom: 10px;
+	*zoom: 1
+}
+
+.LogList label {
+	float: left;
+	display: block;
+	width: 40px;
+	text-align: right;
+	padding-right: 10px;
+	line-height: 25px
+}
+
+.LogList .c1 {
+	_float: left;
+	_margin: 0
+}
+
+.gc_list {
+	margin: 0
+}
+
+.groupBox .talkBox {
+	margin: 0;
+	height: 140px
+}
+
+.dialog-box-blog #send_blog {
+	width: 60px;
+	height: 30px;
+	vertical-align: middle;
+	display: inline-block;
+	background: url('__THEME__/images/icons_all.png') no-repeat -322px
+		-226px transparent;
+	cursor: pointer;
+	font-size: 16px;
+	color: #fff;
+	border: none;
+}
+
+.edit .c1 {
+	width: 99%;
+}
+</style>
+
+	<div class="overlayer-blog"></div>
+	<!--dialog-box start -->
+	<div class="dialog-box-blog">
+		<h1 class="title">
+			写文章 <a class="close fr" href="javascript:;"><i
+				class="icons close"></i></a>
+		</h1>
+		<!--dialog-main start -->
+		<div class="dialog-main">
+			<div class="BlogBox">
+				<form action="{:U('blog/Index/doAddBlog')}" method="post"
+					enctype="multipart/form-data" model-node='event_post'>
+					<div class="LogList">
+						<ul class="edit">
+							<li style="padding: 0; float: none;">
+								<div class="c1">
+									<php>/**</php>
+									<select name="category" id="select"
+										onchange="javascript:changeCategory($(this))" class="text mr5">
+										<php>foreach( $blog_category as $value ){</php>
+										<option value="{$value['id']}" title="{$value['name']}">{$value['name']|getShort=8}</option>
+										<php>}</php>
+										<optgroup id="group">
+											<option value="0">+添加分类</option>
+										</optgroup>
+									</select>
+									<php>**/</php>
+									<input id="title" name="title" type="text" class="blog-text"
+										style="width: 564px" maxlength="25" placeholder="标题(可选)" />
+								</div>
+							</li>
+							<li style="padding: 0; float: none;">
+								<!-- <div class="c1"><textarea id="content" name="content" style="height:350px;" ></textarea></div> -->
+								<div class="c1">{:W('Editor',array('contentName'=>'content','value'=>'','height'=>'270px'))}</div>
+							</li>
+							<php>/**</php>
+							<li style="padding: 0; float: none;"><label>访问:
+									&nbsp;</label>
+								<div class="c1">
+									<select name="private" class="text mr5">
+										<option value="0">所有人可见</option>
+										<option value="2">仅我的粉丝可见</option>
+										<option value="4">仅自己可见</option>
+									</select>
+								</div></li>
+							<php>**/</php>
+							<li style="padding: 0; float: none;">
+								<div>
+									<if condition="$notIncludeTag == false"> <include
+										file="__THEME__/tag/index" /> </if>
+								</div>
+								<div class="c1">
+									<p>
+										<input name='button' id="send_blog" type="button"
+											class="btn_b" event-node="submit_btn" value="发表"
+											editor="true" />
+									</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="__THEME__/Js/addBlog.js"></script>
+<script type="text/javascript">
+window.Blog = {
+	option:{
+		id : 0,
+		isEdit : false,
+		callback : ''
+	},
+	//创建
+	add:function(callback){
+		Blog.option.callback = callback;
+		Blog.fill("", "");
+		Blog.open();
+	},
+	//编辑
+	edit:function(_id, _title, _content, callback){
+		Blog.option.id = _id;
+		Blog.option.isEdit = true;
+		Blog.option.callback = callback;
+		Blog.fill(_title, _content);
+		//临时添加
+		var url = U('admin/Tag/getBlogTag');
+		$.get(url,{'blog_id':_id},function(res){
+			$('.tag-textarea span').show();
+			$('.tag-textarea a').remove();
+			for(var i in res.data){
+				var _a = $('<a id="6" class="tag-item color4" href="javascript:;">身边的大自然</a>');
+				_a.attr('id',res.data[i].tag_id);
+				_a.html(res.data[i].name+"<span>X</span>");
+				$('.tag-textarea').append(_a);
+			}
+		},'json')
+		Blog.open();
+	},
+	fill:function(_title, _content){
+		$(".dialog-box-blog").find(".blog-text").val(_title);
+		
+		$("iframe.ke-edit-iframe").contents().find("body").html(_content);
+	},
+	open:function(){
+		//居中
+		eleCenter('.dialog-box-blog');
+		//
+		$('.dialog-blog').fadeIn('normal');
+	}
+}
+
+$(document).ready(function(){
+
+	Blog.fill("", "");
+	/*$(".blog-text").focus(function(event){
+		var _this = $(event.target)
+		if(_this.val() == "标题"){
+			_this.val("");
+		}
+	})
+	$(".blog-text").blur(function(event){
+		var _this = $(event.target)
+		if(_this.val() == ""){
+			_this.val("标题");
+		}
+	})*/
+	//
+	$(".dialog-box-blog").click(function(event){
+		var _this = $(event.target),
+			_title = $(this).find(".blog-text"),
+			_content = $("iframe.ke-edit-iframe").contents().find("body");
+		//关闭清空
+		if(_this.is(".icons.close")){
+			_this.parents('.dialog-blog').fadeOut();
+			_title.val("");
+			_content.html("");
+		}
+		//发布
+		if(_this.is("#send_blog")){
+			var _close = $(this).find(".icons.close");
+			var url = U('blog/Index/doAddBlog');
+			if(Blog.option.isEdit){
+				url = U('blog/Index/doUpdate');
+			}
+			//如果是课程页面
+			var tags = "";
+			if($('#tagId').size()>0){
+				tags =  $('#tagId').val();
+			}else{
+				var items = $('.tag-textarea .tag-item');
+				for (i = 0; i < items.length; i++) {
+					tags += items.eq(i).attr('id');
+					tags += '-';
+				}
+			}
+			var data = {
+				'id' : Blog.option.id,
+				'uid' : {$uid},
+				'title' : _title.val(),
+				'content' : _content.html(),
+				'tags' : tags,
+				'course_id' : $('#courseId').val()
+			}
+			$.post(url, data, function(json){
+				if(json.status == 0){
+					dreambox.alert(json.info);
+				}else if(json.status == 1){
+					_close.trigger('click');
+					//发布成功后回调
+					if(Blog.option.callback != undefined){
+						Blog.option.callback(json.data.id);
+					}	
+					//dreambox.alert(json.info);
+					//dreambox.dialog('发布文章', json.info);
+				}
+			},'json');
+		}
+	});
+});
+</script>

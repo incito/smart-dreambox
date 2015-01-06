@@ -1,0 +1,139 @@
+.courseManagement{
+	background-color: #fff;
+	padding: 0 16px 16px 16px;
+	box-shadow:0 0 8px #b0b0b0;
+	border-radius: 4px;
+	color: #505050;
+}
+.courseManagement .szkb{
+	padding-top: 15px;
+}
+.courseManagement .szkb .table th{
+	width: 124px;
+}
+.courseManagement .szkb .table th.ftth{
+	width: auto;
+}
+
+.courseManagement .tabtop{
+	background-color: #fbf8f1;
+	margin:0 -16px;
+	border-radius: 4px 4px 0 0;
+	overflow: hidden;
+}
+.courseManagement .tabtop li{
+	float: left;
+	width: 50%;
+	text-align: center;
+	line-height: 41px;
+}
+.courseManagement .tabtop a{
+	display: block;
+}
+.courseManagement .tabtop a:hover{
+	color: #444;
+}
+.courseManagement .tabtop li{
+	position: relative;
+	overflow: hidden;
+}
+.courseManagement .tabtop li:after{
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	content: "";
+	left:0;
+	box-shadow: 0 2px 8px 2px #b0b0b0;
+}
+.courseManagement .tabtop li.active{
+	background-color: #fff;
+	border-radius: 4px 4px 0 0;
+	box-shadow: 0 2px 8px 2px #b0b0b0;
+}
+.courseManagement .tabtop li.active:after{
+	display: none;
+}
+.courseManagement .table td{
+	height: 52px;
+}
+.courseManagement .table .tableTitle div{
+	position: relative;
+	height: 100%;
+	width: 100%;
+	border-right:1px solid #ccc;
+	box-sizing:border-box;
+}
+.courseManagement .table .tableTitle img{
+	margin-top: 10px;
+}
+.courseManagement .table .tableTitle span{
+	position: absolute;
+	left:1px;
+	right:1px;
+	top:1px;
+	bottom:1px;
+	border-radius: 9px 0 0 0;
+	background-color: #939393;
+	opacity: 0.2;
+	filter:alpha(opacity=20);
+	z-index: 2;
+}
+
+.courseManagement .ftr{
+	height: 1px;
+}
+
+.selectTeacher .title{
+	border-bottom:2px solid #eee;
+	padding:9px 0;
+}
+
+.selectTeacher ul{
+	overflow: hidden;
+}
+.selectTeacher li{
+	padding:3px 12px;
+	position: relative;
+	margin-top: 10px;
+}
+.selectTeacher li i{
+	height: 8px;
+	width: 0;
+	border-left:1px solid #9a9a9a;
+	position: absolute;
+	left:-2px;
+	top:11px;
+}
+.selectTeacher li a:hover{
+	color: #444;
+}
+.selectTeacher li.active{
+	box-sizing:border-box;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	margin-right: 12px;
+	display: block;
+	padding: 2px 28px 2px 12px;
+}
+.selectTeacher li.active i{
+	background: url(../images/teacherActiveIcon.jpg) no-repeat left top;
+	height: 24px;width: 24px;
+	border-left: 0;
+	display: inline-block;
+	vertical-align: middle;
+	right:0px;
+	left:auto;
+	top:2px;
+}
+.selectActive{
+	border-bottom:2px solid #eee;
+	padding: 35px 0 8px;
+}
+.selectActive h3{
+	float: left;
+}
+.selectActive h3 span{
+	color: #ed1c24;
+	font-size: 20px;
+	font-weight: bold;
+}

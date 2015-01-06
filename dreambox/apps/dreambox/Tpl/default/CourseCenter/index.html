@@ -1,0 +1,207 @@
+<include file="__THEME__/public_header" />
+
+<!--content start -->
+<div id="content">
+	<div class="content-main courseCenter">
+		<input id='mid' type='hidden' value='{$mid}' /> <input id='tagId'
+			type='hidden' value='2' />
+		<!-- 课程介绍 -->
+		<div class="cc-part kcjs">
+			<h1 class="title">课程介绍</h1>
+			<div class="cc-part-main">
+				<p>
+					<span>{$shortResult.output}<if
+							condition="$shortResult['hasMore']">…… </if>
+					</span>
+					<if condition="$shortResult['hasMore']"> <a class="more"
+						href="javascript:;" title='{$info}'>展开 <span>﹀</span></a></if>
+				</p>
+				<div class="player-wrap">
+					<a href="javascript:;" class="icons prev"></a> <a
+						href="javascript:;" class="icons next"></a>
+					<div class="video-items">
+						<ul class="video-ul">
+							<volist name='videos' id='video'>
+							<li><a href="#player{$i}"> <i class="icons play"></i> <img
+									src="__THEME__/images/pic6.jpg">
+							</a>
+								<p>
+									<a href="#player{$i}">{$video.title}</a>
+								</p></li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 课程框架 -->
+		<div class="cc-part kckj">
+			<h1 class="title">
+				课程框架 <a href="{:U('dreambox/CourseCenter/downloadIndex')}"
+					class="goUpload"><i class="icons upload"></i>官方课件下载</a>
+			</h1>
+			<div class="cc-part-main">
+				<div class="cc-table">
+					<table>
+						<thead>
+							<tr>
+								<th class="ftth"></th>
+								<th class="even">我是谁</th>
+								<th>我要去哪里</th>
+								<th class="even nbdr">我如何去</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>7-9年级</td>
+								<volist name='courseType' id='type'>
+								<td><volist name='courses' id='course'> <if
+										condition="($type['id'] eq $course['type'] ) AND ($course['gid'] eq 3)">
+									<a
+										href="{:U('dreambox/CourseCenter/courseInfo',array('id'=>$course['id']))}">
+										{$course.class_name}</a> <br />
+									</if> </volist></td>
+								</volist>
+							</tr>
+							<tr>
+								<td>4-6年级</td>
+								<volist name='courseType' id='type'>
+								<td><volist name='courses' id='course'> <if
+										condition="($type['id'] eq $course['type'] ) AND ($course['gid'] eq 2)">
+									<a
+										href="{:U('dreambox/CourseCenter/courseInfo',array('id'=>$course['id']))}">
+										{$course.class_name}</a> <br />
+									</if> </volist>
+								</volist>
+							</tr>
+							<tr>
+								<td>1-3年级</td>
+								<volist name='courseType' id='type'>
+								<td><volist name='courses' id='course'> <if
+										condition="($type['id'] eq $course['type'] ) AND ($course['gid'] eq 1)">
+									<a
+										href="{:U('dreambox/CourseCenter/courseInfo',array('id'=>$course['id']))}">{$course.class_name}</a>
+									<br />
+									</if> </volist></td>
+								</volist>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- 课程活动 -->
+		<!-- 		<div class="cc-part kchd">
+			<h1 class="title">
+				课程活动 <a href="javascript:;" class="more">更多</a>
+			</h1>
+			<div class="cc-part-main">
+				<volist name='events' id='event'>
+				<div class="kchd-box">
+					<h2>活动主题：{$event.title}</h2>
+					<p>活动范围：{$event.address}</p>
+					<p class="tr">
+						<a href="javascript:;" class="btn cy">参与</a>
+					</p>
+				</div>
+				</volist>
+			</div>
+		</div> -->
+		<!-- 课程活动 -->
+		<div class="kcdt">
+			<h1 class="title">课程动态</h1>
+			<div class="article-con"></div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+<!-- <div style="display: none;">
+	<volist name='videos' id='video'> <a href="{$video.video_src}"
+		style="display: block; width: 600px; height: 400px" id="player{$i}"></a>
+	</volist>
+</div> -->
+<volist name='videos' id='video'>
+<div style="display: none;" id="player{$i}">
+<php>if(strpos($video['video_src'],'tudou')){</php>
+	<embed src="{$video.video_src}/&autoPlay=true" quality="high" flashvars ="isAutoPlay=true" width="480" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash" ></embed>
+	<php>}else{</php>
+	<embed src="{$video.video_src}" quality="high" flashvars ="isAutoPlay=true" width="480" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash" ></embed>
+<php>}</php>
+</div>
+</volist>
+<!--fancybox-->
+<script type="text/javascript"
+	src="__THEME__/js/plug/fancybox/source/jquery.fancybox.pack.js?v={$site.sys_version}"></script>
+<!--flowplayer-->
+<script type="text/javascript"
+	src="__THEME__/js/plug/flowplayer/flowplayer-3.2.12.min.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="{:APPS_URL}/dreambox/_static/js/courseCenter.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="__THEME__/js/app/indexBlog.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	$(function() {
+		var width = $('.player-wrap ul li:eq(0)').innerWidth()
+				+ 2
+				+ Number($('.player-wrap ul li:eq(0)').css('margin-right')
+						.substring(0, 2));
+		$('.player-wrap ul').width($('.player-wrap ul li').size() * width);
+		$(".video-ul li > a,.video-items li > p > a").fancybox({
+			'titlePosition' : 'inside',
+			'transitionIn' : 'none',
+			'transitionOut' : 'none',
+			'autoDimensions' : false
+		});
+		/* 		<php> for($i=1;$i<=count($videos);$i++){</php>
+		 var playerId = '<php>echo 'player'.$i;</php>';
+		 flowplayer(playerId,
+		 "__THEME__/js/plug/flowplayer/flowplayer-3.2.16.swf", {
+		 clip : {
+		 autoPlay : true, //是否自动播放，默认true
+		 autoBuffering : true
+		 //是否自动缓冲视频，默认true
+		 }
+
+		 }); 
+		 <php> }</php> */
+
+		//滚动
+		$('.player-wrap .prev')
+				.click(
+						function(event) {
+							var itemsLeft = parseInt($('.video-ul').css('left')), step = $(
+									'.video-ul li:first').innerWidth() + 15;
+							//防再点击
+							if (itemsLeft % step != 0) {
+								return;
+							}
+							var left = itemsLeft + step;
+							if (left <= 0) {
+								$('.video-ul').animate({
+									'left' : left
+								}, 400, 'linear');
+							}
+						});
+		$('.player-wrap .next')
+				.click(
+						function(event) {
+							var itemsLeft = parseInt($('.video-ul').css('left')), step = $(
+									'.video-ul li:first').innerWidth() + 15;
+							//防再点击
+							if (itemsLeft % step != 0) {
+								return;
+							}
+							var left = itemsLeft - step;
+							if (left >= -($('.video-ul').innerWidth() - step * 3)) {
+								$('.video-ul').animate({
+									'left' : left
+								}, 400, 'linear');
+							}
+						});
+
+	})
+</script>
+
+<include file="__THEME__/public_footer" />

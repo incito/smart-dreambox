@@ -1,0 +1,53 @@
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/index.css" rel="stylesheet" type="text/css" />
+<!--content start -->
+<div id="content">
+	<div class="content-main index clearfix">
+		<input type="hidden" id="tag_id" value="{$tag_id}" />
+		<div class="index-l">
+			<div class="index-tag-nav">
+				<div class="index-nav-hd">
+					<i class="i-icons tag"></i> <span>{$tag_name}</span> <a
+						href="javascript:;" class="fr"><span class="qb active">全部</span><span
+						class="jh">精华</span></a>
+				</div>
+				<div class="index-nav-md">
+					<p>
+						<input id="timeType" type="hidden" value="1" /> <label>时间:</label>
+						<a class="active" href="javascript:;" typeValue="1">全部</a> <a
+							href="javascript:;" typeValue="2">今天</a> <a href="javascript:;"
+							typeValue="3">最近一周</a> <a href="javascript:;" typeValue="4">最近一月</a>
+					</p>
+					<p>
+						<input id="orderType" type="hidden" value="1" /> <label>排序:</label>
+						<a class="active" href="javascript:;" typeValue="1">默认</a> <a
+							href="javascript:;" typeValue="2">评论数</a> <a href="javascript:;"
+							typeValue="3">转载数</a> <a href="javascript:;" typeValue="4">喜欢数</a>
+					</p>
+				</div>
+			</div>
+			<div class="article-box">
+				<div class="article-con"></div>
+			</div>
+		</div>
+		<div class="index-r">
+			<!--我的课表-->
+			<div class="index-r-box wdkb3 bqtj">
+				<h2 class="title">标签推荐</h2>
+				<div class="index-r-con">
+					<volist name="hotTags" id="tag"> <a
+						href="{:U('dreambox/TagCategory/index',array('tag_id'=>$tag['id']))}"
+						class="wdkb-item"> <i class="i-icons tag"></i> <span title="{$tag.name}">{$tag.name}</span>
+					</a> </volist>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+<include file="__THEME__/public_footer" />
+<!--script -->
+<script type="text/javascript"
+	src="__THEME__/js/app/indexBlog.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="{:APPS_URL}/dreambox/_static/js/tagCategory.js?v={$site.sys_version}"></script>

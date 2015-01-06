@@ -1,0 +1,56 @@
+<include file="__THEME__/admin_header" />
+<div id="container" class="so_main">
+	<div class="page_tit">
+    <php>if(C('DEVELOP_MODE')==true){</php>
+    <span onclick="admin.fold('page_config')">{:L('PUBLIC_PAGE_CONFIGURATION')}</span><php>if(!empty($searchKeyList)):</php>
+		<span onclick="admin.fold('search_config')">{:L('PUBLIC_SEARCH_PAGE')}</span><php>endif;</php>
+    <php>}</php>
+    {$pageTitle} 
+	</div>
+  <!-- START TAB框 -->
+  <php>if(!empty($pageTab)):</php>
+  <div class="tit_tab">
+    <ul>
+    <php> !$_REQUEST['tabHash'] && $_REQUEST['tabHash'] =  $pageTab[0]['tabHash'];</php>
+    <volist name='pageTab' id='t'>
+    <li><a href="{$t.url}&tabHash={$t.tabHash}" <php> if($t['tabHash'] == $_REQUEST['tabHash']){ echo 'class="on"';}</php>>{$t.title}</a></li>
+    </volist>
+    </ul>
+  </div>
+  <php>endif;</php>
+  <!-- END TAB框 -->
+  
+  <!-- START LIST -->
+  <div class="list" id='list'>
+  <form method="post" action="{:U('admin/UserIntegral/doImport')}" enctype="multipart/form-data">
+
+	<div class="page_tit" style='margin-left:5px;'>
+		导入excel积分日志(请谨慎操作)
+	</div>
+
+	<div class="form2">
+
+		<dl class="lineD">
+			<dt>上传excel：</dt>
+			<dd style='margin-right:10px;'>
+				<input name="excel" id="excel" type="file" />
+				<p></p>
+			</dd>
+		</dl>
+		<dl class="lineD">
+	      <dt>下载模板：</dt>
+	      <dd>
+	        <a href="{:U('admin/UserIntegral/downloadTemplate')}" >点击下载</a>
+	        <p></p>
+	      </dd>
+	    </dl>
+		<div class="page_btm">
+			<input type="submit" class="btn_b" value="确定" />
+		</div>
+	</div>
+</form>
+  </div>
+  <!-- END LIST -->
+  
+</div>
+<include file="admin_footer" />

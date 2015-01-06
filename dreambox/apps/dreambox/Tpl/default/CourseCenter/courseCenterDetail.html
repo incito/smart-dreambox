@@ -1,0 +1,132 @@
+<include file="__THEME__/public_header" />
+<include file="__THEME__/editor/index" />
+<!--content start -->
+<div id="content">
+	<div class="content-main courseCenter">
+		<input id='mid' type='hidden' value='{$mid}' /> <input id='courseId'
+			type='hidden' value='{$courseId}' /> <input id='tagId' type='hidden'
+			value='{$tagId}' />
+		<!-- 梦想课程  -->
+		<div class="cc-part mxkc">
+			<h1 class="title">梦想课程<a href="{:U('dreambox/CourseCenter/downloadIndex')}" class="goUpload"><i class="icons upload"></i>官方课件下载</a></h1>
+			<div class="cc-part-main">
+				<div class="mxkc-top">
+					<div class="top-detail">
+						<div class="top-detail-video">
+							<a <if condition="$videoSrc == ''">href="javascript:;"<else/>href="#player"</if>> <i class="icons play"></i> <img
+								src="__THEME__/images/pic6.jpg">
+							</a>
+						</div>
+					<div class="top-detail-con">
+								<h2 class="title">{$name}</h2>
+								<p><label>课程开发人：</label><span>{$devName}</span></p>
+								<p><label>适合年级：</label><span>{$suitGradeName}</span></p>
+								<p><label>学科关联度：</label><span>{$relevance}</span></p>
+								<p><label>核心素质／技能：</label><span>{$coreQuality}</span></p>
+								<p><label>课程类型：</label><span style="width: 70px;">{$courseType}</span><label style="width: 45px;">课时：</label><span>{$sumHours}课时</span></p>
+								<p class="mt5"><a href="javascript:;" class="btn xkcgx">写课程感思</a></p>
+							</div>
+					</div>
+					<div class="top-desc">
+						<h6>课程介绍</h6>
+						<p>
+							<span>{$shortResult.output}<if condition="$shortResult['hasMore']">…… </if> </span><if condition="$shortResult['hasMore']"><a class="more" title="{$info}"
+								href="javascript:;">展开 <span>﹀</span></a></if>
+						</p>
+					</div>
+				</div>
+				<div class="mxkc-bottom">
+					<h6 class="title">
+						<strong>谁在关注</strong><a href="javascript:;">换一批</a>
+					</h6>
+					<ul class="users">
+						<volist name='follows' id='follow'>
+						<if condition="$i!=1">
+							<li class="li-line"></li>
+						</if>
+						<li>
+							<div class="top">
+								<a class="avatar tiny"
+									href="{:U('public/Profile/index',array('uid'=>$follow['uid']))}"><img
+									title="{$follow.uname}" alt="头像" src="{$follow.user_small}"></a>
+								<div class="top-info">
+									<p>
+										<span class="name">{$follow.uname}</span><span class="sex">{$follow.sex}</span>
+									</p>
+									<p class="focus" fid='{$follow.uid}'>
+										<if condition="$follow['status'] == 1"> <span>已关注</span>
+										<span class="mr5 ml5">|</span> <a href="javascript:;"
+											class="follow"><span class="blue">取消</span></a> <else /> <a
+											href="javascript:;" class="follow"><span class="yellow">+</span>
+											<span class="blue">关注</span></a></if>
+									</p>
+								</div>
+							</div>
+							<p>
+								{$follow.time} {$follow.action}
+								<if condition="$follow['type'] ==2 "> <a
+									href="{:U('public/Profile/index',array('id'=>$follow['blog_id']))}">{$follow.title}</a></if>
+								<if condition="$follow['type'] ==1 ">{$follow.content}</if>
+							</p>
+						</li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 课程活动 -->
+		<div class="kcdt">
+			<h1 class="title">课程动态</h1>
+			<div class="article-con"></div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+
+<!-- <div style="display: none;">
+	<a href="{$videoSrc}"
+		style="display: block; width: 600px; height: 400px" id="player"></a>
+</div> -->
+<div style="display: none;" id="player">
+<if condition="$videoSrc != ''">
+	<php>if(strpos($videoSrc,'tudou')){</php>
+	<embed src="{$videoSrc}/&autoPlay=true" quality="high" flashvars ="isAutoPlay=true" width="480" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash" ></embed>
+	<php>}else{</php>
+	<embed src="{$videoSrc}" quality="high" flashvars ="isAutoPlay=true" width="480" height="400" align="middle" allowScriptAccess="sameDomain" allowFullscreen="true" type="application/x-shockwave-flash" ></embed>
+<php>}</php>
+		</if>
+</div>
+<!--fancybox-->
+<script type="text/javascript"
+	src="__THEME__/js/plug/fancybox/source/jquery.fancybox.pack.js?v={$site.sys_version}"></script>
+<!--flowplayer-->
+<script type="text/javascript"
+	src="__THEME__/js/plug/flowplayer/flowplayer-3.2.12.min.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="{:APPS_URL}/dreambox/_static/js/courseCenter.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="{:APPS_URL}/dreambox/_static/js/courseCenterDetail.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="__THEME__/js/app/indexBlog.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	$(function() {
+		$(".top-detail-video > a").fancybox({
+			'titlePosition' : 'inside',
+			'transitionIn' : 'none',
+			'transitionOut' : 'none',
+			'autoDimensions' : false
+		});
+	/* 	flowplayer("player",
+				"__THEME__/js/plug/flowplayer/flowplayer-3.2.16.swf", {
+					clip : {
+						autoPlay : true, //是否自动播放，默认true
+						autoBuffering : true
+					//是否自动缓冲视频，默认true
+					}
+
+				}); */
+	})
+</script>
+
+
+<include file="__THEME__/public_footer" />

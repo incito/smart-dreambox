@@ -1,0 +1,42 @@
+<include file="__THEME__/public_header" />
+	<include file="__THEME__/editor/index" />
+	<!--content start -->
+	<div id="content">
+		<eq name="isSchool" value="1">
+			<include file="__THEME__/school_header"/>
+		<else/>
+		<include file="__THEME__/person_header"/>
+		</eq>
+		<div class="content-main photoDetail" id='mao_ts'>
+			<div class="photo-box">
+				<div class="photo-box-title">
+					<a class="cblue" href='<?php echo str_concat(U('photo/Index/albums',array('uid'=>$uid)),'#mao_ts');?>'>相册&nbsp;&nbsp;>&nbsp;</a>
+					<span class="t-name-wrap">{$album.name}</span><span>（{$photos.count|default=0}张）</span>
+					<php>if($album['userId'] == $mid):</php>
+					<div class="photoOp fr">
+						<a href="javascript:;" class="add" onclick='uploadPhoto()'>添加新图片</a>
+						<span>|</span>
+						<a href="javascript:;" class="edit" onclick="create_update_album('{$album['id']}','{$album.name}','{$album['privacy']}')">编辑该相册</a>
+						<span>|</span>
+						<a href="javascript:;" class="del" onclick="delAlbum('{$album['id']}','{$photos.count|default=0}')">删除该相册</a>
+					</div>
+					<php>endif;</php>
+				</div>
+				<div class="photo-box-main">
+				<volist name="photos.data" id="li">				
+					<div class="photoDetail-item">
+						<a href="<?php echo str_concat(U('photo/Index/photo',array(id=>$li['id'],aid=>$li['albumId'],uid=>$li['userId'])),'#mao_ts');?><neq name="type" value="">&type={$type}</neq>" rel="{:getImageUrl($li['savepath'], 550)}" title="{$li.name}" class="photoDetail-img">
+							<img src="{$li.savepath|get_photo_url}">
+						</a>
+						<p>{$li.name|getShort='7'}</p>
+					</div>
+			    </volist>
+				</div>
+				{:W('Page',array('data'=>$photos,'href'=>U('photo/Index/album', array('id'=>$album['id'], 'uid'=>$album['userId']))))}
+			</div>
+		</div>
+	</div>
+	<!--content end -->
+	<script type="text/javascript" src="__APP__/js/albums.js?v={$site.sys_version}"></script>
+	{:W('UploadPhoto',array('albumId'=>$album['id']))}
+	<include file="__THEME__/public_footer" />

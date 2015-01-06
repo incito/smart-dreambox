@@ -1,0 +1,111 @@
+
+<!--dialog start -->
+<div class="dialog" id="termInfo">
+	<div class="overlayer"></div>
+	<!--dialog-box start -->
+	<div class="dialog-box term">
+		<h1 class="title">请确认学期时间</h1>
+		<!--dialog-main start -->
+		<div class="dialog-main">
+			<div class="row tc">
+				<input id="stime" name="stime" class="input" type="text"
+					placeholder="开始时间" value="{$stime}" readonly><span>-</span><input
+					id="etime" name="etime" class="input" type="text"
+					placeholder="结束时间" value="{$etime}" readonly>
+				<p id="error_stime" style='display: none'>
+					<i class="icons triangle"></i> 开始时间不能为空
+				</p>
+				<p id="error_etime" style='display: none'>
+					<i class="icons triangle"></i> 结束时间不能为空
+				</p>
+			</div>
+		</div>
+		<!--dialog-main end -->
+		<!--dialog-footer start -->
+		<div class="dialog-footer">
+			<p>
+				<input id="reset" class="btn footer-cancel" type="button" value="取消"><input
+					class="btn footer-submit fr" type="submit" value="确定">
+			</p>
+		</div>
+		<!--dialog-footer start -->
+	</div>
+	<!--dialog-box end -->
+</div>
+<!--dialog end -->
+<script>
+	$('.btn.footer-submit')
+			.click(
+					function() {
+						var error_stime = $('#error_stime');
+						var error_etime = $('#error_etime');
+						error_stime.hide();
+						error_etime.hide();
+						if ($('#stime').val().length == 0) {
+							error_stime.fadeIn('fast', function() {
+								error_stime.fadeOut(1500);
+							});
+							return;
+						} else if ($('#etime').val().length == 0) {
+							error_etime.text('结束时间不能为空');
+							error_etime.fadeIn('fast', function() {
+								error_etime.fadeOut(1500);
+							});
+							return;
+						} else {
+							var stime = new Date(($("#stime").val()).replace(
+									/-/g, "/"));
+							var etime = new Date(($("#etime").val()).replace(
+									/-/g, "/"));
+							var myDate = new Date();
+							var fullYear = myDate.getFullYear();
+							var mounth = myDate.getMonth() + 1;
+							var day = myDate.getDate();
+							mounth = mounth < 10 ? ("0" + mounth) : mounth;
+							day = day < 10 ? ("0" + day) : day;
+							var time = new Date(fullYear + "/" + mounth + "/"
+									+ day);
+							if (stime > etime) {
+								error_etime.text('开始时间不能大于结束时间');
+								error_etime.fadeIn('fast', function() {
+									error_etime.fadeOut(1500);
+								});
+								return;
+							} else if (etime < time) {
+								error_etime.text('结束时间不能晚于当前时间');
+								error_etime.fadeIn('fast', function() {
+									error_etime.fadeOut(1500);
+								});
+								return;
+							}
+						}
+						var data = {
+							'stime' : trim($('input[name=stime]').val()),
+							'etime' : trim($('input[name=etime]').val())
+						}
+						$.post(U('dreambox/Term/operateTerm'), data, function(
+								res) {
+							if ('dreambox/Course/showCourse' == res
+									|| 'public/Index/index' == res) {
+								$('#inner_box').empty();
+								window.location.href = U(res)+'&uid='+$('#uid').val();
+							} else {
+								dreambox.alert(res);
+							}
+						});
+
+					});
+	$('#reset').click(function() {
+		$('#inner_box').empty();
+	});
+	$('#stime').datepick({
+		dateFormat : 'yy-mm-dd',
+		changeYear : true,
+		yearRange: '-80:+10',
+	});
+	$('#etime').datepick({
+		dateFormat : 'yy-mm-dd',
+		changeYear : true,
+		yearRange: '-80:+10',
+	});
+</script>

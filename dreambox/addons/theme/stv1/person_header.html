@@ -1,0 +1,49 @@
+		<div class="person-top">
+			<div class="person-top-main">
+				<div class="person-top-box">
+					<a class="avatar self" <eq name="mid" value="$uid">href="{:U('public/Account/avatar')}"<else/>href="{:U('public/Profile/index',array('uid'=>$uid))}"</eq>>
+							<img src="{$user_info[$uid]['avatar_big']}" alt="头像">
+					</a>
+					<p class="line1">
+						<label class="p-name">
+		                {$user_info[$uid]['uname']}
+						</label>
+						<label class="p-school"><a href="{:U('public/Profile/index',array('uid'=>$user_addition['schoolUid']))}">{$user_addition['schoolName']}</a></label>
+					</p>
+					<p class="line2">
+						<label><php>if($user_info[$uid]['sex'] == 1){</php>男<php>}else if($user_info[$uid]['sex'] == 2){</php>女<php>}else{</php>性别：未知<php>}</php></label>
+						<span>|</span><label><php>if($user_addition['constellation'] != ""){</php>{$user_addition['constellation']}<php>}else{</php>星座：未知<php>}</php></label>
+						<span>|</span><label><php>if($user_info[$uid]['location'] != ""){</php>{$user_info[$uid]['location']}<php>}else{</php>地区：未知<php>}</php></label>
+						<php>if($mid == $uid){</php>
+						<a class="btnc bjgrzl" href="{:U('public/Account/index')}">编辑个人资料</a>
+						<php>}</php>
+						<php>if($user_addition['uid_verified'] == 1){</php>
+						<a class="fr" href="{:U('public/Profile/integral',array('uid'=>$uid))}"><i class="p-icons gold"></i><span class="number">{$user_addition['available_integral']}</span></a>
+						<php>}</php>
+					</p>
+					<p class="line4">
+						<span title="{$user_info[$uid]['intro']}"><php>if($user_info[$uid]['intro'] != ""){</php>{$user_info[$uid]['intro']|getShort=40}<php>}else{</php>个人签名：<php>if($mid == $uid){</php>你<php>}else{</php>TA<php>}</php>什么也没写！<php>}</php></span>
+						<br/>
+						<span>
+							<php>if($mid > 0 && $uid != $mid){</php>
+							<input type="hidden" id="follow_state" value="{$follow_state[$user_info[$uid]['uid']]['following']}" />
+							<a class="btnc ygz" style="display:none;" href="javascript:;"><span class="yellow">√</span>已关注</a>
+							<a class="btnc gz" style="display:none;" href="javascript:;"><span class="yellow">+</span>关注</a>
+							<a class="btnc sx" href="javascript:;">私信</a>
+							<php>}</php>
+							<php>if($user_addition['uid_verified'] == 1){</php><a class="btnc tdkb fr" href="{:U('dreambox/Course/previewCourse',array('uid'=>$uid))}"><php>if($mid == $uid){</php>我<php>}else{</php>TA<php>}</php>的课表</a><php>}</php>
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- 发送私信的对话框 -->
+		<div id='inner_box'></div>
+		
+		<!--script -->
+		<script type="text/javascript" src="__THEME__/js/person_header.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				Person_head.init({$uid});
+			});
+		</script>

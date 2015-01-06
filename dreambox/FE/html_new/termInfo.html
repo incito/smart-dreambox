@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog termInfo">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box">
+			<h1 class="title">请完善本学期基本信息</h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="termInfo-part">
+					<div class="row">
+						<input type="text" class="input input-time" placeholder="本学期开始时间" >
+						<input type="text" class="input input-time" placeholder="本学期结束时间" >
+					</div>
+					<div class="row">
+						<label for="input">学校教师总数：</label>
+						<input type="text" class="input" >
+					</div>
+					<div class="row">
+						<label for="input">学校班级总数：</label>
+						<input type="text" class="input" >
+					</div>
+					<div class="row">
+						<label for="input">学校学生总数：</label>
+						<input type="text" class="input" >
+					</div>
+				</div>
+				<div class="termInfo-part">
+					<div class="row">
+						<label>校&nbsp;&nbsp;长&nbsp;&nbsp;姓&nbsp;&nbsp;名：</label>
+						<span class="termInfo-span">18271283577</span>
+						<a href="javascript:;" class="cblue">修改</a>
+					</div>
+					<div class="row">
+						<label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+						<span class="termInfo-span">XXXXX</span>
+						
+					</div>
+					<div class="row">
+						<label>学校&nbsp;管&nbsp;理&nbsp;员：</label>
+						<span class="termInfo-span">eva</span>
+						<a href="javascript:;" class="cblue">重新绑定</a>
+					</div>
+				</div>	
+				<div class="termInfo-part" style="border:none;">
+					<p>请确认以下用户是否未贵校在职教师（真实姓名）</p>
+					<div class="teacher-list">
+						<ul class="teacher-list-ul">
+							<li>
+								<span class="name" title="张大山张大山">张大山张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+							<li>
+								<span class="name">张大山</span>
+								<span class="close">X</span>
+							</li>
+						</ul>
+					</div>
+				</div>		
+			</div>
+			<!--dialog-main end -->
+			<!--dialog-footer start -->
+			<div class="dialog-footer">
+				<p><input class="btn footer-cancel" type="button" value="保存为草稿，下次再确认"><input class="btn footer-submit fr" type="submit" value="确定"></p>
+			</div>
+			<!--dialog-footer end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.close').click(function(event) {
+				/* Act on the event */
+				$(this).closest('li').remove();
+			});
+		})
+	</script>
+</body>
+</html>

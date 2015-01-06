@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/index.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--header start -->
+	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="javascript:;" class="logo"><img src="assets/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="javascript:;">首页</a></li>
+					<li><a href="javascript:;">课程中心</a></li>
+					<li><a href="javascript:;">梦想中心</a></li>
+					<li><a href="javascript:;">我的主页</a></li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<i class="icons search"></i>
+				<input class="input input-search" type="text" placeholder="Search" >
+			</div>
+			<div class="header-msg fr">
+				<a href="javascript:;" class="msg"><i class="icons letter"></i>消息</a>
+				<a href="javascript:;" class="avatar a-hd"><img src="assets/images/pic1.png"></a>
+				<a href="javascript:;" class="quit">[退出]</a>
+			</div>
+		</div>
+	</div>
+	<!--header end -->
+	<!--content start -->
+	<div id="content">
+		<div class="content-main board-article clearfix">
+			<div class="article-part article-part-board">
+				<h2 class="title1">全国课程大赛开幕啊<span class="fr">2012-12-12</span></h2>
+				<div class="artical-content1">
+					<p>
+								　　 
+						“徘徊着的，在路上的，你要走吗？易碎的，骄傲着，那也曾是我的模样。” 
+						　　 
+						　　有的人唱歌，一年发两张唱片，每张唱片都紧随着当下潮流。这种情况在女歌手身上为甚。她们想趁着自己最好的年华，在CD店的货架上多留下一些她们的倩影。有的人也唱歌，可他们惜墨如金，在十多年前抛出领先时代的豪言壮举，紧接着退隐山林。他们并不介意后来者发出“眼前有景道不得，崔颢题诗在上头”之类的感慨，也没有保持曝光度的野心。显然，崔健、张楚以及本文的主人翁朴树，都属于凤毛麟角的后者。					　　 
+					
+					</p>
+				</div>
+
+			</div>		
+
+
+
+		</div>
+	</div>
+	<!--content end -->
+	<!--footer start -->
+	<div id="footer">
+		<div class="footer-main">
+			<p> © 2011－2013 adreambox.com, all rights reserved</p>
+			<p class="fr">
+				<a href="javascript:;">关于梦想盒子</a>
+				<span>|</span>
+				<a href="javascript:;">了解真爱梦想</a>
+				<span>|</span>
+				<a href="javascript:;">联系我们</a>
+				<span>|</span>
+				<a href="javascript:;">免责声明</a>
+				<span>|</span>
+				<a href="javascript:;">帮助中心</a>
+				<span>|</span>
+				<a href="javascript:;">手机APP</a>
+				<span>|</span>
+				<a href="javascript:;">技术支持</a>
+			</p>
+		</div>
+	</div>
+	<!--footer end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/lunarDays.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var height = document.body.scrollHeight;
+			var height_header = $("#header").height();
+			var height_foot = $("#footer").height();	
+			var height_content = document.body.scrollHeight - height_foot-height_header;
+			$("#content").height(height_content);			
+		})
+	</script>
+
+</body>
+</html> 

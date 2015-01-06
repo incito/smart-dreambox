@@ -1,0 +1,88 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">修改密码</h2>
+				<div class="peradd-r-con">
+					<form id="passwordInfo"
+						action="{:U('public/Account/doModifyPassword')}" method="post"
+						onsubmit="return false">
+						<table class="peradd-table peradd-table-passwd">
+							<tbody>
+								<tr>
+									<td class="td11"><span>★</span><label>原始密码：<label></td>
+									<td>
+										<div class="input-box">
+											<input name="oldpassword" type="password" value="" />
+										</div>
+
+									</td>
+								</tr>
+								<tr>
+									<td class="td11"><span>★</span><label>新密码：</label></td>
+									<td>
+										<div class="input-box">
+											<input name="password" type="password" value="" />
+
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td11"><span>★</span><label>确认密码：</label></td>
+									<td>
+										<div class="input-box">
+											<input name="repassword" type="password" value="" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td11"></td>
+									<td><input class="btn changepasswd-submit"
+										type="submit" value="保存"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript"
+	src="{:APPS_URL}/public/_static/js/personCheck.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	$(function() {
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').css("height","auto");
+		$('#content').innerHeight() <= minHeight?$('#content').innerHeight(minHeight):$('#content').css("height","auto");
+
+		$('.changepasswd-submit').click(
+				function() {
+					clearErrorMsg();
+					$.post(U('public/Account/doModifyPassword'), $(
+							'#passwordInfo').serialize(), function(json) {
+						if (json.status == 1) {
+							dreambox.dialog('信息', json.info, function() {
+								window.location.href = window.location.href;
+							});
+						} else {
+							addErrorMsg(json.data,json.info);
+							$('input[type=password]').val('');
+							$('input[type=submit]').val('保存');
+						}
+					}, 'json');
+				});
+	})
+</script>
+<include file="__THEME__/public_footer" />

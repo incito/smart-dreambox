@@ -1,0 +1,22 @@
+<div id="tsbox" class="wrap-layer ui-draggable"
+	style="width: 300px; top: 200px; dispaly: none;">
+	<div class="content-layer">
+		<div class="hd">
+			编辑栏目 <a class="ico-close" href="#"></a>
+		</div>
+		<div id="layer-content" class="layer-content"></div>
+		<form action="{:U('/Admin/saveEditLeft')}" method="POST">
+			栏目名称： <input type="text" name="title" class="txt"
+				value="{$data['title']}" />
+			<div class="page_btm">
+				<input type="submit" class="btn_b" value="确定" />
+			</div>
+			<input type="hidden" name="id" value="{$data['id']}">
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		$('.ico-close').click(function() {
+			$('#inner_box').empty();
+		});
+	</script>

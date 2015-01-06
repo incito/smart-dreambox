@@ -1,0 +1,169 @@
+<php>if($type=='normal'){</php>
+<php>}else{</php>
+<script type="text/javascript" src="__APP__/js/swfupload/swfupload.js?v={$site.sys_version}"></script>
+<script type="text/javascript" src="__APP__/js/swfupload/swfupload.queue.js?v={$site.sys_version}"></script>
+<script type="text/javascript" src="__APP__/js/swfupload/fileprogress.js?v={$site.sys_version}"></script>
+<script type="text/javascript" src="__APP__/js/swfupload/handlers.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+var cache={
+		albums:null
+}
+function uploadPhoto(){
+	$dialog=$('<div class="dialog uploadPhoto" style="display: none;"> <div class="overlayer" ></div> <div class="dialog-box" > <h1 class="title">上传照片</h1> <div class="dialog-main"> <div class="row"> <label>选择相册</label> <div class="selectGroup"> <div class="select" id="upload_album_id" date-value="0"><label class="text"></label><em class="bottomdirection"></em></div> <ul class="select-items"> </ul> </div>'+('{$createAlbumId}'?' <a href="javascript:;" class="cjxc">创建相册':'')+'</a> </div> <div class="row"> <a href="javascript:;" class="tjzp"><span id="flash_upload_select_picture"></span></a> <div class="file-list"> <ul id="file_list" class="file-ul"> </ul> </div>   <div class="file-text"> <p>可以同时选择多张图片进行批量上传 (注:一次最多同时上传10张图片)</p> <br/> <p>单张图最大为2M，支持jpeg,gif,jpg,png格式，如果上传失败，请尝试小一点的图片。</p> </div> </div> </div> <div class="dialog-footer"> <p><input class="btn footer-cancel s" type="button" id="cancel" value="取消"><input class="btn footer-submit fr" id="doUpload" type="submit" value="开始上传"></p> </div> </div> </div>');
+	// select click
+	$('.selectGroup', $dialog).click(function(event) {
+		var _this = $(event.target);
+		if(_this.is('.select') || _this.is('label') || _this.is('em')){
+			_this = $(this).find('.select');
+			_this.next().toggle();
+			_this.find('em').toggleClass('bottomdirection').toggleClass('topdirection');
+		}else if(_this.is('li')){
+			_this.parent().find('li.active').removeClass('active');
+			_this.addClass('active');
+			_this.parents('.selectGroup').find('.select').attr('date-value',_this.attr('date-value'))
+			                                             .find('.text').text(_this.text());
+			_this.parent().hide();
+			$(this).find('em').toggleClass('bottomdirection').toggleClass('topdirection');
+		}
+	});
+	if(cache.albums){
+		processAlbums(cache.albums,$dialog);
+	}else{
+		$.get(U('photo/Manage/getAlbums'), null, function(res) {
+			if(res.length>0){
+				processAlbums(res,$dialog);
+				cache.albums=res;
+			}
+		}, 'json');
+	}
+	var swfu;
+	$('#doUpload',$dialog).click(function(){
+		var stats=swfu.getStats();
+		if(stats.in_progress==0&&stats.files_queued==0){
+			$('#cancel').click();
+		}else if($(this).val()=='开始上传'){
+			start_upload();			
+		}
+	});
+	$('.cjxc',$dialog).click(function(){
+		$dialog.fadeOut('fast',function(){
+			$dialog.remove();
+			$('#{$createAlbumId}').click();
+		});
+	});
+	$('#cancel', $dialog).click(function(){
+		var stats=swfu.getStats();
+		if(stats.in_progress>0){
+			dreambox.confirm(stats.in_progress+'张照片正在上传中，确定取消？',null,'取消上传',function(){
+				swfu.stopUpload();
+				$dialog.remove();
+				if(stats.successful_uploads>0){
+					location.reload();
+				}
+			});
+		}else if(stats.files_queued>0){
+			dreambox.confirm(stats.files_queued+'张照片正在等待上传，确定取消？',null,'取消上传',function(){
+				swfu.stopUpload();
+				$dialog.remove();
+				if(stats.successful_uploads>0){
+					location.reload();
+				}
+			});
+		}else{
+			if(stats.successful_uploads>0){
+				location.reload();
+			}
+			$dialog.remove();
+		}
+	});
+	$('body').append($dialog);
+	$dialog.fadeIn(400);
+	eleCenter($('.dialog-box',$dialog));
+
+	var settings = {
+			// Backend Settings
+			upload_url: "{:U('photo/Upload/upload_single_pic')}",	// Relative to the SWF file (or you can use absolute paths)
+			post_params: {"PHPSESSID" : "<?php echo session_id(); ?>"},
+
+			// File Upload Settings
+			file_size_limit : "{$photo_max_limit}",	// 2MB
+			file_types : "<php> echo "*.".implode(";*.",explode(",",$photo_file_ext));</php>",
+			file_types_description : "All Files",
+			file_upload_limit	:	"{$max_flash_upload_num}",	//最多上传10张
+			file_queue_limit	:	"{$max_flash_upload_num}",	//最多选择10张
+
+			// Event Handler Settings (all my handlers are in the Handler.js file)
+			file_queued_handler :			fileQueued,
+			file_queue_error_handler :		fileQueueError,
+			file_dialog_complete_handler :	fileDialogComplete,
+			upload_start_handler :			uploadStart,
+			upload_progress_handler :		uploadProgress,
+			upload_error_handler :			uploadError,
+			upload_success_handler :		uploadSuccess,
+			upload_complete_handler :		uploadComplete,
+			//queue_complete_handler :		queueComplete,
+
+			// Button Settings
+			button_image_url : "__APP__/js/swfupload/add_photo.png",	// Relative to the SWF file
+			button_placeholder_id : "flash_upload_select_picture",
+			button_width:	111,
+			button_height:	34,
+
+			// Flash Settings
+			flash_url : "__APP__/js/swfupload/swfupload.swf",
+
+			custom_settings : {
+				progressTarget : "file_list",
+				cancelButtonId : "cancel",
+				uploadButtonId:"doUpload"
+			},
+			debug: false
+		};
+		swfu = new SWFUpload(settings);
+
+		// 开始上传
+		start_upload=function() {
+			var albumId = $('#upload_album_id').attr('date-value');
+			if (albumId > 0) {
+				var uploadStatus = $('#doUpload').attr('readonly');
+				if(uploadStatus != true && swfu.getFile() !== null) {
+					swfu.addPostParam('albumId', albumId);
+					swfu.startUpload();
+					$('#doUpload').attr('readonly', false).val("上传中...");
+				}
+			} else {
+				dreambox.alert('未选择相册');
+			}
+		};
+}
+//单图上传回调函数,返回上传完成文件的信息
+function ts_upload_success (serverData) {
+	var data = eval('('+serverData+')');
+	if(data.status==true){
+		return true;
+	}else{
+		alert(data.info);
+        return false;
+	}
+};
+//当文件队列有文件时
+function enableUploadButton(file){
+	$('#doUpload').val("开始上传");
+};
+function processAlbums(data,obj){
+	var _ul = $('.select-items', obj);
+	for ( var i in data) {
+		var _li = $("<li date-value='" + data[i].id + "'>" + data[i].name
+				+ "</li>");
+		_ul.append(_li);
+	}
+	<php>if($albumId){</php>
+	$('.selectGroup li[date-value={$albumId}]',$dialog).click();
+	<php>}else{</php>
+	if (data.length > 0) {
+		$('.selectGroup li:first', obj).click();
+	}
+	<php>}</php>
+}
+</script>
+<php>}</php>

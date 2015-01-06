@@ -1,0 +1,188 @@
+<include file="_header"/>
+<div class="so_main">
+    <include file="_tab"/>
+    <div class="location">
+        <a href="{:U('admin/CourseAdmin/index')}" >全部课程</a> <em>></em>{$_GET['title']}
+        <div style="right: 40px; float: right;">
+            <a title="上传资料" class="btn_a" href="{:U('admin/CourseAdmin/classfile', array('id'=>$_GET['id'],title=>$info['class_name']))}">上传资料</a>
+
+            <a title="上传示范课程" class="btn_a" href="{:U('admin/CourseAdmin/classvideo', array('id'=>$_GET['id'],title=>$info['class_name']))}" >添加示例</a>
+
+        </div>
+    </div>
+    <div class="form2">
+
+        <form method="post" action="{:U('admin/CourseAdmin/updateClass')}" enctype="multipart/form-data">
+          <input name="class_id" value="{$info.id}" type="hidden"/>
+            <dl class="lineD">
+                <dt>课程名称：</dt>
+                <dd>
+                    <label>
+                        <input name="class_name" value="{$info.class_name}" type="text"/>
+                    </label>
+                    *课程名最长为40个字符
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>课程开发者：</dt>
+                <dd>
+                    <label>
+                        <input name="class_devname" value="{$info.class_devname}" type="text"/>
+
+                    </label>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>课程积分：</dt>
+                <dd>
+                    <label>
+                        <input name="course_integral" value="{$info.course_integral}" type="text"/>
+
+                    </label>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="lineD">课程封面</dt>
+                <dd>
+                    <img style="height: 110px;" src="__UPLOAD__/{$info.imgurl}">
+                    <br/><input type="file" name="class_logo"/>
+                    <input type="hidden" name="imgurl" value="{$info.imgurl}"/>
+                </dd>
+            </dl>
+           <!-- <dl>
+                <dt class="lineD">课程资源</dt>
+                <dd>
+                    <input type="file" name="class_resources"/>{$attachresources}
+
+                </dd>
+            </dl>-->
+          <!--  <dl>
+                <dt class="lineD">课程预览</dt>
+                <dd>
+                    <input type="file" name="class_preview"/>{$attachpreview}
+
+                </dd>
+            </dl>-->
+            <!--<dl>
+                <dt class="lineD">示范课程视频</dt>
+                <dd>
+                    <input type="file" name="class_vdio"/>{$attachrevdio}
+                </dd>
+            </dl>-->
+            <dl class="lineD">
+                <dt>年级选择：</dt>
+                <dd>
+                    <input type="radio" name="gid"
+                    <eq name="info.gid" value="1">checked</eq>
+                    value="1"/>1~3年级 &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="gid" value="2"
+                    <eq name="info.gid" value="2">checked</eq>
+                    />4~6年级 &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="gid" value="3"
+                    <eq name="info.gid" value="3">checked</eq>
+                    />7~9年级 &nbsp;&nbsp;&nbsp;&nbsp;
+
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>课程分类：</dt>
+                <dd>
+                    <select name="classtype">
+                        <volist name="typename" id="li">
+                            <if condition="$li['id'] eq $info['type']">
+                                <option value="{$li.id}" selected>{$li.name}</option>
+                                <else/>
+                                <option value="{$li.id}">{$li.name}</option>
+                            </if>
+                        </volist>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>学科关联度：</dt>
+                <dd>
+                    <input type="text" name="relevance" value='{$info.relevance}'/>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>核心素质/技能：</dt>
+                <dd>                    
+                    <input type="text" name="core_quality" value='{$info.core_quality}'/>
+                </dd>
+            </dl>
+            <dl>
+                <dt>课程状态：</dt>
+                <dd>
+                    <select name="classisdel">
+                        <option value="0" >开启</option>
+                        <option value="1">关闭</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>课程描述：</dt>
+                <dd>
+                    <label>
+                        <textarea name="class_intro" cols="25" rows="6">{$info.class_intro}</textarea>
+                </dd>
+            </dl>
+            <volist name="ClassHours_info" id="vo">
+                <dl class="lineD keshi" id="dl_{$key+1}">
+                    <dt>第{$key+1}课时：</dt>
+                    <dd>
+                        <label>
+                            <input name="title[]" value="{$vo.title}" type="text"/><a href="javascript:void(0)" onclick="delminus({$key+1});">删除</a>
+                            <input name="number[]" value="{$vo.number}" type="hidden"/>
+                        </label>
+                    </dd>
+                </dl>
+            </volist>
+
+            <dl class="lineD" id="plus">
+                <dt>
+                    <input name="" type="button" onclick="add()" value="添加" style="margin: 10px 0 10px 0;"/></dt>
+                <dd>
+                    <input name="" type="button" onclick="minus()" value="删减" style="margin: 10px 0 10px 0;"/></dd>
+            </dl>
+            <div class="page_btm">
+                <input type="hidden" name="editSubmit"
+                       value="1">
+                <input type="submit" class="btn_b" value="确定"/>
+            </div>
+        </form>
+    </div>
+</div>
+        <style type="text/css ">
+            .location {
+                height: 20px;
+                line-height: 20px;
+                border-bottom: 2px solid #9CB8CC;
+            }
+            .location em {
+                margin: 0 4px;
+                color: #537197;
+            }
+        </style>
+<script type="text/javascript">
+    var i = {$info.sum};
+    function add() {
+        i = i + 1;
+        $("#plus").before('<dl class="lineD" id="dl_' + i + '"><dt>第' + i + '课时：</dt><dd><label><input name="title[]" type="text"/><input name="number[]" value="' + i + '" type="hidden"/></label><a href="###" onclick="delminus(' + i + ');">删除</a></dd></dl>');
+    }
+
+    function minus() {
+        if (i > 1) {
+            $("#dl_" + i).remove();
+            i = i - 1;
+        }
+    }
+    function delminus(is) {
+        $("#dl_" + is).remove();
+        $('.keshi').find('dt').each(function(index){
+            $(this).html("第"+(index+1)+"课时：");
+            i=index+1;
+        });
+    }
+</script>
+<include file="_footer"/>
+<link rel="stylesheet" href="../Public/css/kecheng.css">

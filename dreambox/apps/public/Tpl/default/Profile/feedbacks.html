@@ -1,0 +1,36 @@
+<include file="__THEME__/public_header" />
+	<!--content start -->
+	<div class="content-main" style="padding-top:20px;">
+	<div class="signinWith">
+		<h3 class="title">
+			“{$userinfo['uname']}” 的历史签到记录
+		</h3>
+		<div class="clearfix pr">
+			<div class="line">&nbsp;</div>
+			<div class="userInfo">
+				<div class="userPhoto">
+					<img src="{$userinfo['avatar']}" height="175" width="175" alt="">
+				</div>
+				<div class="tc">
+					{$userinfo['uname']}
+				</div>
+				<div class="tc">
+					{$userinfo['school']}
+				</div>
+				<div class="tc money">
+					<img src="__THEME__/images/money.png" width="30" alt="">{$userinfo['integral']}
+				</div>
+			</div>
+			<div class="detailed">
+				<ul>
+				</ul>
+			</div>
+			<div class="person-box-r">
+					<p class="loading"><img src="__THEME__/images/loading.gif" alt="加载中">正在加载中...</p>
+				</div>
+		</div>
+	</div>
+</div>
+	<!--content end -->
+	<script type="text/javascript" src="__APP__/js/feedbacks.js?v={$site.sys_version}"></script>
+	<include file="__THEME__/public_footer" />

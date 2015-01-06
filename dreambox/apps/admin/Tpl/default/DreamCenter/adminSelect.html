@@ -1,0 +1,64 @@
+  <!-- START LIST -->
+  <div class="list selectAdmin" id='list' style='overflow-y:scroll;max-height:600px;*height:600px'>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr><th>选择<th>姓名</th><th>邮箱</th><th>电话</th></tr>
+  <php>if($listData){</php>
+  <volist name='listData' id='pk'>
+  	<tr><td><input type='radio' name='sel' value='{$pk['email']}' id='{$pk['uid']}' <if condition="$pk['is_admin']"> checked</if> /></td><td>{$pk['realname']}</td><td>{$pk['email']}</td><td>{$pk['phone']}</td></tr>
+  </volist> 
+    <php>}else{</php>
+    <tr ><td colspan='100'>该学校还没有梦想老师</td></tr>
+    <php>}</php>
+  </table>
+	<div class="Toolbar_inbox">
+	  <a onclick="seletcOne()" class="btn_a" href='javascript:void(0)'><span>确定选择</span></a>
+	  <php>if(!$school){</php>
+	  <a onclick="clearSelect()" class="btn_a" href='javascript:void(0)'><span>清空</span></a>
+	  <php>}</php>
+	</div>
+  </div>
+  <script type="text/javascript">
+  <php>if($school){</php>
+  var old= $('.selectAdmin input[name=sel]:checked').attr('id');
+  function seletcOne(){
+	  var sel= $('.selectAdmin input[name=sel]:checked').attr('id');
+	  if(old==sel){
+		  ui.box.close();
+		  return;
+	  }
+	  if(sel){
+		  var input=$('form[name=detail_form] [name=admin_email]');
+		  $.post('{:U('admin/DreamCenter/setAdmin')}',{sid:' <php>echo $sid;</php>',uid:sel},function(data){
+			  if(data=='1'){
+				 ui.box.close();
+				 ui.success('操作成功');
+				 location.href=location.href;
+			  }else{
+				 ui.success('操作失败');
+			  }
+		  })
+	  }else{
+		  ui.error('请选择梦想老师');
+	  }
+  }
+  <php>}else{</php>
+  function seletcOne(){
+	  var sel= $('.selectAdmin input[name=sel]:checked').val();
+	  if(sel){
+		  var input=$('form[name=detail_form] [name=admin_email]');
+		  input.val(sel);
+		  //input.siblings('label').text(sel);
+		  ui.box.close();
+	  }else{
+		  ui.error('请选择梦想老师');
+	  }
+  }
+  <php>}</php>
+
+  function clearSelect(){
+	  var input=$('form[name=detail_form] [name=admin_email]');
+	  input.val("");
+	  //input.siblings('label').html('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+	  ui.box.close();
+  }
+</script>

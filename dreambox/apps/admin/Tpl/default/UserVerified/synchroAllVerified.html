@@ -1,0 +1,33 @@
+<include file="__THEME__/admin_header" />
+<div id="container" class="so_main">
+	<div class="page_tit">
+    {$pageTitle} 
+	</div>
+<!-- START TAB框 -->
+  <php>if(!empty($pageTab)):</php>
+  <div class="tit_tab">
+    <ul>
+    <php> !$_REQUEST['tabHash'] && $_REQUEST['tabHash'] =  $pageTab[0]['tabHash'];</php>
+    <volist name='pageTab' id='t'>
+    <li><a href="{$t.url}&tabHash={$t.tabHash}" <php> if($t['tabHash'] == $_REQUEST['tabHash']){ echo 'class="on"';}</php>>{$t.title}</a></li>
+    </volist>
+    </ul>
+  </div>
+  <php>endif;</php>
+  <!-- END TAB框 -->
+  <div class="">
+	用户id：<input type="text" name="uid" id="uid" value="" />(从此用户id正序开始同步，留空为默认同步全部)<br/><br/>
+	<input class="btn_b" id="load_button" type="button" onclick="synchro_all_verified($('#uid').val())" value="一键同步"><span id="load_img" style="display:none"><img src="__THEME__/images/load.gif"></span>
+  </div>
+
+<script>
+function synchro_all_verified(uid){
+	$("#load_img").show();
+	$("#load_button").attr("disabled","disabled");
+	$("#load_button").css("color","#666666");
+	location.href='{:U('admin/UserVerified/doVerified')}&synchro=1&uid='+uid;
+}
+
+
+</script>
+<include file="../Public/_footer" />

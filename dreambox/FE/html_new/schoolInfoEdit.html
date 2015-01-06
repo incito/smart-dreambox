@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/person.min.css" rel="stylesheet">
+	<style type="text/css">
+	
+
+	</style>
+</head>
+<body>
+
+
+	<!--header start -->
+	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="javascript:;" class="logo"><img src="assets/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="javascript:;">首页</a></li>
+					<li><a href="javascript:;">课程中心</a></li>
+					<li><a href="javascript:;">梦想中心</a></li>
+					<li><a href="javascript:;">我的主页</a></li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<i class="icons search"></i>
+				<input class="input input-search" type="text" placeholder="Search" >
+			</div>
+			<div class="header-msg fr">
+				<a href="javascript:;" class="msg"><i class="icons letter"></i>消息</a>
+				<a href="javascript:;" class="avatar a-hd"><img src="assets/images/pic1.png"></a>
+				<a href="javascript:;" class="quit">[退出]</a>
+			</div>
+		</div>
+	</div>
+	<!--header end -->
+	<!--content start -->
+	<div id="content">
+		<div class="content-main school-info clearfix">
+			<div id="input-info" style="display:none">
+				<div class="school-basic-info">
+					<h2 class="title"><span>学校基本信息</span><a class="btn info-save fr" onclick="editInfo()">编辑信息</a>
+					</h2>		
+			
+					<table >
+						<tr>
+							<td class="td1">学校名称：</td>
+							<td>
+								<span id="schoolname">
+									11111
+								</span>														
+							</td>
+							<td rowspan="11">
+								<div class="photo">
+									<a href="#" class="avatar bigger" >
+										<img src="build/images/pic4.jpg" alt="头像" title="XXX">
+									</a>
+								</div>							
+							</td>						
+						</tr>
+						<tr>
+							<td  class="td1">捐赠方：</td>
+							<td>
+								<span id="donate">11111</span>								
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校类型：</td>
+							<td>
+								<span id="stype">11111</span>						
+							</td>
+
+						</tr>
+						<tr>
+							<td  class="td1">学校性质：</td>
+							<td>
+								<span id="sproperty">11111</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">办学性质：</td>
+							<td>
+								<span id="srproperty">1111</span>					
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">通讯地址：</td>
+							<td>
+								<span id="address"></span>
+					
+							</td>
+						</tr>					
+						<tr>
+							<td  class="td1">学校邮编：</td>
+							<td>
+								<span id="code">11111</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">联系电话：</td>
+							<td>
+								<span id="phone">11111111</span>								
+							</td>
+						</tr>	
+						<tr>
+							<td  class="td1">邮箱：</td>
+							<td>
+								<span id="email">111111111111</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校管理员：</td>
+							<td>
+								<span class="fl">马老师  何老师</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top;"  class="td1">学校简介：</td>
+							<td style="vertical-align:top;">
+								<span id="instruction">111111111111</span>								
+							</td>
+						</tr>
+
+					</table>					
+				</div>
+				<div class="dreambox-basic-info">
+					<h2 class="title">梦想中心信息</h2>
+					<table>
+						<tr>
+							<td  class="td1">申请时间：</td>
+							<td>
+								<span id="time1">1111</span>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">评估通过时间：</td>
+							<td>
+								<span id="time2">11111</span>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">收货时间：</td>
+							<td>
+								<span id="time3">11111</span>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">竣工时间：</td>
+							<td>
+								<span id="time4">11111</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="edit-info">
+				<div class="school-basic-info">
+					<h2 class="title">学校基本信息	<a class="btn info-save fr" onClick="saveInfo()" >保存</a></h2>
+					<table >
+						<tr>
+							<td  class="td1">学校名称：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="schoolname"/>
+								</div>
+							</td>
+							<td rowspan="11">
+								<div class="photo">
+									<a href="#" class="avatar bigger">
+									<img src="build/images/pic4.jpg" alt="头像" title="XXX">
+									</a>
+									<input value="更换头像" class="btn photo-change"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">捐赠方：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="donate"/>
+								</div>
+							</td>
+					
+						</tr>
+						<tr>
+							<td  class="td1">学校类型：</td>
+							<td class="getdata">
+								<div class="selectGroup school-type" >
+									<div class="select" date-value="0" >
+										<label class="text" id="stype">初级学校</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li class="active" date-value="0">初级学校</li>
+										<li date-value="1">中级学校</li>
+										<li date-value="2">高级学校</li>
+									</ul>
+								</div>	
+
+							</td>
+				
+
+						</tr>
+						<tr>
+							<td  class="td1">学校性质：</td>
+							<td class="getdata">
+								<div class="selectGroup school-property" >
+									<div class="select" date-value="0" >
+										<label class="text" id="sproperty">省会城市</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li class="active" date-value="0">省会城市</li>
+										<li date-value="1">市级城市</li>
+										<li date-value="2">镇乡城市</li>
+									</ul>
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">办学性质：</td>
+							<td class="getdata">
+								<div class="selectGroup school-running-property" >
+									<div class="select" date-value="0" >
+										<label class="text" id="srproperty">公办学校</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li class="active" date-value="0">公办学校</li>
+										<li date-value="1">私立学校</li>
+									</ul>
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">通讯地址：</td>
+							<td class="getdata">
+								<div class="selectGroup province addr" >
+									<div class="select" date-value="0">
+										<label class="text" id="pro" >省</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li date-value="2">苗</li>
+										<li class="active" date-value="0">四川省</li>
+										<li date-value="1">宁夏壮族自治区</li>
+										<li date-value="2">陕西省</li>
+									</ul>	
+								</div>
+								<div class="selectGroup city addr" >
+									<div class="select" date-value="0" >
+										<label class="text" id="city">市</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li class="active" date-value="0">眉山市</li>
+										<li date-value="1">藏</li>
+										<li date-value="2">苗</li>
+									</ul>	
+								</div>
+								<div class="selectGroup area addr" >
+									<div class="select" date-value="0" >
+										<label class="text" id="area" >区</label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<li class="active" date-value="0">汉</li>
+										<li date-value="1">藏</li>
+										<li date-value="2">苗</li>
+									</ul>
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">详细地址：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="address" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校邮编：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="code"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">联系电话：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="phone"/>
+								</div>
+							</td>
+						</tr>	
+						<tr>
+							<td  class="td1">邮箱：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="email"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校管理员：</td>
+							<td class="getdata" style="position:relative;">
+								<div class="dialog-admin">
+									<ul class="dialog-admin-ul">
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+										<li><a href="javascript:;">马老师</a></li>
+									</ul>
+								</div>
+								<span class="fl">马老师</span>
+								<a href="javascript:;" class="cblue ml10 cxbd" >重新绑定</a>
+								<span class="fr" style="color:#929292">最多还可以输入100个字</span>				
+							</td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top" class="td1"  class="td1">学校简介：</td>
+							<td class="getdata" >
+								<div class="input-box">
+									<textarea class="textarea-schoolinfo" id="instruction"></textarea>
+								</div>
+							</td>
+						</tr>
+
+					</table>
+
+					
+				</div>
+				<div class="dreambox-basic-info">
+					<h2 class="title">梦想中心信息</h2>
+					<table>
+						<tr>
+							<td  class="td1">申请时间：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="time1"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">评估通过时间：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="time2"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">收货时间：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="time3"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">竣工时间：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="time4"/>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--content end -->
+	<!--footer start -->
+	<div id="footer">
+		<div class="footer-main">
+			<p> © 2011－2013 adreambox.com, all rights reserved</p>
+			<p class="fr">
+				<a href="javascript:;">关于梦想盒子</a>
+				<span>|</span>
+				<a href="javascript:;">了解真爱梦想</a>
+				<span>|</span>
+				<a href="javascript:;">联系我们</a>
+				<span>|</span>
+				<a href="javascript:;">免责声明</a>
+				<span>|</span>
+				<a href="javascript:;">帮助中心</a>
+				<span>|</span>
+				<a href="javascript:;">手机APP</a>
+				<span>|</span>
+				<a href="javascript:;">技术支持</a>
+			</p>
+		</div>
+	</div>
+	<!--footer end -->
+
+	
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+	
+	$(function(){
+		$('.cxbd').click(function(event) {
+			$('.dialog-admin').toggle();
+		});
+		function saveInfo()
+		{
+			$("#input-info").find(".getdata").each(function(){	
+
+				var temp =$("div",$(this)).attr("class");
+				if(temp=='input-box')
+				{
+					var id = $("input",$(this)).attr("id");
+					if(typeof(id) =='undefined')
+					{
+						id = $("textarea",$(this)).attr("id");
+					}
+					var value = $("#"+id,$("#input-info")).val();		
+					if(id!='address')	
+					{
+						$("span#"+id,$("#edit-info")).text(value);
+					}
+				}
+				else 
+				{
+					var id= $("label",$(this)).eq(0).attr("id");
+					var value = $("label#"+id,$("#input-info")).text();
+					if(id =='pro')
+					{
+						var address = $("label#pro",$("#input-info")).text()+ " "
+									+$("label#city",$("#input-info")).text()+ " "
+									+ $("label#area",$("#input-info")).text()+" "
+									+$("input#address",$("#input-info")).val();
+						$("span#address",$("#edit-info")).text(address);
+					}else{
+						$("span#"+id,$("#edit-info")).text(value);
+					}
+				}
+
+			});		
+			$("#input-info").hide();
+			$("#edit-info").show();
+		}
+		function editInfo(){	
+			$("#input-info").show();
+			$("#edit-info").hide();
+
+		}
+	})
+	</script>
+
+</body>
+</html>

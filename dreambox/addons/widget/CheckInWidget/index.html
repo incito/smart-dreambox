@@ -1,0 +1,236 @@
+<div
+	class="<php>if($ischeck){</php>sign-in-h<php>}else{</php>sign-in<php>}</php>"
+	id="checkdiv">
+	<span class="datetime"><em class="date">{$day}</em> <em
+		class="week">{$week}</em></span> <em class="day">DAYS</em> <em class="num"
+		id="con_num_day">{$con_num}</em>
+	<php>if($ischeck){</php>
+	<em id="checkin" class="btn-sign-h">已签到</em>
+	<php>}else{</php>
+	<em href="javascript:void(0)" id="checkin" onclick="checkin()"
+		class="btn-sign">签到</em>
+	<php>}</php>
+	<div class="sign-wrap" style="display: none" id="checkdetail">
+		<i class="arrow-y"></i>
+		<div class="sign-box">
+			<h3 id="checkinfo">
+				<php>if($ischeck){</php>
+				签到成功
+				<php>}else{</php>
+				未签到
+				<php>}</php>
+			</h3>
+			<div class="sign-info">
+				<p>
+					已连续签到<font id="con_num">{$con_num}</font>天，累计签到<font id="total_num">{$total_num}</font>天
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="modal" style="display: none" id="termInfo">
+		<div class="overlayer"></div>
+		<div class="modal-box">
+			<h1 class="modal-box-top">请填写学期时间</h1>
+			<div class="modal-box-bottom">
+				<form id='sel' method="post"
+					action="{:U('dreambox/Term/operateTerm')}">
+					<p style="margin-bottom: 40px;">
+						<input id="stime" name="stime" type="text" readonly><span>~</span><input
+							id="etime" name="etime" type="text" value="年－月－日" readonly>
+					<p class="tip" id="error_stime" style='display: none'>
+						<i class="icons triangle"></i> 开始时间不能为空
+					</p>
+					<p class="tip" id="error_etime" style='display: none'>
+						<i class="icons triangle"></i> 结束时间不能为空
+					</p>
+					<p class="tr">
+						<input id="reset" type="button" class="cancel" value="取消"><input
+							type="submit" class="cancel" value="确定">
+					</p>
+				</form>
+			</div>
+		</div>
+	</div> -->
+	<!--dialog start -->
+	<div class="dialog" style="display: none" id="termInfo">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box term">
+			<h1 class="title">请确认学期时间</h1>
+			<!--dialog-main start -->
+			<form id='sel' method="post"
+				action="{:U('dreambox/Term/operateTerm')}">
+				<div class="dialog-main">
+					<div class="row tc">
+						<input id="stime" name="stime" class="input" type="text"
+							placeholder="开始时间" value="年－月－日" readonly><span>-</span><input
+							id="etime" name="etime" class="input" type="text"
+							placeholder="结束时间" value="年－月－日" readonly>
+						<p id="error_stime" style='display: none'>
+							<i class="icons triangle"></i> 开始时间不能为空
+						</p>
+						<p id="error_etime" style='display: none'>
+							<i class="icons triangle"></i> 结束时间不能为空
+						</p>
+					</div>
+				</div>
+				<!--dialog-main end -->
+				<!--dialog-footer start -->
+				<div class="dialog-footer">
+					<p>
+						<input id="reset" class="btn footer-cancel" type="button"
+							value="取消"><input class="btn footer-submit fr"
+							type="submit" value="确定">
+					</p>
+				</div>
+			</form>
+			<!--dialog-footer start -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+</div>
+<div class="clearfix mb20 pb20 border-b">
+	<a href="{:U('public/Task/index')}" class="btn-task left"
+		target="_blank"><span>做任务</span></a> <a
+		href="{:U('public/Rank/index')}" class="btn-account right"
+		target="_blank"><span>比排名</span></a>
+	<php>if(CheckPermission('dreambox_normal','select_class')){</php>
+	<a href="#" id="select_course" class="btn-account left" target="_self"><span>选课</span></a>
+	<php>}</php>
+</div>
+
+<script>
+var isshow = 1;
+$(function (){
+	<php>if($ischeck){</php>
+	$('#checkdetail').hover(function (){
+		isshow = 2;
+	},function (){
+		setTimeout(function (){
+			if(isshow==1){
+				$('#checkdetail').hide();
+			}
+			isshow = 1;
+		},100);
+	});
+	$('#checkin').hover(function (){
+		$('#checkdetail').show();
+	},function (){
+		setTimeout(function (){
+			if(isshow==1){
+				$('#checkdetail').hide();
+			}
+			isshow = 1;
+		},100);
+	});
+	<php>}</php>
+	
+	$('#select_course').click(function(){
+		var url = '{:U('dreambox/Course/isShowTerm')}';
+		$.post(url,null,function(res){
+		
+			var status = res.data.status;
+			if(status=='0'){
+				$('#name').val(res.data.name);
+				$('#stime').val(res.data.stime);
+				$('#etime').val(res.data.etime);
+				$('#termInfo').css({
+					'top' : -100,
+					'left' : -500
+				});
+				$('#termInfo').show();
+			}
+			else{
+				location.href='{:U('dreambox/Course/showCourse')}';
+			}
+		},'json');
+		
+ 	});
+	$('#sel').submit(function(){
+		 var error_stime=$('#error_stime');
+		 var error_etime=$('#error_etime');
+		 error_stime.hide();
+		 error_etime.hide();
+		if($('#stime').val().length == 0){
+			error_stime.fadeIn('fast',function(){
+				error_stime.fadeOut(1500);
+			});
+			return false;
+		}else if($('#etime').val().length == 0){
+			 error_etime.text('结束时间不能为空');
+			error_etime.fadeIn('fast',function(){
+				error_etime.fadeOut(1500);
+			});
+			return false;
+		}else{
+			 var stime=new Date(($("#stime").val()).replace(/-/g,"/"));
+             var etime=new Date(($("#etime").val()).replace(/-/g,"/")); 
+             var myDate=new Date(); 
+           	 var fullYear = myDate.getFullYear();
+           	 var mounth = myDate.getMonth()+1;
+           	 var day = myDate.getDate();
+           	mounth = mounth < 10 ? ("0" + mounth) : mounth;
+           	day = day < 10 ? ("0" + day) : day;
+           	var time= new Date(fullYear+"/"+mounth+"/"+day);
+             if(stime>etime){
+            	 error_etime.text('开始时间不能大于结束时间');
+            	 error_etime.fadeIn('fast',function(){
+     				error_etime.fadeOut(1500);
+     			});
+     			return false;
+             }else if(etime< time){
+            	 error_etime.text('结束时间不能晚于当前时间');
+            	 error_etime.fadeIn('fast',function(){
+     				error_etime.fadeOut(1500);
+     			});
+             	return false;
+             }
+         }
+		$('#termInfo').hide();
+		return true;
+	});
+	$('#reset').click(function(){
+		$('#termInfo').hide();
+	});
+	$('#stime').datepick({dateFormat: 'yy-mm-dd'});
+	$('#etime').datepick({dateFormat: 'yy-mm-dd'});
+	
+});
+function checkin(){
+	$('#checkin').text('已签到');
+	$('#checkin').attr('onclick' , '');
+	$('#checkin').attr('class' , 'btn-sign-h');
+	$('#checkdiv').attr('class' , 'sign-in-h' )
+	$('#checkinfo').text('签到成功');
+	var totalnum = {$total_num} + 1;
+	$.post(U('widget/CheckIn/check_in') , {} , function (res){
+		if ( res ){
+			var connum = res;
+			$('#con_num').text(connum);
+			$('#con_num_day').text(connum);
+			$('#total_num').text(totalnum);
+			$('#checkdetail').hover(function (){
+				isshow = 2;
+			},function (){
+				setTimeout(function (){
+					if(isshow==1){
+						$('#checkdetail').hide();
+					}
+					isshow = 1;
+				},100);
+			});
+			$('#checkin').hover(function (){
+				$('#checkdetail').show();
+			},function (){
+				setTimeout(function (){
+					if(isshow==1){
+						$('#checkdetail').hide();
+					}
+					isshow = 1;
+				},100);
+			});
+		}
+	});
+}
+</script>

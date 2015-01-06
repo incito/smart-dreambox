@@ -1,0 +1,147 @@
+<include file="__THEME__/header" />
+<link rel="stylesheet" href="__APP__/css/event.css" type="text/css" media="screen" charset="utf-8" />
+<script type="text/javascript" src="__APP__/js/event.js"></script>
+<link href="__PUBLIC__/js/pagination/pagination.css" rel="stylesheet" type="text/css" />
+<div class="content_holder">
+<div class="content no_bg">
+  <!-- 内容 begin  -->
+<include file="../Public/_mainNav" />
+  <div class="main no_l">
+    <!-- 画布 begin  -->
+    <div class="mainbox"> <include file="../Public/_isHotList" />
+      <div class="mainbox_appC">
+        <div class=page_title>
+          <!-- page_title begin -->
+          <h2>成员-{$title}</h2>
+        </div>
+        <!-- page_title end -->
+        <div class="tab-menu">
+          <!-- 切换标签 begin  -->
+          <ul>
+            <li><a href="{:U('/Index/eventDetail',array('id'=>$id,'uid'=>$uid))}"><span>活动</span></a></li>
+			<?php if( $deadline<=time()){ ?>
+				<li><a href="{:U('//show_achievement',array('id'=>$id,'uid'=>$uid))}"><span>成果展示</span></a></li>
+			<?php } ?>
+            <li><a href="{:U('//member',array('id'=>$id))}"><span>成员</span></a></li>
+			<eq name="isSystemAdmin" value="TRUE"><li><a href="{:U('//integral',array('id'=>$id))}"  class="on"><span>发放积分</span></a></li></eq>
+            <!-- <li><a href="__URL__/photos/id/{$id}/uid/{$uid}"><span>照片</span></a></li> -->
+          </ul>
+        </div>
+        <!-- 切换标签 end  -->
+        <div class="MenuSub"> 
+		<a href="{:U('//integral',array('id'=>$id))}" <php> if (!in_array($_GET['action'],array('is','no'))) {echo "class='fB'";}else{echo "class='cGray'";}</php> >全部成员</a>
+		┊ 
+		<a href="{:U('//integral',array('id'=>$id,'action'=>'is'))}" 
+          <php> if (isset( $_GET['action'] ) && 'is' == $_GET['action']) {echo "class='fB'";}else{echo "class='cGray'";}</php>
+          >（{$is_count}）人已确定参加</a>
+		┊
+		<a href="{:U('//integral',array('id'=>$id,'action'=>'no'))}" 
+          <php> if (isset( $_GET['action'] ) && 'no' == $_GET['action']) {echo "class='fB'";}else{echo "class='cGray'";}</php>
+          >（{$no_count}）人未确定参加</a>
+         
+        </div>
+<form action="{:U('//doAllAgree',array('id'=>$id))}" method="post">
+        <div class="flist" style="overflow:hidden;">
+          <ul>
+			  <li class="event_user_{$vo['id']} lineD_btm" style="overflow:hidden;_zoom:1" >
+			    <div class="left" style="width: 30px;">
+					<input type="checkbox" id="checkbox_handle" onclick="checkAll(this)" value="0"/>
+				</div>
+				<div class="left" style="width: 80px;">
+					全选
+				</div>
+
+			  </li>	
+            <volist name="data" id="vo">
+              <li class="event_user_{$vo['id']} lineD_btm" style="overflow:hidden;_zoom:1" >
+			    <div class="left" style="width: 30px;">
+					
+						<input type="checkbox" name='checkbox[]' id="checkbox2" value="{$vo['uid']}"  name="checkbox_agree"/>
+						<!--<php>if($vo['role'] == '发起者'){</php>disabled='disabled'<php>}</php>-->
+					
+				</div>
+                <div class="left" style="width: 60px;">
+					<span class="headpic50"><a href="{:U('home/space/',array('uid'=>$vo['uid']))}" class="tips"><img src="{$vo['uid']|getUserFace}" /></a></span>
+				</div>
+                <div style=" margin-left:60px; height:50px;">
+                  <h3>
+                    <div class="right fn f12px">
+					<!--<php>if($vo['role'] != '发起者'){</php>--><!--<php>}</php>-->
+                      <eq name="vo['status2']" value="0"><a href="javascript:is_agree( {$vo['id']},{$id},{$vo['uid']});">确认参加</a><else/>已确认参加</eq><br/>
+					  <eq name="vo['is_credit']" value="1">已发放金币<else/>未发放金币</eq>
+					 
+                    </div>
+					
+                    <a href="{:U('home/space/',array('uid'=>$vo['uid']))}"><strong>{$vo['uid']|getUserName}</strong></a><span class="f12px fn cRed">（{$vo['role']}）</span></h3>
+                  <?php if( $uid == $mid || $vo['uid'] == $mid ){ ?>
+                  <p><span class="cGray2">联系方式：</span><?php echo $vo['contact']; ?></p>
+                  <?php } ?>
+                </div>
+              </li>
+            </volist>
+			<li class="event_user_{$vo['id']} lineD_btm" style="overflow:hidden;_zoom:1" >
+
+				<div class="left" style="width: 80px;">
+					<input type="submit" onclick="return is_certain();" class="btn_b left" value="确认参加"/>
+				</div>
+			  </li>	
+            <div class="c"></div>
+          </ul>
+          <!-- fphotolist end  -->
+          <div style="height:10px;"></div>
+          <div id="Pagination" class="pagination">{$html}</div>
+        </div>
+</form>
+
+	  <div>
+	    <form action="{:U('//doCredit',array('id'=>$id))}" method="post">
+		为参加活动的人员发放金币:<input type="text" value="0" style="width:150px; height:20px;" name="credit"/>&nbsp;<input type="submit" style="width:60px; height:24px; cursor:pointer;" value="确定"/>
+	    </form>
+	  
+	  </div>
+      </div>
+      <div class="c"></div>
+    </div>
+  </div>
+  <!-- 右侧内容 end  -->
+  <div class="c"></div>
+</div>
+</div>
+<!-- 内容 end -->
+<script>
+function is_agree( id,eventId,uid ){
+  if(confirm("是否确认参加?")){
+		 $.post( U('event/Index/doIsAgreeAction'),{id:id,eventId:eventId,uid:uid},function( text ){
+		  if( text == 1 ){
+			  ui.success( '操作成功' );
+			location.reload();
+		  }else if(text == 3){
+			 ui.error( '非法操作' );
+		  }else{
+			  ui.error( '未知错误' );
+		  }
+	  });
+  }
+
+  
+}
+
+
+function checkAll(o){
+	if( o.checked == true ){
+		$('input[name="checkbox[]"]').attr('checked','true');
+	}else{
+		$('input[name="checkbox[]"]').removeAttr('checked');
+	}
+}
+
+
+function is_certain(){
+	if(confirm("是否确认参加?")){
+		return true;
+	}else{
+		return false;
+	}
+}
+</script>
+<include file="__THEME__/footer" /> 

@@ -1,0 +1,213 @@
+<include file="__THEME__/public_header" />
+
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">基础信息</h2>
+				<div class="peradd-r-con" id="baseinfo">
+					<form action="{:U('public/Account/doSaveProfile')}" method="post"
+						id="userInfo" onsubmit='return false'>
+						<table class="peradd-table" id="table3">
+							<tr>
+								<td class="td11"><span>	<if condition="$verified['verified'] ==1">★</if></span>姓名：</td>
+								<td>
+									<div class="input-box">
+									<if condition="$realName !=null"> {$realName} <input
+											type="hidden" name="uname" value="{$realName}" /> <else /> <a
+											href="{:U('public/Account/authenticate')}"
+											class="grzl-item active">进行实名认证</a> </if>
+									</div>
+
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span>★</span>性别：</td>
+								<td><input name="sex" type="radio" value="1"
+								<if condition="1 eq $user_info['sex']">checked="checked"</if>
+									/>男 <input name="sex" type="radio" value="2"
+								<if condition="1 neq $user_info['sex']">checked="checked"</if>
+									/>女</td>
+							</tr>
+							<tr>
+								<td class="td11"><span>★</span>生日：</td>
+								<td>
+									<div class="input-box">
+										<input name="birthday" type="text" autocomplete="off"
+										<if condition="$user_info['birthday'] == ''">
+										value="1970-01-01" <else /> value="{$user_info.birthday}" </if>
+										placeholder="yyyy-mm-dd" />
+
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span>★</span>民族：</td>
+								<td>
+									<div class="selectGroup nationality">
+										<input name="nation" type="hidden" value="{$user_info.nation}" />
+										<div class="select" date-value="{$curNation}">
+											<label class="text"><volist name='nations'
+													id='nation'> <if
+													condition="$curNation eq $nation['id']">{$nation.nation}</if></volist></label>
+											<em class="bottomdirection"></em>
+										</div>
+										<ul class="select-items">
+											<volist name='nations' id='nation'>
+											<li <if condition="$curNation gt $nation['id']">
+												class="active"</if> date-value="{$nation.id}">{$nation.nation}</li>
+											</volist>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							{:W('AreaSelect',array('provId'=>$user_info['province'],'provName'=>$provName['title'],'cityId'=>$user_info['city'],'cityName'=>$cityName['title'],'areaId'=>$user_info['area'],'areaName'=>$areaName['title'],'css'=>'selectGroup
+							province addr'))}
+							<tr>
+								<td class="td11"><span class="sp1">★</span>邮编：</td>
+								<td>
+									<div class="input-box">
+										<input name="z-code" type="text"
+											value="{$user_info['z-code']}" maxlength='6' />
+
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span class="sp1">★</span>学历：</td>
+								<td>
+									<div class="selectGroup education-level">
+										<input name="education" type="hidden"
+											value="{$user_info.education}" />
+										<div class="select" date-value="{$user_info.education}">
+											<label class="text">{$user_info.education}</label> <em
+												class="bottomdirection"></em>
+										</div>
+										<ul class="select-items">
+											<li <if condition="$user_info['education'] eq '本科'">
+												class="active"</if> date-value="本科">本科</li>
+											<li <if condition="$user_info['education'] eq '硕士'">
+												class="active"</if> date-value="硕士">硕士</li>
+											<li <if condition="$user_info['education'] eq '专科'">
+												class="active"</if> date-value="专科">专科</li>
+										</ul>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span class="sp1">★</span>职称：</td>
+								<td>
+									<div class="input-box">
+										<input name="p-level" type="text"
+											value="{$user_info['p-level']}" />
+
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span class="sp1">★</span>职务：</td>
+								<td>
+									<div class="input-box">
+										<input name="post" type="text" value="{$user_info['post']}" />
+
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span class="sp1">★</span>微信号：</td>
+								<td>
+									<div class="input-box">
+										<input name="weixin" type="text"
+											value="{$user_info['weixin']}" maxlength="50" />
+
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"><span class="sp1">★</span>QQ号：</td>
+								<td>
+									<div class="input-box">
+										<input name="qq" type="text" value="{$user_info['qq']}"
+											maxlength="13" />
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="td11"></td>
+								<td><input class="btn save-submit" type="submit"
+									onclick="checkSubmit()" value="保存"></td>
+							</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+<script type="text/javascript"
+	src="{:APPS_URL}/public/_static/js/personCheck.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	function checkSubmit() {
+		clearErrorMsg();
+		var bool = true;
+/* 		var uname = trim($('input[name=uname]').val());
+		if (uname == "") {
+			bool = false;
+			addErrorMsg("uname", "姓名不能为空");
+		} */
+		var birthday = trim($('input[name=birthday]').val());
+		if (birthday == "") {
+			bool = false;
+			addErrorMsg("birthday", "生日不能为空");
+		}
+		var nation = trim($('.nationality .select').attr('date-value'));
+		if (nation == 0) {
+			bool = false;
+			addErrorMsg("nation", "民族不能为空");
+		}
+		if (!bool) {
+			return;
+		}
+		$('input[name=nation]').val(nation);
+		$('input[name=education]').val(
+				trim($('.education-level .select').attr('date-value')));
+		//修改location
+		$('input[name=location]').val(
+				$('#provName').text() + $('#cityName').text()
+						+ $('#areaName').text());
+		$.post(U('public/Account/doSaveProfile'), $('#userInfo').serialize(),
+				function(json) {
+					if (json.status == 1) {
+						dreambox.dialog('信息', json.info);
+					} else {
+						addErrorMsg(json.data, json.info);
+					}
+				}, 'json');
+	}
+	$(function() {
+		$('input[name=birthday]').datepick({
+			dateFormat : 'yy-mm-dd',
+			changeYear : true,
+			yearRange : '-80:+80',
+			maxDate : new Date(),
+
+		});
+		$('input[name=z-code]').keyup(function() {
+			replaceChar($(this), 6);
+		});
+		$('input[name=qq]').keyup(function() {
+			replaceChar($(this));
+		});
+
+	});
+</script>
+
+<include file="__THEME__/public_footer" />

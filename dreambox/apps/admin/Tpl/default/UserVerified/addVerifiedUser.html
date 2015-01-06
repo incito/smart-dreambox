@@ -1,0 +1,116 @@
+  <include file="__THEME__/admin_header" />
+<div id="container" class="so_main">
+	<div class="page_tit">
+    {$pageTitle} 
+	</div>
+<!-- START TAB框 -->
+  <php>if(!empty($pageTab)):</php>
+  <div class="tit_tab">
+    <ul>
+    <php> !$_REQUEST['tabHash'] && $_REQUEST['tabHash'] =  $pageTab[0]['tabHash'];</php>
+    <volist name='pageTab' id='t'>
+    <li><a href="{$t.url}&tabHash={$t.tabHash}" <php> if($t['tabHash'] == $_REQUEST['tabHash']){ echo 'class="on"';}</php>>{$t.title}</a></li>
+    </volist>
+    </ul>
+  </div>
+  <php>endif;</php>
+  <!-- END TAB框 -->
+  <form method="post" action="{:U('admin/UserVerified/saveVerified')}" onsubmit="return modifyVerified(this);">
+  <div class="form2">
+    <dl class="lineD">
+      <dt>用户ID：<span class="cRed pr5">*</span></dt>
+      <dd>
+        <input name="uid" id="uid" type="text" value="{$verified.uid}">
+      </dd>
+    </dl>
+
+    <dl class="lineD">
+      <dt>真实姓名：</dt>
+      <dd>
+        <input name="realname" id="realname" type="text" value="{$verified.realname}">
+    </dl>
+
+    <dl class="lineD">
+      <dt>身份证号码：<span class="cRed pr5">*</span></dt>
+      <dd>
+        <input name="idcard" maxlength="18" id="idCard" type="text" value="{$verified.idcard}">
+    </dl>
+
+
+    <dl class="lineD">
+      <dt>手机号：</dt>
+      <dd>
+        <input name="phone" id="phone" type="text" value="{$verified.phone}" >
+      </dd>
+    </dl>
+
+    <!--
+    <dl class="lineD">
+      <dt>认证原因：</dt>
+      <dd>
+        <textarea name="reason" id="reason" cols="40" rows="3">{$verified.reason}</textarea>
+      </dd>
+    </dl>
+    -->
+
+    <dl class="lineD">
+      <dt>是否通过：<span class="cRed pr5">*</span></dt>
+      <dd>
+        <label><input name="verified" type="radio" value="1" checked>是</label>
+        <label><input name="verified" type="radio" value="0">否</label>
+    </dl>
+    <dl class="lineD">
+      <dt>学校ID：<span class="cRed pr5">*</span></dt>
+      <dd>
+       <input name="sid" id="sid" type="text" value="{$verified.sid}" >       
+    </dl>
+    <div class="page_btm">
+      <if condition="$verified['id']">
+      	<input name="id" type="hidden" value="{$verified['id']}" />
+      </if>
+      <input type="submit" class="btn_b" value="确定" />
+    </div>
+  </div>
+  </form>
+<script>
+function modifyVerified(o)
+{
+	if (!o.uid.value.match(/^[\d]+$/)) {
+		ui.error('请选择用户');
+		o.uid.focus();
+		return false;
+	} else if (o.realname.value && !o.realname.value.match(/^[\u4e00-\u9fa5]+$|^[a-zA-Z\.·]+$/)) {
+		ui.error('请输入真实姓名');
+		o.realname.focus();
+		return false;
+        } else if(o.idCard.value.length <=0){
+                ui.error('请输入身份证号码');
+		o.idCard.focus();
+		return false;                        
+        } else if (o.idCard.value && !o.idCard.value.match(/(^\d{15}$)|(^\d{17}([0-9]|[x]|[X])$)/)){
+                ui.error("请输入正确的身份证号码");
+                o.idCard.focus();
+                return false;
+        } else if(o.bankName.value.length <=0){
+                ui.error('请输入银行名称');
+		o.bankName.focus();
+		return false;
+        } else if (o.bankName.value && !o.bankName.value.match(/^[\u4e00-\u9fa5]+$|^[a-zA-Z\.·]+$/)){
+                ui.error("请输入正确的银行名称");
+                o.bankName.focus();
+                return false;
+        }else if(o.bankAccount.value.length <=0){
+                ui.error('请输入正确的银行账号');
+		o.bankAccount.focus();
+		return false;
+        } else if (o.bankAccount.value && !o.bankAccount.value.match(/^[\d]{10,30}$/)){
+                ui.error("请输入正确的银行账号");
+                o.bankAccount.focus();
+                return false;
+        } else if (o.phone.value && !o.phone.value.match(/^1\d{10}$/)) {
+		ui.error('请输入手机号');
+		o.phone.focus();
+		return false;
+	}
+}
+</script>

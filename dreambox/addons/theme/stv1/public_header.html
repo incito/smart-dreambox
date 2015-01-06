@@ -1,0 +1,241 @@
+<include file="__THEME__/_header" />
+<!--header start -->
+{*已登录时*}
+<session name="mid">
+	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="{:U('public/Index/index')}" class="logo"><img src="__THEME__/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a href="{:U('public/Index/index')}" <eq name='tab' value='index'>class="active" </eq>>首页</a></li>
+					<li><a href="{:U('dreambox/CourseCenter/index')}" <eq name='tab' value='course'>class="active" </eq>>课程中心</a></li>
+					<li><a href="{:U('dreambox/DreamCenter/index')}" <eq name='tab' value='dreamcenter'>class="active" </eq>>梦想中心</a></li>
+					<li><a href="{:U('public/Profile/index')}" <eq name='tab' value='myindex'>class="active" </eq>>我的主页</a></li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<i class="icons search"></i>
+				<input class="input input-search" type="text" id="header-search-input">
+				<label class="placeholder" for="header-search-input">Search</label>
+			</div>
+			<div class="header-msg fr">
+				<div class="msg">
+					<i class="icons letter" id="msg_notify"></i>消息
+					<!-- <img src="__THEME__/images/msg.gif" alt="消息" /> -->
+					<div class="msg-nav">
+						<em class="toptrl"></em>
+						<ul class="msg-nav-ul">
+							<li><a href="{:U('public/Comment/index',array('type'=>'comment'))}">查看评论<span class="msg-num unread_comment"></span></a></li>
+							<li><a href="{:U('public/Comment/index',array('type'=>'msg'))}">查看私信<span class="msg-num unread_message"></span></a></li>
+							<li><a href="{:U('public/Comment/index',array('type'=>'notify'))}">查看通知<span class="msg-num unread_notify"></span></a></li>
+							<li><a href="{:U('public/Profile/follower')}">查看粉丝<span class="msg-num new_folower_count"></span></a></li>
+						</ul>
+					</div>
+				</div>
+				<php>$uname = getUserName($_SESSION['mid']);</php>
+				<a href="{:U('public/Profile/index')}" class="teacher-name" title='<php>echo $uname;</php>'><php>echo $uname;</php></a>
+				<a href="{:U('public/Passport/logout')}" class="quit">[退出]</a>
+			</div>
+		</div>
+	</div>
+</session>
+{* 未登录时 *}
+<nosession name="mid">
+   	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="{:U('public/Index/index')}" class="logo"><img src="__THEME__/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a href="{:U('public/Index/index')}" <eq name='tab' value='index'>class="active" </eq>>首页</a></li>
+					<li><a href="{:U('dreambox/CourseCenter/index')}" <eq name='tab' value='course'>class="active" </eq>>课程中心</a></li>
+					<li><a href="{:U('dreambox/DreamCenter/index')}" <eq name='tab' value='dreamcenter'>class="active" </eq>>梦想中心</a></li>
+					<li><a href="javascript:void(0);" onclick="$('.toLogin').click();">我的主页</a></li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<i class="icons search"></i>
+				<input class="input input-search" type="text" id="header-search-input">
+				<label class="placeholder" for="header-search-input">Search</label>
+			</div>
+			<div class="header-msg fr" style="color:#5e5e5e;margin-top: 15px;">
+				<a href="javascript:;" class="toLogin">登录</a>
+				<span>/</span>
+				<a href="javascript:;" class="toReg">注册</a>
+			</div>
+		</div>
+		{*登录框*}
+	<div class="dialog" id='login_dialog' style='display:none;'>
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box login" style='top:-100000px'>
+			<h1 class="title">登录<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+			<form method="POST" action="{:U('public/Passport/doLogin')}" autocomplete="off" >
+				<div class="row">
+					<div class="input-group ud">
+						<span class="input-group-addon"><i class="icons user"></i></span>
+						<input class="input-group-control uname" type="text" id="login_account" autocomplete="off" >
+						<label class="placeholder" for="login_account">帐号</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group pd">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control pass" type="password" id="login_pwd" autocomplete="off" >
+						<label class="placeholder" for="login_pwd">密码</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="checkbox"><input type="hidden" value="0"><i class="icons checked"></i>下次自动登录</div>
+					<a class="forget fr" href="javascript:;">忘记密码</a>
+				</div>
+				<div class="row">
+					<input type="submit" class="btn login-submit" value="登&nbsp;&nbsp;&nbsp;&nbsp;录">
+				</div>
+				<div class="row tr">
+					<a class="login-reg" href="javascript:;">注册</a>
+				</div>
+			</form>
+			</div>
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<div class="dialog" id='forget_dialog'  style='display:none;'>
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box forgetBox">
+			<h1 class="title">找回密码<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<p>请输入您注册时所用的Email，我们会将该密码修复链接发送到该邮箱。</p>
+				<form id="find_password_form" method="POST" action="{:U('public/Passport/doFindPasswordByEmailAjax')}">
+					<div class="row">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="icons email"></i></span>
+							<input type="text" name='email' id="find_email" class="input-group-control">
+							<label class="placeholder" for="find_email">电子邮箱</label>
+							<span class="err-text"></span>
+						</div>
+					</div>
+					<div class="row">
+						<input type="submit" value="找回密码" class="btn login-submit">
+					</div>
+				</form>
+				<p class="tc">如有疑问，请联系adreambox@adreambox.net</p>
+			</div>
+			<!--dialog-main end -->
+		</div>
+	</div>
+	{*注册框*}
+	<div class="dialog" id='reg_dialog' style='display:none;'>
+		<div class="overlayer"></div>
+		<form action="{:U('public/Register/doStep1')}" onsubmit="return false;">
+		<!--dialog-box start -->
+		<div class="dialog-box reg">
+			<h1 class="title">注册<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">			
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons email"></i></span>
+						<input class="input-group-control" type="text" name='email' id="reg_email">
+						<label class="placeholder" for="reg_email">邮件</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons user"></i></span>
+						<input class="input-group-control" type="text" name='uname' id="reg_uname">
+						<label class="placeholder" for="reg_uname">账号</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control" name='password' type="password" id="password">
+						<label class="placeholder" for="password">密码</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control" type="password" name='repassword' id="confirmPassword">
+						<label class="placeholder" for="confirmPassword">确认密码</label>
+						<span class="err-text"></span>
+					</div>
+				</div>
+				<div class="row">
+				<input type='hidden' name='utype' value='0'>
+					<div class="selectGroup">					
+						<div class="select" date-value="1"><label class="text">教师</label><em class="bottomdirection" style="top:20px;"></em></div>
+						<ul class="select-items">
+							<li date-value="1">教师</li>
+							<li date-value="2">学生</li>
+							<!-- 
+							<li date-value="3">学校管理员</li>
+							 -->
+							<li date-value="4">其他</li>
+						</ul>
+					</div>
+				</div>
+				<php>
+				$register = model('Xdata')->get('admin_Config:register');
+				if($register['register_protocol']){
+				</php>
+				<p><input name="protocol" value="checkbox1" type="checkbox" autocomplete="off"/> 同意<a target="_blank" href="{:U('public/Register/protocol')}" class="cblue">《真爱梦想网络服务使用协议》</a><span id="perror" style="display:none" class="cred">请同意注册协议</span></p>
+				<php>}</php>
+				<div class="row">
+					<input type="submit" class="btn login-submit" value="立即加入">
+				</div>
+				
+
+			</div>
+			<!--dialog-main end -->
+		</div>
+		</form>
+		<!--dialog-box end -->
+	</div>
+	</div>
+	
+</nosession>
+	<!--header end -->
+<script type="text/javascript">
+	$(function() {
+		// 搜索文章
+		$('.header-search i.icons.search').click(function() {
+			search();
+		});
+
+		$('.header-search .input-search').keydown(function(e) {
+			if (e.keyCode == 13) {
+				search();
+			}
+		});
+		var timer = setInterval(function(){
+			if($('#login_pwd').val() != ''){
+				$('#login_pwd').parent().find('.placeholder').hide();
+				clearInterval(timer);
+			}
+		},500);
+		var timer1 = setInterval(function(){
+			if($('#map-search-input').val() != ''){
+				$('#map-search-input').parent().find('.placeholder').hide();
+				clearInterval(timer1);
+			}
+			
+		},500);
+
+	});
+	function search() {
+		var _href = U('public/Index/index')+"&searchKey="+$('#header-search-input').val();
+		window.location.href = encodeURI(_href);
+	}
+</script>

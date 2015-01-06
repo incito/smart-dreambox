@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box reg">
+			<h1 class="title">注册<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="row">
+					<div class="input-group error">
+						<span class="input-group-addon"><i class="icons user"></i></span>
+						<input class="input-group-control " type="text" id="phonenum">
+						<span class="err-text">请输入手机号</span>
+						<label class="placeholder" for="phonenum">注册</label>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control" type="password">
+						<span class="err-text">请输入手机号</span>
+						<label class="placeholder">密码</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons psw"></i></span>
+						<input class="input-group-control" type="password">
+						<span class="err-text">请输入手机号</span>
+						<label class="placeholder">确认密码</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons email"></i></span>
+						<input class="input-group-control" type="text">
+						<span class="err-text">请输入手机号</span>
+						<label class="placeholder">邮件</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="selectGroup identity">
+						<div class="select" date-value="0"><label class="text">身份</label><em class="bottomdirection"></em></div>
+						<ul class="select-items">
+							<li class="active" date-value="0">学校管理员</li>
+							<li date-value="1">教师</li>
+							<li date-value="2">学生</li>
+						</ul>
+					</div>
+				</div>
+				<p><input type="checkbox" /> <a href="javascript:;" class="cblue">《真爱梦想网络服务使用协议》</a><span class="cred">请勾选此选项</span></p>
+				<div class="row">
+					<input type="submit" class="btn login-submit" value="立即加入">
+				</div>
+
+			</div>
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			eleCenter('.dialog-box.login');
+		})
+	</script>
+</body>
+</html>

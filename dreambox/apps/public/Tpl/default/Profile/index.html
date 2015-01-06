@@ -1,0 +1,129 @@
+<include file="__THEME__/public_header" />
+	<include file="__THEME__/editor/index" />
+	<!--content start -->
+	<div id="content">
+		<include file="__THEME__/person_header" />
+		<div class="person-mid">
+			<div class="person-mid-main">
+				<div class="person-mid-box">
+					<div class="person-mid-l">
+						<h6>相册</h6>
+						<div class="person-img">
+							<a href="{:U('photo/Index/albums', array('uid'=>$uid))}">
+							<img src="{$user_addition['photoIndex']}" alt="相册" title="我的相册">
+							</a>
+						</div>
+					</div>
+					<div class="person-mid-r">
+						<ul>
+							<li>
+								<h6><span>{$userData.following_count|default=0}关注</span><a href="{:U('public/Profile/following',array('uid'=>$user_info[$uid]['uid']))}">更多</a></h6>
+								<div class="person-img-box">
+									<dl>
+										<php>$index = 0;</php>
+										<volist name="sidebar_following_list['data']" id="vo">
+										<php>$index++;if($index % 3 == 0){</php>
+										<dd class="nomr">
+										<php>}else{</php>
+										<dd>
+										<php>}</php>
+											<a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" class="avatar tiny" uid="{$vo['fid']}" event-node="face_card1"><img src="{$user_info[$vo['fid']]['avatar_small']}" title="{$user_info[$vo['fid']]['uname']}"></a>
+											<p><a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" uid="{$vo['fid']}" event-node="face_card1">{$user_info[$vo['fid']]['uname']|getShort=3}</a></p>
+										</dd>
+										</volist>
+									</dl>
+									
+								</div>
+							</li>
+							<li class="li-line">
+								
+							</li>
+							<li>
+								<h6><span>{$userData.follower_count|default=0}粉丝</span><a href="{:U('public/Profile/follower',array('uid'=>$user_info[$uid]['uid']))}">更多</a></h6>
+								<div class="person-img-box">
+									<dl>
+										<php>$index = 0;</php>
+										<volist name="sidebar_follower_list['data']" id="vo">
+										<php>$index++;if($index % 3 == 0){</php>
+										<dd class="nomr">
+										<php>}else{</php>
+										<dd>
+										<php>}</php>
+											<a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" class="avatar tiny" uid="{$vo['fid']}" event-node="face_card1"><img src="{$user_info[$vo['fid']]['avatar_small']}" title="{$user_info[$vo['fid']]['uname']}"></a>
+											<p><a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" uid="{$vo['fid']}" event-node="face_card1">{$user_info[$vo['fid']]['uname']|getShort=3}</a></p>
+										</dd>
+										</volist>
+									</dl>
+									
+								</div>
+							</li>
+							<li class="li-line">
+								
+							</li>
+							<li>
+								<h6><span>{$userData.visitor_count|default=0}访客</span><a href="{:U('public/Profile/visitor',array('uid'=>$user_info[$uid]['uid']))}">更多</a></h6>
+								<div class="person-img-box">
+									<dl>
+										<php>$index = 0;</php>
+										<volist name="sidebar_visitor_list['data']" id="vo">
+										<php>$index++;if($index % 3 == 0){</php>
+										<dd class="nomr">
+										<php>}else{</php>
+										<dd>
+										<php>}</php>
+											<a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" class="avatar tiny" uid="{$vo['fid']}" event-node="face_card1"><img src="{$user_info[$vo['fid']]['avatar_small']}" title="{$user_info[$vo['fid']]['uname']}"></a>
+											<p><a href="{:U('public/Profile/index',array('uid'=>$vo['fid']))}" uid="{$vo['fid']}" event-node="face_card1">{$user_info[$vo['fid']]['uname']|getShort=3}</a></p>
+										</dd>
+										</volist>
+									</dl>
+									
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-main person">
+			<div class="person-box">
+				<h6 class="title"><if condition="!empty($mid) AND $mid==$uid" >我的动态<else/>TA的动态</if></h6>
+				<div class="person-box-l">
+					<div class="timeline-nav">
+						<ul>
+							<php>$index = 0;</php>
+							<volist name="blogYears" id="vo">
+							<php>$index++;if($index == 1){</php>
+								<li class="active" data-time="{$vo}">
+									<a href="javascript:;">现在</a>
+								</li>
+							<php>}else if($index < sizeof($blogYears)){</php>
+								<li data-time="{$vo}">
+									<a href="javascript:;">{$vo}</a>
+								</li>
+							<php>}</php>
+							<php>if($index == sizeof($blogYears)){</php>
+								<li data-time="{$vo}" class="birthday">
+									<a href="javascript:;">出生</a>
+								</li>
+							<php>}else</php>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="person-box-r">
+					<p class="loading"><img src="__THEME__/images/loading.gif" alt="加载中">正在加载中...</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--content end -->
+	
+	<!--script -->
+	<script type="text/javascript" src="__THEME__/js/person.js?v={$site.sys_version}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var person = Person;
+			person.init({$uid}, {$mid});
+		});
+	</script>
+	<include file="__THEME__/public_footer" />

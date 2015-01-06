@@ -1,0 +1,152 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">银行信息</h2>
+				<div class="peradd-r-con">
+					<form action="{:U('public/Account/doSaveBank')}" method="post"
+						id="bankInfo" onsubmit='return false'>
+						<table class="peradd-table">
+							<tbody>
+								<tr>
+									<td class="td1"><span>★</span><label>开户名：<label></td>
+									<td>
+										<div class="input-box">
+											<input name="accountname" type="text"
+												value="{$user_info.accountname}" maxlength="10" />
+										</div>
+
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span><label>开户行：</label></td>
+									<td>
+										<!-- <div class="selectGroup bank">
+											<input name="bankname" type="hidden"
+												value="{$user_info.bankname}" />
+											<div class="select" date-value="0">
+												<label class="text">{$user_info.bankname}</label> <em
+													class="bottomdirection"></em>
+											</div>
+											<ul class="select-items">
+												<volist name="banks" id="bank">
+												<li <if
+														condition="$user_info['bankname'] eq $bank['name']">
+													class="active"</if> date-value="{$bank.id}">{$bank.name}</li>
+												</volist>
+											</ul>
+										</div> -->
+										<div class="input-box">
+											<input name="bankname" type="text"
+												value="{$user_info.bankname}" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span><label>开户支行：</label></td>
+									<td>
+										<div class="input-box">
+											<input name="branchbankname" type="text"
+												value="{$user_info.branchbankname}" />
+
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span><label>银行卡号：</label></td>
+									<td>
+										<div class="input-box">
+											<input name="bankaccount" type="text"
+												value="{$user_info.bankaccount}" maxlength="50" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><label>支付宝账号：</label></td>
+									<td>
+										<div class="input-box">
+											<input name="zhifubao" type="text"  onkeyup="value=value.replace(/[^\a-\z\A-\Z0-9\@\.]/g,'')"
+												value="{$user_info.zhifubao}" maxlength="30" />
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="td11"></td>
+									<td><input class="btn bank-submit" type="submit"
+										value="保存"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript"
+	src="{:APPS_URL}/public/_static/js/personCheck.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	$(function() {
+		$('.bank li').click(function() {
+			_this = $(this);
+			$('input[name=bankname]').val(_this.text());
+		});
+
+		$('input[name=bankaccount]').keyup(function() {
+			var $input = $('input[name=bankaccount]');
+			$input.val($input.val().replace(/[^\d]+/, ''));
+		});
+
+		$('.bank-submit').click(
+				function() {
+					clearErrorMsg();
+					var bool = true;
+					var uname = trim($('input[name=accountname]').val());
+					if (uname == "") {
+						bool = false;
+						addErrorMsg("accountname", "开户名不能为空");
+					}
+					var bankname = trim($('input[name=bankname]').val());
+					if (bankname == "") {
+						bool = false;
+						addErrorMsg("bankname", "开户行不能为空");
+					}
+					var bankaccount = trim($('input[name=bankaccount]').val());
+					if (bankaccount == "") {
+						bool = false;
+						addErrorMsg("bankaccount","银行卡号不能为空");
+					}
+					var branchbankname = trim($('input[name=branchbankname]').val());
+					if (branchbankname == "") {
+						bool = false;
+						addErrorMsg("branchbankname","开户支行不能为空");
+					}
+					if(!bool){
+						return;
+					}
+					$.post(U('public/Account/doSaveBank'), $(
+							'#bankInfo').serialize(), function(json) {
+						if (json.status == 1) {
+							dreambox.dialog('信息', json.info);
+						} else {
+							dreambox.alert(json.info);
+						}
+					}, 'json');
+
+				});
+	})
+</script>
+<include file="__THEME__/public_footer" />
+

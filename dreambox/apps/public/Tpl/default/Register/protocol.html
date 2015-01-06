@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<title>真爱梦想</title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<link href="__THEME__/js/jquery.datepick.css" rel="stylesheet"
+	type="text/css" />
+<link href="__THEME__/css/base.css" rel="stylesheet" type="text/css" />
+<link href="__THEME__/css/common.css" rel="stylesheet" type="text/css" />
+<eq name='commonPage' value='1'>
+<link href="__THEME__/css/pages.css" rel="stylesheet" type="text/css" />
+</eq>
+<link rel="stylesheet" type="text/css"
+	href="__THEME__/js/plug/fancybox/source/jquery.fancybox.css"
+	media="screen" />
+</head>
+<body>
+	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="{:U('public/Index/index')}" class="logo"><img
+				src="__THEME__/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a href="{:U('public/Index/index')}"<eq name='tab'
+								value='index'>class="active" </eq>>首页</a></li>
+					<li><a href="{:U('dreambox/CourseCenter/index')}"<eq
+								name='tab' value='course'>class="active" </eq>>课程中心</a></li>
+					<li><a href="{:U('dreambox/DreamCenter/index')}"<eq
+								name='tab' value='dreamcenter'>class="active" </eq>>梦想中心</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="content" style="height: auto;">
+		<div class="content-main protocol clearfix">
+			<div class="pro-wrap">
+				<div class="pro-title">
+					<
+					<真爱梦想网络服务使用协议>> 
+				</div>
+				<div class="pro-con">{$content}</div>
+				<div class="pro-close">
+					<a class="btn btn-pro-close" href="javascript:window.opener=null;window.open('','_self');window.close();">关闭</a>
+				</div>
+			</div>
+		</div>
+		<include file="__THEME__/public_footer" />

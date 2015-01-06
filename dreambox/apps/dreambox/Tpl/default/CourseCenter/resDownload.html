@@ -1,0 +1,121 @@
+<include file="__THEME__/public_header" />
+
+<!--content start -->
+<div id="content">
+	<div class="content-main resDownload">
+		<div class="res-box">
+			<h1 class="title">官方资源下载</h1>
+			<div class="res-box-main">
+				<div class="res-box-con">
+					<ul class="res-list">
+						<li class="res-head odd">
+							<div class="res-li-hd">
+								<label class="res-name"><label class="checkbox" style="color:#5e5e5e;"><input
+										type="hidden" value=0>资源名称</label></label> <label class="res-size">资源大小</label>
+								<label class="res-count">下载次数</label> <label class="res-time">发布时间</label>
+							</div>
+						</li>
+							<li>
+							<div class="res-li-hd">
+								<label class="res-name"><label style="cursor:pointer"><input
+										type="hidden" value="-1" autocomplete="off">公共资源</label></label>
+								<label class="res-size"></label> <label class="res-count"></label>
+								<label class="res-time"></label>
+							</div>
+							<div class="res-li-con">
+								<ul>
+								</ul>
+							</div></li>
+						<volist name="courses" id="course">
+						<li <if condition="(($i+2) %2) eq 1"> class="odd" </if>>
+							<div class="res-li-hd">
+								<label class="res-name"><label style="cursor:pointer"><input
+										type="hidden" value="{$course.id}" autocomplete="off">{$course.class_name}</label></label>
+								<label class="res-size"></label> <label class="res-count"></label>
+								<label class="res-time"></label>
+							</div>
+							<div class="res-li-con">
+								<ul>
+								</ul>
+							</div></li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		$('.res-list .res-li-hd')
+				.click(
+						function(event) {
+							_this = $(this);
+							if (event.target.type === 'hidden')
+								return;
+							var _ul = _this.parents('li').find('ul');
+							if (_ul.has('li').length > 0) {
+								_ul.empty();
+								_ul.parent().hide();
+								return;
+							}
+							var course_id = _this.parents('li').find('input')
+									.val();
+							$
+									.post(
+											U('dreambox/CourseCenter/downloadDetail'),
+											{
+												"course_id" : course_id
+											},
+											function(json) {
+												_ul.empty();
+												for ( var i in json.data) {
+													var _file = json.data[i];
+													var _li = $('<li class="bg-grey"> <label class="res-name"><i class="icons ppt"></i>家乡经济和社会结构</label> <label class="res-size">1.5MB</label> <label class="res-count">114次</label> <label class="res-time">2013-10-01 11:52</label> <a href="javascript:;" class="res-download"><i class="icons download-blue"></i></a> </li>');
+													_li
+															.find('.res-name')
+															.html(
+																	'<i class="icons ppt"></i>'
+																			+ _file.fileName);
+													_li.find('.res-size').html(
+															_file.size);
+													_li
+															.find('.res-count')
+															.html(
+																	_file.count
+																			+ "次");
+													_li.find('.res-time').html(
+															_file.cretatedOn);
+													_li
+															.find(
+																	'.res-download')
+															.attr(
+																	'href',
+																	UPLOAD_URL+"/"+_file.fileSrc);
+													_li
+													.find(
+															'.res-download')
+													.attr(
+															'_id',_file.id);
+													_ul.append(_li);
+												}
+												_ul.parent().show();
+											}, 'json');
+						});
+		$(document).on("click", "a.res-download", function(event) {
+			_this = $(this);
+			var url = U('dreambox/CourseCenter/addDownloadCount');
+			$.get(url,{'id':_this.attr('_id')},function(json){
+				var _count = _this.siblings('.res-count');
+				_count.text(json.info);
+			},'json');
+		});
+
+	})
+</script>
+
+
+<include file="__THEME__/public_footer" />

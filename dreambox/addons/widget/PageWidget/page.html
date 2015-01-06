@@ -1,0 +1,34 @@
+<php>if($data['totalPages']>1){</php>
+<p class="paging">
+
+	<a class="prev" <if condition="$data['nowPage'] gt 1">href="{$href}p={$data['nowPage']-1}"<else/>href="javascript:;" </if>>←</a>
+	<php>
+	$startIndex=1;
+	$endIndex=$data['totalPages'];
+	if($data['nowPage']>4&&$data['totalPages']>5){
+		$startIndex=$data['nowPage']-2;
+	</php>
+		<a href="{$href}p=1">1</a>
+		<a class='noborder' href='javascript:;'>...</a>		
+	<php>	
+	}
+	if($data['nowPage']<$data['totalPages']-2){
+		if($data['nowPage']<5){
+			$endIndex=$data['totalPages']<=5?$data['totalPages']:5;
+		}else{
+			$endIndex=$data['nowPage']+1;				
+		}
+	}
+	for(;$startIndex<= $endIndex;$startIndex++){
+	</php>
+		<a <if condition="$data['nowPage'] eq $startIndex">class='active' href="javascritp:" <else/>href="{$href}p={$startIndex}"</if>>{$startIndex}</a>
+	<php>
+	}
+	if($endIndex<$data['totalPages']){
+	</php>
+	<a class='noborder' href='javascript:;'>...</a>
+	<a href="{$href}p={$data['totalPages']}">{$data['totalPages']}</a>
+	<php>}</php>	
+	<a class='prev' <if condition="$data['nowPage'] lt $data['totalPages']"> href="{$href}p={$data['nowPage']+1}"</if>>→</a> 
+</p>
+<php>}</php>

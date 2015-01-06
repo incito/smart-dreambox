@@ -1,0 +1,43 @@
+<div class="so_main">
+
+<dl class="lineD">
+	<dt>标签名称：</dt>
+	<input type="text" id="tag_name" />
+</dl>
+
+<div class="page_btm">
+	<input id="tag_id" type="hidden" value="{$tag_id}"/>
+	<input type="submit" class="btn_b" value="确定" /></div>
+
+<script type="text/javascript">
+	$('.btn_b').click(function() {
+		var name = $('#tag_name').val().trim();
+		if ($('#tag_name').val().trim() == '') {
+			alert('标签名不能为空');
+			return;
+		}
+		hid = $('#tag_id').val();
+		if(hid == 3){
+			alert('用户标签只能由用户添加');
+			return;
+		}
+		if(hid == 4){
+			alert('群组标签只能由群组添加');
+			return;
+		}
+		var data = {
+			'id' : hid,
+			'name' : name
+		}
+		$.post(U('admin/Tag/doAddChildTag'), data, function(res) {
+			if (res.status == 1) {
+				ui.success(res.info);
+				ui.box.close();
+				window.location.href = window.location.href;
+			} else {
+				ui.error(res.info);
+			}
+		}, 'json');
+	});
+</script>
+</div>

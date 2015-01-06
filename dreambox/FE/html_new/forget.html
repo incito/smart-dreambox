@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/pages.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--dialog start -->
+	<div class="dialog">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box forgetBox">
+			<h1 class="title">找回密码<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<p>请输入您登录时所用的Email，我们会将该密码修复链接发送到该邮箱。</p>
+				<div class="row">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="icons email"></i></span>
+						<input type="text" placeholder="电子邮箱" class="input-group-control">
+						<span class="err-text">请输入手机号</span>
+					</div>
+				</div>
+				<div class="row">
+					<input type="submit" value="找回密码" class="btn login-submit">
+				</div>
+				<p class="tc">如有疑问，请联系QQ：2570618810</p>
+			</div>
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			eleCenter('.dialog-box.forgetBox');
+		})
+	</script>
+</body>
+</html>

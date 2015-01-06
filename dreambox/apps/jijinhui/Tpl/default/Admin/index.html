@@ -1,0 +1,90 @@
+<include file="_header" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>编辑器完整版实例</title>
+<script type="text/javascript" src="__APP__/../Tpl/default/Public/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__APP__/../Tpl/default/Public/ueditor/ueditor.all.js"></script>
+  <div id="container" class="so_main">
+    <include file="_tab" />
+	<form action ="{:U('/Admin/addcontent')}" method="POST" onsubmit="return check()">
+      <div class="form2 no_line" >
+        <dl class="lineD">
+          <dt>
+            标题：
+          </dt>
+          <dd>          	
+            <input name="title" class="txt" value ="" />
+            
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>
+            栏目：
+          </dt>
+          <dd>          	
+            <select name="leftId">
+            	<volist name="leftju" id="vo">
+            		<option value="{$vo.id}">{$vo.title}</option>
+            	</volist>
+            </select>
+            
+          </dd>
+        </dl>
+          <dl class="lineD">
+          <dt>
+            权限：
+          </dt>
+          <dd>          	
+            	<volist name="group" id="vo">
+            		<input type="checkbox" name="userGroup[]" <if condition="$vo['user_group_name'] =='普通用户'"> checked="checked" </if> value="{$vo.user_group_id}">{$vo.user_group_name}</input>
+            	</volist>
+            
+          </dd>
+        </dl>
+        <dl class="lineD">
+          <dt>
+          	正文：
+          </dt>
+          <dd>   
+          <textarea name="content" id="myEditor">请在这里添入内容</textarea>
+				<script type="text/javascript">
+				    var editor = new UE.ui.Editor({  maximumWords:50000});
+				    editor.render("myEditor");
+				    //1.2.4以后可以使用一下代码实例化编辑器
+				    //UE.getEditor('myEditor')
+				</script>      	
+            
+           
+          </dd>
+        </dl>
+       
+        
+        <div class="page_btm">
+          <input type="submit" class="btn_b" value="确定" />
+        </div>
+      </div>
+    </form>
+  </div>
+  <script type="text/javascript">
+  function check(){
+	  _title = $('.txt').val().trim();
+	  if(_title ==""){
+		  alert('标题不能为空');
+		  return false;
+	  }
+	  boxs = $("input[type=checkbox]");
+	  var ischecked = false;
+	  for(var i=0;i<boxs.length;i++){
+		  if(boxs.eq(i).attr('checked')){
+			  ischecked = true;
+			  break;
+		  }
+	  }
+	  
+	  if(!ischecked){
+		  alert('需要至少分配一个权限组');
+		  return false;
+	  }
+	  return true;
+  }
+  </script>
+<include file="_footer" />

@@ -1,0 +1,16 @@
+<script type="text/javascript" src="__THEME__/js/editor/kindeditor-4.1.10/kindeditor.js?v=2012"></script>
+<!-- <script type="text/javascript" src="__THEME__/js/editor/kindeditor-4.1.10/lang/zh_CN.js?v=2012"></script> -->
+<!--发布样式 begi-->
+<div class="contents">
+<textarea id="editor_id" name="{$contentName}"  cols="" rows="20" id="{$contentName}" style="width:{$width};height:{$height}; margin-bottom:10px;*width:99%;">{$value}</textarea>
+</div>
+<script>
+	//E	=	KISSY.Editor( "content" );
+	//E = KISSY.Editor( "{$contentName}" ,'photo' , false);
+	//E._focusToEnd();
+	
+	var editor;
+	KindEditor.ready(function(K){
+		editor = K.create('#editor_id');
+	}); 
+</script>

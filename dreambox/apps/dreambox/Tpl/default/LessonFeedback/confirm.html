@@ -1,0 +1,56 @@
+<div class="modal" style="margin-left:auto;display:none;">
+	<div class="table">
+		<hr class="ftr">
+			<div class="tableHead">						
+								<img class="fl" src="__THEME__/images/signinTitle.png" height="30" alt="">
+								<strong class="fl">签到确认</strong>
+								<span class="fr" title="关闭">×</span>
+			</div>
+			<ul class="tableBody">
+			<li class="selectdOption">
+				<strong>已选条件:</strong>
+				<i class="spera"></i>
+			</li>
+			<li class="odd">
+				<strong>状态:</strong>
+				<a class="ml20 s_cdt" href="javascript:;" value="1">通过</a>
+				<a class="ml20 s_cdt" href="javascript:;" value="2">不通过</a>
+				<a class="ml20 s_cdt" href="javascript:;" value="0">未确认</a>
+			</li>
+			<li class="odd">
+				<strong>时间:</strong>
+				<volist name="term_list" id="vo">
+					<a class="ml20 t_cdt" href="javascript:;" value="{$vo['id']}">{$vo['name']}</a>
+				</volist>
+			</li>
+		</ul>
+		<ul class="tableBody">
+			<volist name="confirm_list" id="vo" mod="2" >
+				<li class="clearfix <eq name="mod" value="0">odd</eq>">
+					<div class="fl" title="{$vo['course_name']}-{$vo['hours_name']}">
+						<strong>{$vo['realname']}</strong><span>/</span>{$vo['lesson_time']}<span>/</span>{$vo['grade_name']}<span>/</span>{$vo['section_num']}<span>/</span>{$vo['course_name']}<span>/</span>{$vo['hours_name']}
+					</div>
+					<div class="fr btn">
+						<if condition="$vo.status eq 1">
+							<a href="javascript:;" item_id="{$vo['id']}" bool="1" class="pass active">通过</a>
+							<a href="javascript:;" item_id="{$vo['id']}" bool="0" class="rejected">不通过</a>
+						<elseif condition="$vo.status eq 2" />
+							<a href="javascript:;" item_id="{$vo['id']}" bool="0" class="pass">通过</a>
+							<a href="javascript:;" item_id="{$vo['id']}" bool="1" class="rejected active">不通过</a>
+						<else/>
+							<a href="javascript:;" item_id="{$vo['id']}" bool="0" class="pass">通过</a>
+							<a href="javascript:;" item_id="{$vo['id']}" bool="0" class="rejected">不通过</a>
+						</if>
+					</div>
+				</li>
+			</volist>
+		</ul>
+		<div class="tableFooter">
+			<div class="fr">
+				<a href="javascript:;" class="submit">提交</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modalMask" style="display:none;"></div>
+<script id="confirm_js" type="text/javascript" src="__APP__/js/confirm.js"></script>

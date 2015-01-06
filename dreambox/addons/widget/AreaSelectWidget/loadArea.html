@@ -1,0 +1,43 @@
+<php>if(!$html){</php>
+<tr >
+								<td class="td1"><if condition='$address'>{$address}<else/><span >★</span>地区：</if></td>
+								<td>
+									<div class='{$css?$css:'selectGroup city addr1'}' >
+										<div class="select">
+											<input name='provId' type='hidden' autocomplete="off" value='{$provId?$provId:0}' />
+											<label  id='provName' class="text selectArea" >{$provName?$provName:'省'}</label>
+										</div>
+									</div>
+									<div class='{$css?$css:'selectGroup city addr1'}'>
+										<div class="select" >
+											<input name='cityId' type='hidden' autocomplete="off" value='{$cityId?$cityId:0}' />
+											<label id='cityName' class="text selectArea" >{$cityName?$cityName:'市'}</label>
+										</div>
+									</div>
+									<div class='{$css?$css:'selectGroup city addr1'}' >
+										<div class="select">
+											<input name='areaId' type='hidden' autocomplete="off" value='{$areaId?$areaId:0}' />
+											<label id='areaName' class="text selectArea" >{$areaName?$areaName:'区'}</label>
+										</div>
+									</div>	
+										<input name='location' type='hidden' autocomplete="off" value='{$provName}{$cityName}{$areaName}' />												
+								</td>
+							</tr>
+							{*可选学校*}
+							<eq name='module' value='1'>
+							<tr>
+								<td class="td1"><span >★</span>学校：</td>
+								<td>
+									<div class="selectGroup school" >
+										<div class="select" >
+											<input name='schoolId' type='hidden' autocomplete="off" value='{$schoolId}' />
+											<label id='schoolName' class="text selectArea" > {$schoolName?$schoolName:'学校'}  </label>
+										</div>
+									</div>	
+								</td>
+							</tr>
+							</eq>	
+<php>}else{</php>
+	{$html}
+<php>}</php>
+<script type="text/javascript" src="__THEME__/js/app/citySelect.js"></script>

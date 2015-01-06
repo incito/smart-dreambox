@@ -1,0 +1,25 @@
+<!--footer start -->
+<div id="footer">
+	<div class="footer-main">
+			<p> © 2014－2017 <a class="cblue" href="http://www.incito.com.cn">Incito</a>&<a class="cblue" href="http://www.adream.org">Adream.org</a>, All Rights Reserved</p>
+			<p class="footer-p2">沪ICP备13042466号-4</p>
+			<p class="fr">
+				<a href="{:U('public/Index/index')}">关于梦想盒子</a>
+				<span>|</span>
+				<a href="http://www.adream.org/">了解真爱梦想</a>
+				<span>|</span>
+				<a href="{:U('public/Index/index')}">联系我们</a>
+			</p>
+		</div>
+</div>
+<!--footer end -->
+
+<!-- 统计代码-->
+<div id="site_analytics_code" style="display:none;">
+{$site.site_analytics_code|base64_decode}
+</div>
+<eq name='site.site_online_count' value='1'>
+	<script src="{:SITE_URL}/online_check.php?uid={$mid}&uname={$user.uname}&mod={:MODULE_NAME}&app={:APP_NAME}&act={:ACTION_NAME}&action=trace&v={$site.sys_version}"></script>
+</eq>
+</body>
+</html>

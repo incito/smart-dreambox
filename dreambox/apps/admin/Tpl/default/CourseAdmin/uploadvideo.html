@@ -1,0 +1,59 @@
+<div id="tsbox" class="wrap-layer ui-draggable"
+	style="left: 100px; top: 75px;">
+	<div class="content-layer">
+		<div class="hd">
+			上传视频 <a class="ico-close" href="#"></a>
+		</div>
+		<div id="layer-content" class="layer-content">
+			<div id="postContent">
+				<form method="post" onsubmit="return check()"
+					enctype="multipart/form-data"
+					action="{:U('admin/CourseAdmin/upload_Lession_Video')}">
+					<input type="hidden" name="lession_id" value="{$_GET['id']}">
+					<dl class="lineD">
+						<dt>视频名称：</dt>
+						<dd>
+							<input id='videoName' name="videoName" maxlength="100"
+								type="text" value="{$site_name}" size="60">
+						</dd>
+					</dl>
+					<dl class="lineD">
+						<dt>视频：</dt>
+						<dd>
+							<textarea cols="65" style="width: 470px;" rows="5"
+								id='videoIfreamHtml' name="videoIfreamHtml"></textarea>
+							<br /> <span>视频的地址或者html代码.例如：视频地址：http://www.tudou.com/video/1<br>
+								html代码: &lt;embed type="application/x-shockwave-flash"
+								src="www.tudou<br>.com/v/IW31NUbZqQE/ "&gt;等格式
+
+							</span>
+						</dd>
+					</dl>
+					<dl class="lineD">
+						<dt>默认描述信息：</dt>
+						<dd>
+							<textarea cols="65" rows="3" name="videodescription"></textarea>
+							<br /> <span></span>
+						</dd>
+					</dl>
+					<dl class="lineD">
+						<dt></dt>
+						<dd>
+							<input type="submit" value="提交视频"> <br /> <span></span>
+						</dd>
+					</dl>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('a.ico-close').click(function(){
+			$('#tsbox').remove();
+		});
+	});
+</script>
+

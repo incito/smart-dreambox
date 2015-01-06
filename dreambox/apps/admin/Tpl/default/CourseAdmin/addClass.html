@@ -1,0 +1,157 @@
+<include file="_header"/>
+<div class="so_main">
+    <include file="_tab"/>
+    <div class="form2">
+        <form method="post" action="{:U('admin/CourseAdmin/addClass')}" onsubmit="return submitcheck();" enctype="multipart/form-data">
+            <dl class="lineD">
+                <dt>*课程名称：</dt>
+                <dd><label><input maxlength="40" name="class_name" id="class_name" type="text"/></label>*课程名最长为40个字符</dd>
+            </dl>
+            <dl class="lineD">
+                <dt>*课程开发者：</dt>
+                <dd><label><input name="class_devname" id="class_devname" type="text"/></label></dd>
+            </dl>
+            <dl>
+                <dt class="lineD">*课程积分</dt>
+                <dd>
+                    <input type="text" id="course_integral" name="course_integral"/>
+                </dd>
+            </dl>
+            <!-- 
+            <dl>
+                <dt class="lineD">*课程封面</dt>
+                <dd>
+                    <input type="file" id="class_logo" name="class_logo"/>
+                    提示：课程封面图片最好在126x160的图片
+                </dd>
+            </dl>
+             -->
+            <!--<dl>
+                <dt class="lineD">课程资源</dt>
+                <dd>
+                    <input type="file" name="class_resources"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="lineD">课程预览</dt>
+                <dd>
+                    <input type="file" name="class_preview"/>
+                </dd>
+            </dl>
+            <dl>
+                <dt class="lineD">示范课程视频</dt>
+                <dd>
+                    <input type="file" name="class_vdio"/>
+                </dd>
+            </dl>-->
+            <dl class="lineD">
+                <dt>*年级选择：</dt>
+                <dd>
+                    <input type="radio" name="gid" checked value="1"/>1~3年级 &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
+                                                                                                   name="gid"
+                                                                                                   value="2"/>4~6年级
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gid" value="3"/>7~9年级 &nbsp;&nbsp;&nbsp;&nbsp;
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>*课程分类：</dt>
+                <dd>
+                    <select name="classtype">
+                        <volist name="typename" id="li">
+                            <option value="{$li.id}">{$li.name}</option>
+                        </volist>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>学科关联度：</dt>
+                <dd>
+                    <input type="text" name="relevance"/>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>核心素质/技能：</dt>
+                <dd>                    
+                    <input type="text" name="core_quality"/>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>*课程描述：</dt>
+                <dd><label><textarea name="class_intro" id="class_intro" cols=25 rows=6></textarea></label></dd>
+            </dl>
+            <dl>
+                <dt>*课程状态：</dt>
+                <dd>
+                    <select name="classisdel">
+                        <option value="0">开启</option>
+                        <option value="1">关闭</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl class="lineD">
+                <dt>*第1课时：</dt>
+                <dd><label><input name="title[]" id="class_time" type="text"/><input name="number[]" value="1" type="hidden"/></label>
+                </dd>
+            </dl>
+            <dl class="lineD" id="plus">
+                <dt><input name="" type="button" onclick="add()" value="添加" style="margin:10px 0 10px 0;"/></dt>
+                <dd><input name="" type="button" onclick="minus()" value="删减" style="margin:10px 0 10px 0;"/></dd>
+            </dl>
+            <div class="page_btm"><input type="hidden" name="editSubmit"
+                                         value="1"> <input type="submit" class="btn_b" value="确定"/></div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    var i = 1;
+    function add() {
+        i = i + 1;
+        $("#plus").before('<dl class="lineD" id="dl_' + i + '"><dt>*第' + i + '课时：</dt><dd><label><input name="title[]" type="text"/><input name="number[]" value="' + i + '" type="hidden"/></label><a href="###" onclick="delminus(' + i + ');">删除</a></dd></dl>');
+    }
+
+    function minus() {
+        if (i > 1) {
+            $("#dl_" + i).remove();
+            i = i - 1;
+        }
+    }
+    function delminus(is) {
+        $("#dl_" + is).remove();
+        i--;
+    }
+    function submitcheck(){
+        var class_name = $("#class_name").val();
+        var class_devname = $("#class_devname").val();
+        var class_logo = $("#class_logo").val();
+        var class_intro = $("#class_intro").val();
+        var class_time = $("#class_time").val();
+        var course_integral = $("#course_integral").val();
+        
+        if(class_name == ''){
+            ui.error("请添写课程名！");
+            return false;
+        }
+        if(class_devname == ''){
+            ui.error("请添写课程开发者性名！");
+            return false;
+        }
+        if(course_integral == ''){
+            ui.error("请添写课程积分！");
+            return false;
+        }
+        if(class_logo == ''){
+            ui.error("请添写课程封面！");
+            return false;
+        }
+        if(class_intro == ''){
+            ui.error("请添写课程描述！");
+            return false;
+        }
+        if(class_time == ''){
+            ui.error("课时不能为空！");
+            return false;
+        }
+    }
+</script>
+<include file="_footer"/>
+<link rel="stylesheet" href="../Public/css/kecheng.css">

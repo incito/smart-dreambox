@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<meta content="follow, all" name="robots">
+	<script src="__THEME__/js/js.php?f=jquery-1.11.1.min.js"></script>	
+	<script type="text/javascript">
+	/**
+	 * 显示更改激活邮箱地址
+	 * @return void
+	 */
+	var showChangeEmailBox = function()
+	{
+	    $('#show_box').show();
+	    $('#change_email_input').focus();
+	}
+	function resend(obj){
+		$(obj).text('发送中...');
+		$.post('{:U('public/Register/resendActivationEmail')}',null,function(res){
+			$(obj).text('重新发送');
+		})
+		
+	}
+	function changeEmail(){
+		var param={uid:<php>echo $uid;</php>,email:$("#change_email_input").val()}
+		$.post('{:U('public/Register/changeActivationEmail')}',param,function(res){
+			if(res.status){
+				$('#show_box').hide();
+				location.href=location.href;
+			}else{
+				alert(res.info);
+			}
+		},'json');
+	}
+	</script>
+</head>
+<div id="page-wrap" style="width: 910px; margin: 0px auto; text-align: center; padding-top: 275px;">
+	<div class="reg-wrap">
+      <div class="reg-main">
+      <div class="article boxShadow">
+		<div class="title">{:L('PUBLIC_ACCOUNT_REGISTER_CONGRATULATIONS_TIPS')}</div>
+		<div id="step3_box" class="search-find">
+            <!--<div style="font-size:20px;text-align:center;padding:20px 0 20px 0"><i class="ico-ok"></i>注册成功</div>-->
+            <div class="mt15"><p style="font-size:16px">激活邮件已发送至{$email}，请立即登录邮箱激活帐号</p></div>
+            <div class="mt15">
+            	<span style="color:#B8B7B7">若您长时间未收到激活邮件，可点击&nbsp;“<a href="javascript:" onclick="resend(this)" style="font-size:12px">重新发送</a>”&nbsp;或&nbsp;“<a href="javascript:;" onclick="showChangeEmailBox();" style="font-size:12px">更换邮箱激活</a>”</span>
+            </div>
+            <div class="mt15" id="show_box" style="display:none;">
+                <span style="font-size:12px;line-height:28px">请输入您新的邮箱：</span>
+                <input id="change_email_input" type="text" suffix="{$config['email_suffix']}" class="s-txt-focus" />
+                <a class="btn-change"  href="javascript:;" onclick="changeEmail()"><span>确定</span></a>
+            </div>
+            <div class="box-ver" style="padding: 0px 0px 0px 110px;display:none;" id="prompt_box"></div>
+        </div>
+      </div>
+     </div>  
+	</div>
+</div>
+</body>
+</html>

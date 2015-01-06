@@ -1,0 +1,11 @@
+<div class="peradd-l">
+	<div class="peradd-l-box grzl">
+		<h2 class="title title-l">个人资料</h2>
+		<div class="peradd-l-con">
+			<volist name="tab_list" id="tab"> <a <if
+				condition=" $tab['field_key'] eq ACTION_NAME ">  class="grzl-item active" <else/>class="grzl-item"</if>  href="<if condition="$tab['url']">{$tab.url}<else />{:U('public/Account/'.$tab['field_key'])}</if>">
+				{$tab.field_name}
+			</a> </volist>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<title>真爱梦想</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<link type="text/css" href="build/css/base.min.css" rel="stylesheet">
+	<link type="text/css" href="build/css/person.min.css" rel="stylesheet">
+</head>
+<body>
+	<!--header start -->
+	<div id="header" class="clearfix">
+		<div class="header-main">
+			<a href="javascript:;" class="logo"><img src="assets/images/logo.png"></a>
+			<div class="nav">
+				<ul>
+					<li><a class="active" href="javascript:;">首页</a></li>
+					<li><a href="javascript:;">课程中心</a></li>
+					<li><a href="javascript:;">梦想中心</a></li>
+					<li><a href="javascript:;">我的主页</a></li>
+				</ul>
+			</div>
+			<div class="header-search">
+				<i class="icons search"></i>
+				<input class="input input-search" type="text" placeholder="Search" >
+			</div>
+			<div class="header-msg fr">
+				<a href="javascript:;" class="msg"><i class="icons letter"></i>消息</a>
+				<a href="javascript:;" class="avatar a-hd"><img src="assets/images/pic1.png"></a>
+				<a href="javascript:;" class="quit">[退出]</a>
+			</div>
+		</div>
+	</div>
+	<!--header end -->
+	<!--content start -->
+	<div id="content">
+		<div class="person-top">
+			<div class="person-top-main">
+				<div class="person-top-box">
+					<a class="avatar self">
+							<img src="assets/images/pic2.jpg" alt="我的头像" title="我的头像">
+					</a>
+					<p class="line1">
+						<label class="p-name">马老师1111</label>
+						<label class="p-school">湖北省襄阳市第四中学</label>
+					</p>
+					<p class="line2" style="margin-bottom:0;">
+						<label>男</label><span>|</span><label>处女座</label><span>|</span><label>湖北襄阳</label>
+						<a class="btnc bjgrzl" href="javascript:;">编辑个人资料</a>
+						<a class="fr" href="javascript:;"><i class="p-icons gold"></i><span class="number">345</span></a>
+					</p>
+					<p class="line4">
+						<span>欢迎大家来和我多交流啊，我会跟大家分享我的梦想课程经验的。欢迎大家来和我多交流啊，我会跟大家分享我的梦想课程经验的。</span><br/>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="content-main personPhotoList">
+			<div class="photo-box">
+				<div class="photo-box-title">
+					<span>相册</span>
+					<a href="javascript:;" class="btn" id="xjxc">新建相册</a>
+					<a href="javascript:;" class="btn mr10" id="sczp">上传照片</a>
+				</div>
+				<div class="photo-box-main">
+					<div class="photo-item">
+						<a href="javascript:;" class="photo-item-img">
+							<img src="build/images/pic5.png">
+						</a>
+						<p><a href="javascript:;">相册名称</a><span>（7张）</span> <i class="p-icons unlock fr"></i></p>
+					</div>
+					<div class="photo-item">
+						<a href="javascript:;" class="photo-item-img">
+							<img src="build/images/pic5.png">
+						</a>
+						<p><a href="javascript:;">相册名称（7张）</a> <i class="p-icons lock fr"></i></p>
+					</div>
+					<div class="photo-item">
+						<a href="javascript:;" class="photo-item-img">
+							<img src="build/images/pic5.png">
+						</a>
+						<p><a href="javascript:;">相册名称（7张）</a> <i class="p-icons unlock fr"></i></p>
+					</div>
+					<div class="photo-item nomr">
+						<a href="javascript:;" class="photo-item-img">
+							<img src="build/images/pic5.png">
+						</a>
+						<p><a href="javascript:;">相册名称（7张）</a> <i class="p-icons unlock fr"></i></p>
+					</div>
+					<div class="photo-item">
+						<a href="javascript:;" class="photo-item-img">
+							<img src="build/images/pic5.png">
+						</a>
+						<p><a href="javascript:;">相册名称（7张）</a> <i class="p-icons unlock fr"></i></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--content end -->
+	<!--footer start -->
+	<div id="footer">
+		<div class="footer-main">
+			<p> © 2011－2013 adreambox.com, all rights reserved</p>
+			<p class="fr">
+				<a href="javascript:;">关于梦想盒子</a>
+				<span>|</span>
+				<a href="javascript:;">了解真爱梦想</a>
+				<span>|</span>
+				<a href="javascript:;">联系我们</a>
+				<span>|</span>
+				<a href="javascript:;">免责声明</a>
+				<span>|</span>
+				<a href="javascript:;">帮助中心</a>
+				<span>|</span>
+				<a href="javascript:;">手机APP</a>
+				<span>|</span>
+				<a href="javascript:;">技术支持</a>
+			</p>
+		</div>
+	</div>
+	<!--footer end -->
+	<!--dialog start -->
+	<div class="dialog createPhoto" style="display: none;">
+		<div class="overlayer" ></div>
+		<!--dialog-box start -->
+		<div class="dialog-box" >
+			<h1 class="title">创建相册</h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="row"><label>相册名字</label><input type="text" class="input"></div>
+				<div class="row">
+					<label>访问权限</label>
+					<div class="selectGroup">
+						<div class="select" date-value="0"><label class="text">所有人可见</label><em class="bottomdirection"></em></div>
+						<ul class="select-items">
+							<li date-value="0">所有人可见</li>
+							<li date-value="0">仅自己可见</li>
+							<li date-value="1">我的粉丝可见</li>
+							<li date-value="2">我关注的人可见</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<!--dialog-main end -->
+			<!--dialog-footer start -->
+			<div class="dialog-footer">
+				<p><input class="btn footer-cancel" type="button" value="取消"><input class="btn footer-submit fr" type="submit" value="确定"></p>
+			</div>
+			<!--dialog-footer start -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog start -->
+	<div class="dialog uploadPhoto" style="display: none;">
+		<div class="overlayer" ></div>
+		<!--dialog-box start -->
+		<div class="dialog-box" >
+			<h1 class="title">上传照片</h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<div class="row">
+					<label>选择相册</label>
+					<div class="selectGroup">
+						<div class="select" date-value="0"><label class="text">梦想盒子</label><em class="bottomdirection"></em></div>
+						<ul class="select-items">
+							<li date-value="0">梦想盒子</li>
+							<li date-value="0">梦想盒子1</li>
+							<li date-value="1">梦想盒子2</li>
+							<li date-value="2">梦想盒子3</li>
+						</ul>
+					</div>
+					<a href="javascript:;" class="cjxc">创建相册</a>
+				</div>
+				<div class="row">
+					<a href="javascript:;" class="tjzp"><span class="yellow">+</span>添加照片</a>
+					<div class="file-list">
+						<ul class="file-ul">
+							<li>
+								<label class="file-name">照片名称XXXXXXXXXXXXXX照片名称XXXXXXXXXXXXXX照片名称XXXXXXXXXXXXXX</label>
+								<label class="upload-success fr"><i class="p-icons u-s"></i> 上传成功</label>
+								<a href="javascript:;" class="close">x</a>
+							</li>
+							<li>
+								<label  class="file-name">照片名称XXXXXXXXXXXXXX...............</label>
+								<label class="upload-fail fr"><i class="p-icons u-f"></i>上传失败</label>
+								<a href="javascript:;" class="close">x</a>
+							</li>
+							<li>
+								<label  class="file-name">照片名称XXXXXXXXXXXXXX...............</label>
+								<label class="wait fr">等待上传</label>
+								<a href="javascript:;" class="close">x</a>
+							</li>
+							<li>
+								<label  class="file-name">照片名称XXXXXXXXXXXXXX...............</label>
+								<label class="wait fr">等待上传</label>
+								<a href="javascript:;" class="close">x</a>
+							</li>
+						</ul>
+					</div>
+
+
+					<div class="file-text">
+						<p>可以同时选择多张图片进行批量上传 (注:一次最多同时上传10张图片)</p>
+						<br/>
+						<p>单张图最大为2M，支持jpeg,gif,jpg,png格式，如果上传失败，请尝试小一点的图片。</p>
+					</div>
+				</div>
+			</div>
+			<!--dialog-main end -->
+			<!--dialog-footer start -->
+			<div class="dialog-footer">
+				<p><input class="btn footer-cancel" type="button" value="取消"><input class="btn footer-submit fr" type="submit" value="确定"></p>
+			</div>
+			<!--dialog-footer start -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog start -->
+	<div class="dialog up-s" style="display: none;">
+		<div class="overlayer"></div>
+		<!--dialog-box start -->
+		<div class="dialog-box">
+			<h1 class="title">实名认证<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1>
+			<!--dialog-main start -->
+			<div class="dialog-main">
+				<img src="assets/images/pic2.png">
+				<h2>照片上传成功</h2>
+				<p>本次共上传3张照片至相册《<a class="cblue" href="javascript:;">梦想盒子</a>》</p>
+				<p><a class="cblue" href="javascript:;">继续上传</a></p>
+			</div>
+			<!--dialog-main end -->
+		</div>
+		<!--dialog-box end -->
+	</div>
+	<!--dialog end -->
+	<!--script -->
+	<script type="text/javascript" src="build/js/jquery.min.js"></script>
+	<script type="text/javascript" src="build/js/common.min.js"></script>
+	<script type="text/javascript">
+		$('#xjxc').click(function(event) {
+			$('.dialog.createPhoto').fadeIn(400);
+		});
+		$('.dialog.createPhoto .footer-cancel,.dialog.createPhoto .footer-submit').click(function(event) {
+			$('.dialog.createPhoto').fadeOut(400);
+		});
+		$('.dialog.uploadPhoto .footer-cancel,.dialog.uploadPhoto .footer-submit').click(function(event) {
+			$('.dialog.uploadPhoto').fadeOut(400);
+			if($(this).hasClass('footer-submit')){
+				$('.dialog.up-s').fadeIn(400);
+			}
+		});
+		$('#sczp').click(function(event) {
+			/* Act on the event */
+			$('.dialog.uploadPhoto').fadeIn(400);
+		});
+	</script>
+</body>
+</html>

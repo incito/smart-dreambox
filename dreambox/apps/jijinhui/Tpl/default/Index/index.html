@@ -1,0 +1,94 @@
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/index.css?v={$site.sys_version}" rel="stylesheet" type="text/css" />
+<!--content start -->
+<div id="content">
+	<div class="content-main board-main clearfix">
+	<input id="gid" type="hidden" value="{$gid}"/>
+	<input id="pageCount" type="hidden" value="{$pageCount}"/>
+		<div class="board-l">
+			<div class="board-l-box ggb">
+				<h2 class="title title-l">公告板</h2>
+				<div class="board-l-con">
+					<volist name="left" id="notice"> <a title="{$notice.title}" href="{:U('jijinhui/Index/index',array('id'=>$notice['id']))}"<if
+							condition="$notice['id']==$gid">class="ggb-item active" <else />class='ggb-item'</if>
+						>{$notice.title}</a></volist>
+				</div>
+			</div>
+		</div>
+		<div class="board-r">
+			<div class="board-r-box">
+				<h2 class="title title-r">
+					<volist name="left" id="notice"> <if
+						condition="$notice['id']==$gid">{$notice.title}</if></volist>
+				</h2>
+				<div class="board-r-con">
+					<ul class="board-content">
+						<volist name="content" id="notice">
+						<li><a
+							href="{:U('jijinhui/Index/descindex',array('id'=>$notice['id']))}" target="_blank">{$notice.title}</a><label><php>echo
+								date('Y-m-d',$notice['create_time']);</php> </lable></li>
+						</volist>
+					</ul>
+					<if condition="$count gt 10">
+					<p class="paging">
+						<a class="prev" href="javascript:;">←</a>
+						<php>for($i=0;$i<count($pages);$i++){</php>
+						<a<php>if($pages[$i]==$page){echo ' class=active';}</php>
+							href="{:U('jijinhui/Index/index',array('id'=>$gid,'page'=>$pages[$i]))}"
+							><php>echo $pages[$i];</php></a>
+						<php>if($i==3){</php>
+						<a class="noborder" href="javascript:;">......</a>
+						<php>}</php>
+
+						<php>}</php>
+						<a class="prev" href="javascript:;">→</a>
+					</p>
+					</if>
+
+
+				</div>
+
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--content end -->
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').css("height", "auto");
+		$('#content').innerHeight() <= minHeight ? $('#content').innerHeight(
+				minHeight) : $('#content').css("height", "auto");
+
+		$('a.ggb-item').click(function() {
+			$('a.ggb-item').removeClass('active');
+			$(this).addClass('active');
+		});
+
+		$('.paging .prev').click(function() {
+			_this = $(this);
+			_active = $('.paging a.active').text();
+			var page;
+			if (_this.text() == '←') {
+				page = parseInt(_active) - 1;
+			} else {
+				page = parseInt(_active) + 1;
+			}
+			var maxPage = parseInt($('#pageCount').val());
+			if(page <= 1){
+				page = 1;
+			}else if(page >= maxPage){
+				page = maxPage;
+			}
+			var herf1 = U('jijinhui/Index/index') + "&id="+$('#gid').val()+"&page=" + page;
+			window.location.href = herf1;
+		});
+
+	})
+</script>
+<include file="__THEME__/public_footer" />

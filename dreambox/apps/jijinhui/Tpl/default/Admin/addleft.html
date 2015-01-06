@@ -1,0 +1,51 @@
+<include file="_header" />
+<script src="__THEME__/js/app/common.js?v={$site.sys_version}"></script>
+<div id="container" class="so_main">
+	<include file="_tab" />
+</div>
+<div class="list">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<th class="line_l" style="width: 2%;">ID</th>
+			<th class="line_l" style="width: 10%;">栏目</th>
+			<th class="line_l" style="width: 28%;">操作</th>
+		</tr>
+		<volist name="left" id='vo'>
+		<tr>
+			<td>{$vo['id']}</td>
+			<td>{$vo['title']|getShort=###,30,'...'}</td>
+			<td><a href="javascript:void(0)" onclick="editLeft({$vo.id})">编辑</a>&nbsp;&nbsp;||&nbsp;&nbsp;
+				<a href="__URL__&act=deleteLeft&id={$vo.id}"
+				onclick="return confirm('确定要删除？')">删除</a></td>
+		</tr>
+		</volist>
+	</table>
+</div>
+
+<form action="{:U('/Admin/addleftsave')}" method="POST">
+	<div class="form2 no_line">
+		<dl class="lineD">
+			<dt>栏目名称：</dt>
+			<dd>
+				<input name="title" class="txt" value="" />
+			</dd>
+		</dl>
+		<input type="submit" class="btn_b" value="确定" />
+
+	</div>
+</form>
+	<div id='inner_box'></div>
+
+<include file="_footer" />
+
+<script type="text/javascript">
+function editLeft(id){
+	var href ='{:U('jijinhui/Admin/editLeft')}'+'&id='+id;
+	$.get(href, null, function(data) {
+		$('#inner_box').hide().html(data);
+		eleCenter('#tsbox');
+		$('#inner_box').show();
+		window.location = href1 + "#tsbox";
+	});
+}
+</script>

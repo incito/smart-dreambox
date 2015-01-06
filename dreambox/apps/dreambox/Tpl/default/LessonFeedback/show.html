@@ -1,0 +1,102 @@
+
+	<div class="overlayer"></div>
+	<!--dialog-box start -->
+	<div class="dialog-box signup" style="display: none;">
+		<h1 class="title">课程签到<label class="fr"> <span>如需课表信息，可在 首页 &gt; 我的课表 中编辑</span></label></h1>
+		<!--dialog-main start -->
+		<div class="dialog-main">
+			<input type="hidden" id="uid" name="uid" value="{$uid}" />
+			<input type="hidden" id="minDate" name="minDate" value="{$term_start_date}" />
+			<input type="hidden" id="maxDate" name="maxDate" value="{$term_end_date}" />
+			<ul class="su-course-ul">
+				<php>$index = 0;</php>
+				<volist name="courseData" id="course">
+				<php>
+					$index++;
+					if($index % 2 == 0){
+				</php>						
+					<li class="even">
+				<php>}else{</php>
+					<li>
+				<php>}</php>
+					<div class="ft-info" >
+						<input type="hidden" name="sc_id" value="{$course.id}" />
+						<input type="hidden" name="course_id" value="{$course.course_id}" />
+						<input type="hidden" name="term_id" value="{$course.term_id}" />
+						<label class="l-time">{$course.lessonTime}（{$course.day_of_week}）</label>
+						<label class="l-class">{$course.grade_name}{$course.class_num}班</label>
+						<label class="l-lesson">{$course.section_name}</label>
+						<label class="l-course">{$course.course_name}</label>
+						<div class="selectGroup">
+							<div class="select" date-value="0"><label class="text">选择课时</label><em class="bottomdirection"></em></div>
+							<ul class="select-items">
+								<volist name="course['hours']" id="hour">
+								<li date-value='{$hour.number}' title="{$hour.title}">{$hour.title}</li>
+								</volist>
+							</ul>
+						</div>
+						<i class="icons edit" title="编辑"></i>
+						<i class="icons del" title="这节课我没上"></i>
+					</div>
+					<div class="sc-info" style="display:none;">
+						<div class="input-box s-time clearfix">
+							<input type="text" class="date_time" readonly="readonly" name="lesson_time" value="{$course.lessonTime}">
+						</div>
+						
+						<div class="selectGroup s-grade">
+							<div class="select" date-value="0"><label class="text">{$course.grade_name}</label><em class="bottomdirection"></em></div>
+							<ul name="grade" class="select-items">
+								<volist name="grades" id="grade">
+									<php>if($grade['id'] == $course['grade_id']){</php>
+										<li class="active" date-value='{$grade.id}'>{$grade.name}</li>
+									<php>}else{</php>
+										<li date-value='{$grade.id}'>{$grade.name}</li>
+									<php>}</php>
+								</volist>
+							</ul>
+						</div>
+						<div class="input-box s-class clearfix">
+							<input type="text" name="class_num" maxlength="2" value="{$course.class_num}" />
+							<span>班</span>
+						</div>
+						<div class="selectGroup s-lesson">
+							<div class="select" date-value="0"><label class="text">{$course.section_name}</label><em class="bottomdirection"></em></div>
+							<ul name="section" class="select-items">
+								<volist name="sections" id="section">
+									<php>if($section['id'] == $course['section_num']){</php>
+										<li class="active" date-value='{$section.id}'>{$section.name}</li>
+									<php>}else{</php>
+										<li date-value='{$section.id}'>{$section.name}</li>
+									<php>}</php>
+								</volist>
+							</ul>
+						</div>
+						<div class="selectGroup s-course">
+							<div class="select" date-value="0"><label class="text">{$course.course_name}</label><em class="bottomdirection"></em></div>
+							<ul name="course" class="select-items">
+								<volist name="courses" id="cour">
+									<php>if($cour['id'] == $course['course_id']){</php>
+										<li class="active" date-value='{$cour.id}'>{$cour.class_name}</li>
+									<php>}else{</php>
+										<li date-value='{$cour.id}' title="{$cour.class_name}">{$cour.class_name}</li>
+									<php>}</php>
+								</volist>
+							</ul>
+						</div>
+						
+						<span class="ok">确认</span>
+						<span class="cancel">取消</span>
+					</div>
+				</li>
+				</volist>
+			</ul>
+		</div>
+		<!--dialog-main end -->
+		<!--dialog-footer start -->
+		<div class="dialog-footer">
+			<p><input class="btn footer-cancel" type="button" value="下次再进行签到"><input class="btn footer-submit fr" type="submit" value="提交签到信息"></p>
+		</div>
+		<!--dialog-footer start -->
+	</div>
+	<!--dialog-box end -->
+<script type="text/javascript" src="__APP__/js/feedback.js"></script>

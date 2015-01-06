@@ -1,0 +1,357 @@
+<include file="_header" />
+<div class="so_main">
+	<include file="_tab" />
+
+	<input type="button" class="kctn_btn uploadbtn" value="课程资源上传"
+		style="color: #3e3e3e; cursor: pointer;" title="课程资源上传">
+
+	<div class="list">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th class="line_l">序号</th>
+				<th class="line_l">文件名称</th>
+				<th class="line_l">文件类型</th>
+				<th class="line_l">创建日期</th>
+				<th class="line_l">是否置顶</th>
+				<th class="line_l">加精华</th>
+				<th class="line_l">官方标识</th>
+				<th class="line_l">操作</th>
+			</tr>
+			<volist name="fileList" id="data" empty="暂无文件下载，您可以上传文件哦！">
+			<tr>
+				<td>{$key+1}</td>
+				<td title="{$data['fileName']}">{$data['fileNames']}</td>
+				<td>{$data['fileType']}</td>
+				<td>{$data['cretatedOn']}</td>
+				<td id="top_{$data['fileID']}"><a href="javascript:void(0);"
+					onclick="onchangeTop({$data['fileID']})"><if
+							condition="$data['is_top'] eq 1">是<else />否</if></a></td>
+				<td id="come_{$data['fileID']}"><a href="javascript:void(0);"
+					onclick="onchangeCome({$data['fileID']});"><if
+							condition="$data['is_come'] eq 1">是<else />否</if></a></td>
+				<td id="official_{$data['fileID']}"><a
+					href="javascript:void(0);"
+					onclick="onchangeOfficial({$data['fileID']});"><if
+							condition="$data['is_official'] eq 1">是<else />否</if></a></td>
+				<td><a href="uploadFile{$key+1}" class="editFile">查看 </a> <a
+					href="{:U('admin/CourseAdmin/del_Lession_File', array('id'=>$data['fileID']))}"
+					onclick="javascript:return confirm('确实删除“{$data['fileName']}”？');">删除</a>
+
+					<div id="uploadFile{$key+1}" style="display: none">
+						<form method="post" enctype="multipart/form-data"
+							action="{:U('admin/CourseAdmin/upload_Lession_updateFile')}">
+							<input type="hidden" name="fileID" value="{$data['fileID']}">
+
+							<input type="hidden" name="fileSrc" value="{$data['fileSrc']}">
+							<dl class="lineD" style="margin-top: 15px;">
+								<dt>文件名称：</dt>
+								<dd>
+									<input name="fileName" maxlength="100" type="text"
+										value="{$data['fileName']}" size="60">
+								</dd>
+							</dl>
+							<dl class="lineD">
+								<dt>默认描述信息：</dt>
+								<dd>
+									<textarea cols="50" rows="3" name="description"> {$data['description']} </textarea>
+									<br /> <span></span>
+								</dd>
+							</dl>
+							<dl class="lineD">
+								<dt>上传文件：</dt>
+								<dd>
+									<p>
+										<a target="_blank" href="{$data['fileSrc']}">查看原文件</a>
+									</p>
+								</dd>
+							</dl>
+						</form>
+					</div>
+			</tr>
+			</volist>
+		</table>
+		<!--对话框-->
+		<div style="display: none" id="uploadNewFile">
+			<form method="post" onsubmit="return check()"
+				enctype="multipart/form-data"
+				action="{:U('admin/CourseAdmin/upload_Lession_File')}">
+				<input type="hidden" name="lession_id" value="-1">
+				<dl class="lineD">
+					<dt>文件名称：</dt>
+					<dd>
+						<input name="fileName" maxlength="100" type="text"
+							value="{$site_name}" size="60">
+					</dd>
+				</dl>
+				<dl class="lineD">
+					<dt>默认描述信息：</dt>
+					<dd>
+						<textarea cols="50" rows="3"
+							name="description"></textarea>
+						<br /> <span></span>
+					</dd>
+				</dl>
+				<dl class="lineD">
+					<dt>上传文件：</dt>
+					<dd>
+						<input name="fileSrc" type="file"> <br /> <span>只限于{$maxSize}M以内，以下格式文件（{$allowExts}）</span>
+
+					</dd>
+				</dl>
+				<dl class="lineD">
+					<dt></dt>
+					<dd>
+						<input type="submit" value="上传文件"> <br /> <span></span>
+					</dd>
+				</dl>
+			</form>
+		</div>
+
+
+		<div class="dialogParent">
+			<div class="dialog" style="z-index: -1200; margin-top: 5px;">
+				<div class="dialogTitle">
+					<span>上传文件</span> <a id="close" class="close">关闭</a>
+				</div>
+				<div id="dialogContent"
+					style="position: relative; width: 600px; height: 450px"></div>
+				<div style="width: 100%;">
+					<a id="OK" href="#" class="btnOk" style="display: none;">确定</a>
+				</div>
+			</div>
+		</div>
+		<!--对话框-->
+		<style type="text/css">
+#dialogContent input {
+	height: 20px;
+}
+
+.location {
+	height: 20px;
+	line-height: 20px;
+	border-bottom: 2px solid #9CB8CC;
+}
+
+.location em {
+	margin: 0 4px;
+	color: #537197;
+}
+
+input,select {
+	vertical-align: middle;
+	font-size: 12px;
+}
+
+.s-ck {
+	margin: 0 3px 0 0;
+	_margin: -3px 0 0;
+	padding: 0;
+}
+
+.dialogParent {
+	display: block;
+	height: 1px;
+	overflow: hidden;
+	top: 40px;
+	left: 1px;
+	position: absolute;
+	background-color: transparent;
+}
+
+.videoIfreamHtml {
+	min-height: 400px;
+	min-width: 400px;
+}
+
+.dialogTitle {
+	min-height: 13px;
+	background-color: #000000;
+	padding: 10px;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	position: relative;
+}
+
+.dialog {
+	-moz-box-shadow: 0 5px 27px #000;
+	-webkit-box-shadow: 0 5px 27px black;
+	max-width: 600px;
+	min-height: 400px;
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: left;
+	z-index: 200;
+	background-color: #FFF;
+	border: 2px solid #000000;
+	filter: alpha(opacity =             0);
+	-moz-opacity: 0;
+	opacity: 0;
+	border-bottom: #000 2px solid;
+}
+
+.close {
+	z-index: 1200;
+	cursor: pointer;
+	text-decoration: underline;
+	position: absolute;
+	display: block;
+	font: 12px;
+	color: #ffffff;
+	height: 35px;
+	width: 35px;
+	top: 5px;
+	right: 5px;
+}
+
+.lineD {
+	border-bottom: 1px dashed #E2E2E2;
+}
+
+dd {
+	margin-left: 155px;
+	padding: 8px 0 8px 5px;
+	vertical-align: middle;
+}
+
+dt {
+	float: left;
+	margin: 0;
+	display: block;
+	padding-top: 10px;
+	text-align: right;
+	width: 150px;
+	color: #333;
+}
+</style>
+
+
+		<script type="text/javascript">
+	function onchangeTop(id){
+		$.get('{:U('admin/CourseAdmin/onchangeTop')}',{id:id},function(data){
+			if(data){
+				var string;
+				if(data == 1){
+					string='<a href="javascript:void(0);" onclick="onchangeTop('+id+');">是</a>';
+				}else{
+					string='<a href="javascript:void(0);" onclick="onchangeTop('+id+');">否</a>';
+				}
+				$("#top_"+id).html(string);
+			}
+			
+		})
+	}
+	
+	function onchangeCome(id){
+		$.get('{:U('admin/CourseAdmin/onchangeCome')}',{id:id},function(data){
+			if(data){
+				var string;
+				if(data == 1){
+					string='<a href="javascript:void(0);" onclick="onchangeCome('+id+');">是</a>';
+				}else{
+					string='<a href="javascript:void(0);" onclick="onchangeCome('+id+');">否</a>';
+				}
+				$("#come_"+id).html(string);
+			}
+			
+		})
+	}
+	function onchangeOfficial(id){
+		$.get('{:U('admin/CourseAdmin/onchangeOfficial')}',{id:id},function(data){
+			if(data){
+				var string;
+				if(data == 1){
+					string='<a href="javascript:void(0);" onclick="onchangeOfficial('+id+');">是</a>';
+				}else{
+					string='<a href="javascript:void(0);" onclick="onchangeOfficial('+id+');">否</a>';
+				}
+				$("#official_"+id).html(string);
+			}
+			
+		})
+	}
+	function check(){
+		name = $('#dialogContent').find("input[name='fileName']").val().trim();
+		src = $('#dialogContent').find("input[name='fileSrc']").val().trim();
+		if(name==''){
+			alert('文件名不能为空');
+			return false;
+		}	
+		else if(src==''){
+			alert('上传文件不能为空');
+			return false;
+		}
+		return true;
+	}
+    $(document).ready(function () {
+
+        var isOPen = false;
+        //关闭登陆框
+        $(".close").click(function () {
+            close();
+        });
+        $('.videoIfreamHtml').find('embed').css({'width':600, 'height':450})
+        //登陆窗的随界面变化移动位置  保证永远在中间
+        $(window).resize(function () {
+            if (isOPen) {
+                var height = $(document).height();
+                var width = $(window).width();
+                $('.dialogParent').css({'height':$(document).height(), 'width':width});
+                $('#loginclose').css({
+                    'width':width + 'px',
+                    'height':height + 'px'
+                });
+            }
+
+        });
+        $('.editFile').click(function () {
+            var html = $('#' + $(this).attr('href')).html();
+            OpenDialog(html, '编辑资料');
+            return false;
+        });
+        $('.uploadbtn').click(function () {
+            var html = $('#uploadNewFile').html();
+            OpenDialog(html, '上传资料');
+            return false;
+        });
+
+        $('.flieList').find('a').click(function () {
+            var id = $(this).attr('href');
+            var videoContent = $("#" + id);
+            var html = videoContent.html();
+            var dialogTitle = videoContent.attr('title');
+            var videoType = parseInt(videoContent.attr('videotype'));
+            if (videoType == 1) {
+                html = "<iframe src=\"" + html + "\"  width=\"100%\" scrolling=\"no\" height=\"100%\" frameborder=\"0\" border=\"0\" allowtransparency=\"true\">";
+            }
+            OpenDialog(html, dialogTitle);
+            return false;
+        });
+        function close() {
+            $('.dialog').animate({ opacity:0 }, 500);
+            $("#loginclose").remove();
+            $('#dialogContent').html('');
+            $('.dialogParent').css('z-index', '-1200');
+            $('.dialogParent').height(1);
+            isOPen = false;
+        }
+
+        function OpenDialog(html, dialogTitle) {
+            var height = $(document).height();
+            var width = $(window).width();
+
+            $('.dialogParent').css({'height':$(window).height(), 'width':width});
+
+            var div = "<div id='loginclose' style=' background-color:black;filter:alpha(opacity=20); z-index:50; -moz-opacity:0.2; opacity: 0.2;display:block; position:absolute; top:0; left:0;" + "width:" + $(document).width() + "px" + ";height:" + height + "px;'></div>"
+            $("body").append(div);
+            $('.dialog').animate({ opacity:1 }, 500);
+            $('#dialogContent').html(html);
+            $('.dialogTitle').find('span').text(dialogTitle);
+            $('.dialogParent').css('z-index', '1200');
+            isOPen = true;
+        }
+    
+    });
+</script>
+		<include file="_footer" />
+		<link rel="stylesheet" href="../Public/css/kecheng.css">

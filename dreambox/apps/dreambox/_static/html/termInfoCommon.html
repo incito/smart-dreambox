@@ -1,0 +1,64 @@
+<input type="hidden" id="term"/>
+<div class="dialog-main">
+	<div class="termInfo-part">
+		<div class="row">
+			<input name="stime" type="text" class="input input-time"
+				placeholder="本学期开始时间" value="{$stime}"> <input name="etime"
+				type="text" class="input input-time" placeholder="本学期结束时间"
+				value="{$etime}">
+		</div>
+		<div class="row">
+			<label for="input">学校教师总数：</label> <input name="teacher_num"
+				type="text" class="input" value="{$term.teacher_num}">
+		</div>
+		<div class="row">
+			<label for="input">学校班级总数：</label> <input name="class_num"
+				type="text" class="input" value="{$term.class_num}">
+		</div>
+		<div class="row">
+			<label for="input">学校学生总数：</label> <input name="student_num"
+				type="text" class="input" value="{$term.student_num}">
+		</div>
+	</div>
+	<div class="termInfo-part">
+		<div class="row">
+			<label>校&nbsp;&nbsp;长&nbsp;&nbsp;姓&nbsp;&nbsp;名：</label> <input
+				name="schoolMaster" type="text" class="input"
+				value="{$schoolMaster}">
+		</div>
+		<div class="row">
+			<label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+			<input name="phone" type="text" class="input" value="{$school.phone}">
+
+		</div>
+		<div class="row" style="position: relative">
+			<label>学校&nbsp;管&nbsp;理&nbsp;员：</label> <span class="termInfo-span"
+				admin="{$user.uid}">{$user.realname}</span> <a href="javascript:;"
+				class="cblue">重新绑定</a>
+			<div class="dialog-admin" style="display: none; left: 0px; top: 20px">
+				<ul class="dialog-admin-ul">
+					<volist name="users" id="user"> <if
+						condition="$user['uid'] != $mid">
+					<li><a admin="{$user.uid}" href="javascript:;"
+						title="{$user.realname}">{$user.realname}</a></li>
+					</if> </volist>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<php>if(count($users)>=1){</php>
+	<div class="termInfo-part" style="border: none;">
+		<p>请确认以下用户是否为贵校在职教师（真实姓名）</p>
+		<div class="teacher-list">
+			<ul class="teacher-list-ul">
+				<volist name="users" id="user"> <if
+					condition="$user['uid'] != $mid">
+				<li><span class="name" title="{$user.realname}"
+					user_id="{$user.uid}">{$user.realname}</span> <span class="close">X</span></li>
+				</if> </volist>
+			</ul>
+		</div>
+	</div>
+	<php>}</php>
+</div>
+

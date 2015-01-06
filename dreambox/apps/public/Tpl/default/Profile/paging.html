@@ -1,0 +1,30 @@
+<php>if($data['totalPages'] > 1){</php>
+<p class="paging">
+	<a class="prev" href="{:U($uri,array('uid'=>$uid,'p'=>$data['nowPage']-1))}">←</a>
+	<php>$startIndex=1;$endIndex=$data['totalPages'];
+		if($data['nowPage'] > 4 && $data['totalPages'] > 5){
+			$startIndex=$data['nowPage']-2;
+	</php>
+		<a href="{:U($uri,array('uid'=>$uid,'p'=>1))}">1</a>
+		<a class='noborder' href='javascript:;'>...</a>			
+	<php>}
+		if($data['nowPage'] < $data['totalPages']-2){
+			if($data['nowPage']<5){
+				$endIndex=$data['totalPages']<=5?$data['totalPages']:5;
+			}else{
+				$endIndex=$data['nowPage']+1;				
+			}
+		}
+	</php>
+	
+	<php>for(;$startIndex<= $endIndex;$startIndex++){ </php>
+		<a <php>if($data['nowPage'] == $startIndex){</php> class="active"<php>}</php> href="{:U($uri,array('uid'=>$uid,'p'=>$startIndex))}">{$startIndex}</a>
+	<php>}</php>
+	
+	<php>if($endIndex<$data['totalPages']){ </php>
+		<a class='noborder' href='javascript:;'>...</a>
+		<a href="{:U($uri,array('uid'=>$uid,'p'=>$data['totalPages']))}">{$data['totalPages']}</a>
+	<php>}</php>
+	<a class="prev" href="{:U($uri,array('uid'=>$uid,'p'=>$data['nowPage']+1))}">→</a>
+</p>
+<php>}</php>

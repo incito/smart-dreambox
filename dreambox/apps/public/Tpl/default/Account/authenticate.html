@@ -1,0 +1,278 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+<div id="content">
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<h2 class="title">实名信息</h2>
+				<div class="peradd-r-con">
+					<form action="{:U('public/Account/doAuthenticate')}" method="post"
+						enctype=”multipart/form-data” id="authenticateInfo"
+						onsubmit='return false'>
+						<table class="peradd-table peradd-table-realname">
+							<tbody>
+								<tr>
+									<td class="td1"><span>★</span>真实姓名：</td>
+									<td>
+										<div class="input-box">
+											<if condition="$verified['verified'] ==1">
+											{$verified['realname']} <else /> <input name="realname"
+												type="text" maxlength="10" autocomplete="off"
+												value="{$verified['realname']}"> </if>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span>手机号码：</td>
+									<td>
+										<div class="input-box">
+											<input name="phone" type="hidden" autocomplete="off"
+												value="{$verified['phone']}"> <input name="phone1"
+												autocomplete="off" type="text" value="{$verified['phone1']}" maxlength="11">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span>身份证号码：</td>
+									<td>
+										<div class="input-box">
+											<if condition="$verified['verified'] ==1">
+											{$verified['idcard1']} <else /> <input name="idcard"
+												type="hidden" autocomplete="off"
+												value="{$verified['idcard']}"> <input name="idcard1"
+												autocomplete="off" type="text" maxlength="18"
+												value="{$verified['idcard1']}"> </if>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1" style="vertical-align: top;"><span>★</span>身份证照片：</td>
+									<td style="padding-top: 5px;">
+										<div class="upload-box">
+											<div class="upload-box-l">
+												<div class="upload-img">
+													<if condition="!empty($attach['save_path'])"> <img
+														src="__UPLOAD__/{$attach.save_path}{$attach.save_name}">
+													<else />
+													<img src="__THEME__/images/pic1.jpg"></if>
+												</div>
+												<if condition="$verified['verified'] !=1">
+												<p class="tc">
+												<div class="left text_file_diwei" id="upload_list">
+													<span id="spanButtonPlaceholder1"
+														style="vertical-align: middle"></span> <span
+														id="upload_success1"
+														style="display: none; vertical-align: middle"><b
+														class="ico_cue_ok"></b>上传成功</span><input type="hidden"
+														id="attachList1" name="attachList[1]" /> <input
+														type="hidden" id="attachId" name="attachId"
+														value="{$attach.attach_id}" />
+												</div>
+												</p>
+												</if>
+
+											</div>
+											<div class="upload-box-r">
+												<h6>请以图片格式上传您的有效身份证正面照，发放奖励以此用户为准。</h6>
+												<p>1.身份证必须为本人身份证。</p>
+												<p>2.身份证有效期需在1月以上。</p>
+												<p>3.身份证上的信息需无遮挡，且清晰可见。</p>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<if condition="$verified['verified'] ==1">
+								<tr>
+									<td class="td1"><span>★</span>地区：</td>
+									<td>
+										<div class='selectGroup city addr1'>
+											<div class="select">
+												<label id='provName' title="{$provName['title']}"
+													class="text selectArea">{$provName['title']}</label>
+											</div>
+										</div>
+										<div class='selectGroup city addr1'>
+											<div class="select">
+												<label id='cityName' title="{$cityName['title']}"
+													class="text selectArea">{$cityName['title']}</label>
+											</div>
+										</div>
+										<div class='selectGroup city addr1'>
+											<div class="select">
+												<label id='areaName' title="{$areaName['title']}"
+													class="text selectArea">{$areaName['title']}</label>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"><span>★</span>学校：</td>
+									<td>
+										<div class="selectGroup school">
+											<div class="select">
+												<input name='schoolId' type='hidden' autocomplete="off"
+													value='1415' /> <label id='schoolName'
+													class="text selectArea"> {$verified['school']} </label>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<else />
+								{:W('AreaSelect',array('provId'=>$verified['province'],'provName'=>$provName['title'],'cityId'=>$verified['city'],'cityName'=>$cityName['title'],'areaId'=>$verified['area'],'areaName'=>$areaName['title'],'schoolId'=>$verified['sid'],'schoolName'=>$verified['school'],'module'=>'1'))}
+								</if>
+								<tr>
+									<td colspan=2>
+										<div class="info-real">
+											<strong>温馨提示：</strong> <br>
+											<p>梦想盒子是一个真实的教育社交平台，所有用户实名信息已通过技术方式进行安全处理，确保信息不被泄露。</p>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="td1"></td>
+									<td><input class="btn real-submit" type="submit"
+									<if condition="$verified['verified'] =='0' ">disable="true"
+										value="等待审核"<else /> <if
+											condition="$verified['verified'] =='1' "> value="保存" <else />
+										value="立即加入"</if></if>></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--content end -->
+
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		$('input[name=phone1]').change(function() {
+			_this = $(this);
+			$('input[name=phone]').val(_this.val());
+		});
+		$('input[name=idcard1]').change(function() {
+			_this = $(this);
+			$('input[name=idcard]').val(_this.val());
+		});
+		$('.real-submit').click(function() {
+			if ($(this).attr('disable') == "true") {
+				return;
+			}
+			clearErrorMsg();
+			if($(this).val() == "保存"){
+				postCommit();
+				return;
+			}
+			var bool = true;
+			var realname = trim($('input[name=realname]').val());
+			if (realname == "") {
+				bool = false;
+				addErrorMsg("realname", "真实名不能为空");
+			}
+			var phone = trim($('input[name=phone]').val());
+			if (phone == "") {
+				bool = false;
+				addErrorMsg("phone", "手机号码不能为空");
+			}
+			var idcard = trim($('input[name=idcard]').val());
+			if (idcard == "") {
+				bool = false;
+				addErrorMsg("idcard", "身份证号不能为空");
+			}
+			var attachId = trim($('input[name=attachId]').val());
+			if (attachId == "") {
+				bool = false;
+				addErrorMsg("attachId", "身份证照片不能为空");
+			}
+			if (!bool) {
+				return;
+			}
+			postCommit();
+		});
+		function postCommit() {
+			$.post(U('public/Account/doAuthenticate'), $('#authenticateInfo')
+					.serialize(), function(json) {
+				if (json.status == 1) {
+					$('object').css('visibility', 'hidden');
+					dreambox.dialog('信息', json.info, function() {
+						window.location.href = window.location.href;
+					});
+				} else {
+					addErrorMsg(json.data, json.info);
+				}
+			}, 'json');
+		}
+	})
+</script>
+<script type="text/javascript" src="__THEME__/js/swfupload/swfupload.js?v={$site.sys_version}"></script>
+<script type="text/javascript" src="__THEME__/js/swfupload/handlers.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="{:APPS_URL}/public/_static/js/personCheck.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	var swfu1;
+	$(document).ready(function() {
+		swfu1 = new SWFUpload({
+			// Backend settings
+			// Backend settings
+			upload_url : "{:U('public/Attach/ajaxUpload')}",
+			post_params : {
+				"PHPSESSID" : "<?php echo session_id(); ?>"
+			},
+			file_post_name : "file",
+
+			// Flash file settings
+			file_size_limit : "15 MB",
+			file_types : "*.gif;*.png;*.jpg;*.jpeg", // or you could use something like: "*.doc;*.wpd;*.pdf",
+			file_upload_limit : 0,
+			file_queue_limit : 1,
+
+			// Event handler settings
+			file_dialog_start_handler : fileDialogStart,
+			file_queued_handler : fileQueued,
+			file_queue_error_handler : fileQueueError,
+			file_dialog_complete_handler : fileDialogComplete,
+
+			//upload_start_handler : uploadStart,   // I could do some client/JavaScript validation here, but I don't need to.
+			//swfupload_preload_handler : preLoad,
+			// swfupload_load_failed_handler : loadFailed,
+			upload_progress_handler : uploadProgress,
+			upload_error_handler : uploadError,
+			upload_success_handler : uploadSuccess,
+			upload_complete_handler : uploadComplete,
+			// Button Settings
+			button_image_url : "__THEME__/js/swfupload/xxxx.png",
+			button_placeholder_id : "spanButtonPlaceholder1",
+			button_placeholder : 'Set',
+			button_width : 61,
+			button_height : 22,
+
+			// Flash Settings
+			flash_url : "__THEME__/js/swfupload/swfupload.swf",
+			flash9_url : "__THEME__/js/swfupload/swfupload_fp9.swf",
+
+			custom_settings : {
+				upload_successful : false,
+				hidden_target : "attachList1",
+				success_target : 'upload_success1'
+			},
+			// Debug settings
+			debug : false
+		});
+	});
+
+	function uploadSuccess(file, serverData) {
+		var dataObj = eval("(" + serverData + ")");//转换为json对象 
+		var info = dataObj.info[0];
+		var fileId = info.attach_id;
+		var path = "__UPLOAD__/" + info.save_path + info.save_name;
+		$('#attachId').val(fileId);
+		$('.upload-img').html("<img src='"+path+"'>");
+	}
+</script>
+<include file="__THEME__/public_footer" />

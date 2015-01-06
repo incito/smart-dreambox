@@ -1,0 +1,61 @@
+<include file="__THEME__/public_header" />
+	<include file="__THEME__/editor/index" />
+	<!--content start -->
+	<div id="content">
+		<eq name="isSchool" value="1">
+			<include file="__THEME__/school_header"/>
+		<else/>
+			<include file="__THEME__/person_header"/>
+		</eq>
+		<div class="content-main photoDetailImg" id='mao_ts'>
+			<div class="photo-box">
+				<div class="photo-box-title">
+					<a href='{:U('photo/Index/albums', array('uid'=>$uid))}#mao_ts' class="cblue">相册&nbsp;&nbsp;>&nbsp;</a>
+					<a href='{:U('photo/Index/album',array('uid'=>$photo['userId'],'id'=>$album['id']))}#mao_ts' class="cblue t-name-wrap">{$album['name']}</a>
+					<span>&gt;</span>
+					<span class="t-name-wrap">{$photo.name}</span>
+					<if condition="$photo['userId'] eq $mid">
+					<div class="photoOp fr">
+						<input type='hidden' id='photoName' value='{$photo.name}'/>
+						<a href="javascript:;" class="set" onclick="photo.setcover({$album['id']},{$photo['id']})">设为封面</a>
+						<span>|</span>
+						<a href="javascript:;" class="edit" onclick="photo.editphotoTab({$album['id']},{$photo['id']})">编辑</a>
+						<span>|</span>
+						<a href="javascript:;" class="del" onclick="photo.delphoto({$album['id']},{$photo['id']})">删除</a>
+					</div>
+					</if>
+				</div>
+				<div class="photo-box-main">
+					<div class="person-box-r">
+						<p class="loading"><img src="__THEME__/images/loading.gif" alt="加载中">正在加载中...</p>
+					</div>
+					<div class="photoDetailImg-item">
+						<img src="{$photo.savepath|get_photo_url=###, 0, 'auto', false}">
+					</div>
+					<div class="pdi-con">
+						<div class="pdi-con-title">
+							<p class="tr" id='text_num'>可以输入140个字</p>
+							<textarea id="comment"></textarea>
+							<p class="tr">
+								<a href="javascript:void(0);" id='reply' class="btn pdi-reply">评论</a>
+							</p>
+						</div>
+						<div class="isaytalk">
+							<div class="isaycon">
+								<ul id='c_list'>
+									<li>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--content end -->
+<script type="text/javascript" src="__APP__/js/photo.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	photo.init({$mid},{$photo['id']});
+</script>
+	<include file="__THEME__/public_footer" />

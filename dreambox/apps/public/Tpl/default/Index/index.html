@@ -1,0 +1,179 @@
+
+<include file="__THEME__/public_header" />
+<link href="__THEME__/css/index.css?v={$site.sys_version}"
+	rel="stylesheet" type="text/css" />
+<input type="hidden" id="uid" value="{$mid}" />
+<!--content start -->
+<div id="content">
+	<div class="content-main index clearfix">
+		<input id="mid" type="hidden" value="{$user_id}" autocomplete="off" />
+		<div class="index-l">
+			<div class="saysay">
+				<h3 class="title">
+					{*已登录时*}
+					<session name="mid"> <a
+						href="{:U('public/Profile/index',array('uid'=>$user_info['uid']))}"
+						class="avatar tiny"><img src="{$userInfo.avatar_small}"
+						title="{$userInfo.uname}"></a> <a href="javascript:;"
+						class="cblue">{$userInfo.uname}</a> <a href="javascript:;"
+						class="shareStory"> </a>
+				</h3>
+				<div class="reply-form"
+					<if condition="$hasTemp">style="display: block;"</if>
+					> <input id="title" name="title" type="text" class="blog-text"
+						blog_id="{$tempLog.id}"
+						style="width: 680px; margin-top: 10px; margin-bottom: 10px"
+						maxlength="25" placeholder="标题(可选)"
+						value="<php>echo $tempLog['title'];</php>" />
+					<div class="c1">{:W('Editor',array('contentName'=>'content','value'=>$tempLog['content'],'height'=>'270px'))}</div>
+					<div>
+						<include file="__THEME__/tag/index" />
+					</div>
+					<p class="reply-form-row">
+						<input type="submit" class="btn fb fr" value="发布"> <a
+							href="javascript:;" class="cblue fr" id="saveDraft">保存为草稿</a>
+					</p>
+				</div>
+				</session>
+				{* 未登录时 *}
+				<nosession name="mid">
+				<p class="login-info">
+					发布文章，请先 <a id="login" href="javascript:;" class="cblue">登录</a> <span
+						class="cblue">/</span> <a id="reg" href="javascript:;"
+						class="cblue">注册</a>
+				</p>
+				</h3>
+				</nosession>
+				<div id="tagDiv"></div>
+			</div>
+			<div class="article-box">
+				<div class="article-hd">
+					<div class="article-hd-t">
+						<a href="javascript:;" class="article-hd-item active" type="1">全部动态</a>
+						<a href="javascript:;" class="article-hd-item " type="2">热门推荐</a>
+						<if condition="$isLoad"> <a href="javascript:;"
+							class="article-hd-item " type="3">我喜欢的</a></if>
+						<div class="aht-search">
+							<input type="text" class="input" autocomplete="off"
+								id="aht-search-input" value="{$searchKey}"> <label
+								class="placeholder" for="aht-search-input"<if
+									condition="$searchKey != ''"> style="display:none" </if>>搜索文章/标签</label>
+							<a href="javascript:;" class="submit"></a>
+						</div>
+						<i class="i-icons line"></i>
+					</div>
+					<div class="article-hd-b">
+						<a class="active" href="javascript:;">全部</a>
+						<!-- <a
+							href="javascript:;">朋友</a> <a href="javascript:;">同事</a> <a
+							href="javascript:;">同学</a> -->
+					</div>
+				</div>
+				<div class="article-con"></div>
+			</div>
+		</div>
+		<div class="index-r">
+			<if condition="$isLoad"> <if condition="$isNeedApplyTeacher">
+			<a href="{:U('public/Account/authenticate')}" class="btn go-teacher"><i
+				class="i-icons user"></i>成为梦想老师</a></if></if>
+			<php>if(CheckPermission('dreambox_normal','select_class')){</php>
+			<!--我的课表(无课程)-->
+			<if condition="$needSelectCourse">
+			<div class="index-r-box wdkb1">
+				<h2 class="title">我是梦想老师</h2>
+				<div class="index-r-con">
+					<p>
+						本学期还未安排课程 <a class="cblue" id="selectCourse" href="javascript:;">去排课>></a>
+					</p>
+				</div>
+			</div>
+			<if condition="$isAdmin == true or $canConfirm == true">
+			<div class="index-r-box wdkb2">
+				<h4>我是梦想主任</h4>
+				<if condition="$canConfirm == true"> <a class="wdkb-item"
+					href="javascript:;" id='show_confirm'><i class="i-icons qdqr"></i>
+					<span class="name">签到确认</span></a> </if>
+				<if condition="$isAdmin == true"> <a class="wdkb-item"
+					id="modifyTerm" href="javascript:;"><i class="i-icons glxq"></i>
+					<span class="name">管理学期</span></a> <a class="wdkb-item"
+					href="{:U('dreambox/Course/showCourse',array('uid'=>$uid))}"><i
+					class="i-icons xxpk"></i> <span class="name">学校排课</span></a> </if>
+			</div>
+			</if> <else /> <!--我的课表-->
+			<div class="index-r-box wdkb2">
+				<h2 class="title">我是梦想老师</h2>
+				<div class="index-r-con">
+					<a href="javascript:;" class="wdkb-item" id="qiandao"> <i
+						class="i-icons skqd"></i> <span class="name">上课签到</span><em<if
+								condition="$signCount eq 0"> style="display:none"</if>
+							class="num">{$signCount}</em>
+					</a> <a href="{:U('public/Profile/to_feedbacks')}" target="_blank"
+						class="wdkb-item"> <i class="i-icons qdcx"></i> <span
+						class="name">签到查询</span>
+					</a> <a href="{:U('dreambox/Course/previewCourse')}" class="wdkb-item">
+						<i class="i-icons ckkb"></i> <span class="name">查看课表</span>
+					</a> <a href="javascript:;" class="wdkb-item"> <i
+						class="i-icons glkc"></i> <span class="name">管理课程</span>
+					</a> <a href="{:U('dreambox/CourseCenter/downloadIndex')}"
+						class="wdkb-item nobdb"> <i class="i-icons xzkj"></i> <span
+						class="name">下载课件</span>
+					</a>
+					<if condition="$isAdmin == true or $canConfirm == true">
+					<h4>我是梦想主任</h4>
+					<if condition="$canConfirm == true"> <a class="wdkb-item"
+						href="javascript:;" id='show_confirm'><i class="i-icons qdqr"></i>
+						<span class="name">签到确认</span></a> </if> <if condition="$isAdmin == true">
+					<a class="wdkb-item" id="modifyTerm" href="javascript:;"><i
+						class="i-icons glxq"></i> <span class="name">管理学期</span></a> <a
+						class="wdkb-item"
+						href="{:U('dreambox/Course/showCourse',array('uid'=>$uid))}"><i
+						class="i-icons xxpk"></i> <span class="name">学校排课</span></a> </if> </if>
+				</div>
+			</div>
+			</if>
+			<php>}</php>
+
+			<!--公告栏-->
+			<div class="index-r-box">
+				<h2 class="title">
+					公告栏<a href="{:U('jijinhui/Index/index')}" class="more">更多</a>
+				</h2>
+				<div class="index-r-con">
+					<ul class="gg-ul">
+						<volist name='jijinhui_list' id='list'>
+						<li><a
+							href="{:U('jijinhui/Index/descindex',array('id'=>$list['id']))}">{$list.title}</a></li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+
+			<!--帮助-->
+			<div class="index-r-box bz">
+				<h2 class="title">帮助</h2>
+				<div class="index-r-con">
+					<p class="mb10">
+						<a href="{:U('jijinhui/Index/descindex',array('id'=>78))}"
+							target="_blank" class="cblue">如何使用梦想盒子？</a>
+					</p>
+					<p>
+						如果你在使用上遇到问题或有其他建议反馈，请查看<a
+							href="{:U('jijinhui/Index/descindex',array('id'=>79))}"
+							target="_blank" class="cblue">帮助中心</a>或联系<br> <span><a
+							class="cblue" href="mailto:adreambox@adreambox.net">adreambox@adreambox.net</a></span><br>
+					<p>客服电话:400-860-3060</p>
+					<p>工作时间:9:00-18:00 7*8</p>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id='inner_box'></div>
+<!--content end -->
+<!--script -->
+<script type="text/javascript"
+	src="__THEME__/js/app/indexBlog.js?v={$site.sys_version}"></script>
+<script type="text/javascript"
+	src="__APP__/js/index.js?v={$site.sys_version}"></script>
+<include file="__THEME__/public_footer" />

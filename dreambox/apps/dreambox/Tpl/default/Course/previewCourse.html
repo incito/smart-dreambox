@@ -1,0 +1,154 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+<div id="content">
+	<input id="otherId" type="hidden" value="{$otherId}" />
+	<div class="content-main scheduleShow">
+		<div class="ss-sider">
+			<span class="prev"></span> <span class="next"></span>
+			<div class="sider-nav">
+				<ul class="sider-nav-ul">
+					<volist name='weeks' id='week'>
+					<li week_num='{$week.week_num}'><if
+							condition="$week_num == $week['week_num']"> <span
+							class="	<php>if(in_array($week['week_num'],$hasCourseWeeks)){echo hasdata;}else{echo nodata;}</php> active"
+							style="left: 2px;">第{$week.week_num}周</span> <else /> <span
+							class="	<php>if(in_array($week['week_num'],$hasCourseWeeks)){echo hasdata;}else{echo nodata;}</php>">第{$week.week_num}周</span></if></li>
+					</volist>
+
+				</ul>
+			</div>
+		</div>
+		<div class="mzkb">
+			<h1>{$termName}</h1>
+			<if condition="$otherId==$mid || $isAdmin">
+			<p class="tr">
+				<a href="{:U('dreambox/Course/showCourse',array('uid'=>$otherId))}">回到管理课程</a>
+			</p>
+			</if>
+			<div class="table">
+				<hr class="ftr" />
+				<table>
+					<thead>
+						<tr>
+							<th class="ftth"></th>
+							<th>星期一<br /> <span>{$stime1}</span></th>
+							<th>星期二<br /> <span>{$stime2}</span></th>
+							<th>星期三<br /> <span>{$stime3}</span></th>
+							<th>星期四<br /> <span>{$stime4}</span></th>
+							<th>星期五<br /> <span>{$stime5}</span></th>
+							<th>星期六<br /> <span>{$stime6}</span></th>
+							<th>星期日<br /> <span>{$stime7}</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name='sections' id='section'>
+						<tr
+							<if condition="(($section['id']+1) %2) eq 0">class="odd" </if>
+							>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'>{$section.name}</td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 1) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="1"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist>
+									</a> </if></volist> </volist>
+								</div></td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 2) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="2"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 3) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="3"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 4) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="4"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 5) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="5"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+							<td class='ftth <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 6) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="6"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+							<td class='nobdr <if condition="$i eq 8"> nobdb </if>'><div
+									class="sch-wrap">
+									<volist name='selectClass' id='class'> <volist
+										name='courses' id='course'> <if
+										condition="($class['section_num'] eq $section['id']) AND ($class['week_day'] eq 0) AND ($class['course_id'] eq $course['id'])">
+									<a section_num="{$section.id}" week_day="0"
+										course_id="{$course.id}" href="javascript:;"
+										style="margin-top: 7px;" title="{$course.class_name}"><span>{$course.class_name}</span>
+										<volist name="grades" id="grade"> <if
+											condition="$grade['id'] eq $class['grade_id']"> <span
+											class="sch-wrap-detail">{$grade.name}{$class.class_num}班</span></if></volist></a>
+									</if></volist> </volist>
+								</div></td>
+						</tr>
+						</volist>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!--content end -->
+<!--script -->
+<script type="text/javascript"
+	src="{:APPS_URL}/dreambox/_static/js/previewCourse.js?v={$site.sys_version}"></script>
+
+<include file="__THEME__/public_footer" />

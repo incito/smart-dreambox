@@ -1,0 +1,32 @@
+<include file="__THEME__/admin_header" />
+<script type="text/javascript"
+	src="<php> echo SITE_URL;</php>/apps/jijinhui/Tpl/default/Public/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="<php> echo SITE_URL;</php>/apps/jijinhui/Tpl/default/Public/ueditor/ueditor.all.js"></script>
+<div id="container" class="so_main">
+	<div class="page_tit">注册配置</div>
+	<div class="tit_tab">
+		<ul>
+
+			<li><a href="__URL__&act=register">注册配置</a></li>
+
+			<li><a class="on" href="__URL__&act=regProtocol">注册协议</a></li>
+		</ul>
+	</div>
+	<form action="{:U('admin/RegProtocol/saveRegProtocol')}" method="POST">
+		<textarea name="content" id="myEditor"><if condition="$data==null">请输入注册协议内容</if>{$data['content']}</textarea>
+		<script type="text/javascript">
+			var editor = new UE.ui.Editor({
+				maximumWords : 50000,
+				initialFrameHeight : 300
+			});
+			editor.render("myEditor");
+			//1.2.4以后可以使用一下代码实例化编辑器
+			//UE.getEditor('myEditor')
+		</script>
+		<div class="page_btm">
+			<input type="submit" class="btn_b" value="保存" />
+		</div>
+	</form>
+</div>
+<include file="__THEME__/admin_footer" />

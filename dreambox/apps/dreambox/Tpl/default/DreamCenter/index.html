@@ -1,0 +1,63 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+<div id="content">
+	<div class="content-main map">
+		<h1 class="map-title">
+			当前地区：<a href="javascript:;" class="cblue country">全国</a>
+			<!-- <span>></span><a href="javascript:;" class="cblue pro" >四川省</a><span>></span><a  class="cblue city" href="javascript:;">成都市</a> -->
+		</h1>
+		<div class="map-main">
+			<div id="map" class="map-main-l fl"></div>
+			<div class="map-main-r fr">
+				<div class="map-info">
+					<div class="map-info-item">
+						<p class="p1">梦想中心</p>
+						<p id="mxzx" class="p2">{$countInfo.count}</p>
+					</div>
+					<div class="map-info-item">
+						<p class="p1">梦想教师</p>
+						<p id="mxjs" class="p2">{$countInfo.tsum}</p>
+					</div>
+					<div class="map-info-item nomr">
+						<p class="p1">受益学生</p>
+						<p id="syxs" class="p2">{$countInfo.ssum}</p>
+					</div>
+				</div>
+				<div class="map-search">
+					<i class="icons search"></i> <input id="map-search-input"
+						class="input input-search" type="text"> <label
+						class="placeholder" for="map-search-input">Search</label>
+				</div>
+				<div class="map-con">
+					<div class="map-con-loading">
+						<img src="__THEME__/images/loading.gif">
+					</div>
+					<div class="map-con-div">
+						<ul class="map-con-ul">
+							<volist name="schoolInfo" id="school">
+							<li <if condition="(($i+1) %2) eq 0">class="odd"</if>>
+								<h6>
+									<a href="{:U('public/Profile/index',array('uid'=>$school['uid']))}">{$school.name}</a>
+								</h6>
+								<p>捐赠方：{$school.sponsors}</p>
+							</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--content end -->
+<!--script -->
+<script type="text/javascript" src="__THEME__/js/echarts/esl.js?v={$site.sys_version}"></script>
+<script type="text/javascript" src="{:APPS_URL}/dreambox/_static/js/chart.js?v={$site.sys_version}"></script>
+<script type="text/javascript">
+	var container = $("#map")[0];
+	var option = charts.chartOptionTemplates();
+	var opt = charts.chartConfig(container, option);
+	charts.renderMap(opt);
+</script>
+
+<include file="__THEME__/public_footer" />

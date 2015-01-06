@@ -1,0 +1,389 @@
+<include file="__THEME__/public_header" />
+<!--content start -->
+	<div id="content">
+		<div class="content-main school-info clearfix">
+			<div id="input-info">
+				<div class="school-basic-info">
+					<h2 class="title"><span>学校基本信息</span> <php>if($permission['canEdit']){</php><a class="btn info-save fr" id='toEdit'">编辑资料</a><php>}</php>
+					</h2>		
+			
+					<table >
+						<tr>
+							<td class="td1">学校名称：</td>
+							<td>
+								<span id="schoolname">
+									{$school.name}
+								</span>														
+							</td>
+							<td rowspan="11">
+								<div class="photo">
+									<a href="#" class="avatar bigger" >
+										<img src="{$school.avatar_url}" alt="头像">
+									</a>
+								</div>							
+							</td>						
+						</tr>
+						<tr>
+							<td  class="td1">捐赠方：</td>
+							<td>
+								<span id="donate">{$school.sponsors}</span>								
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校类型：</td>
+							<td>
+								<span id="stype">{$school.cname}</span>						
+							</td>
+
+						</tr>
+						<tr>
+							<td  class="td1">学校性质：</td>
+							<td>
+								<span id="sproperty">{$school.school_type_name}</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">办学性质：</td>
+							<td>
+								<span id="srproperty">{$school.educational_type_name}</span>					
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">通讯地址：</td>
+							<td>
+								<span id="address">{$school.provName}&nbsp;&nbsp;&nbsp;{$school.cityName}&nbsp;&nbsp;&nbsp;{$school.areaName}</span>
+					
+							</td>
+						</tr>		
+						<tr>
+							<td  class="td1">详细地址：</td>
+							<td>
+								<span id="location">{$school.location}</span>
+					
+							</td>
+						</tr>			
+						<tr>
+							<td  class="td1">学校邮编：</td>
+							<td>
+								<span id="code">{$school.zip_code}</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">联系电话：</td>
+							<td>
+								<span id="phone">{$school.phone}</span>								
+							</td>
+						</tr>	
+						<tr>
+							<td  class="td1">邮箱：</td>
+							<td>
+								<span id="email">{$school.email}</span>							
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校管理员：</td>
+							<td>
+								<span class="fl">{$school.admin}</span>
+							</td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top;"  class="td1">学校简介：</td>
+							<td style="vertical-align:top;">
+								<span id="instruction">{$school.intro}</span>								
+							</td>
+						</tr>
+
+					</table>					
+				</div>
+				<div class="dreambox-basic-info">
+					<h2 class="title">梦想中心信息</h2>
+					<table>
+						<tr>
+							<td  class="td1">申请时间：</td>
+							<td>
+								<span id="time1">{$school.applytime}</span>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">评估通过时间：</td>
+							<td>
+								<span id="time2">{$school.assetstime}</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			 <php>if($permission['canEdit']){</php>
+			<div id="edit-info" style='display: none;'>
+				<div class="school-basic-info">
+					<h2 class="title">学校基本信息<a class="btn info-save fr" id='saveInfo'>保存</a></h2>
+					<form>
+					<table >
+						<tr>
+							<td  class="td1">学校名称：</td>
+							<td class="getdata">
+									<input type="hidden" autocomplete="off" name='id' value='{$school.id}'/>
+									<span class="fl admin_name">{$school.name}</span>
+							</td>
+							<td rowspan="11">
+								<div class="photo">
+									<a href="#" class="avatar bigger">
+									<img src="{$school.avatar_url}" alt="头像" title="XXX">
+									</a>
+									<input value="更换头像" class="btn photo-change"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校类型：</td>
+							<td class="getdata">
+								<div class="selectGroup school-type" >
+									<div class="select cid0" date-value="<if condition="school.cid0">{$school.cid0}<else/>0</if>" >
+										<label class="text" id="stype"><if condition="school.cname">{$school.cname}<else/>学校类型</if></label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<volist name='clist' id='v'>
+											<li date-value="{$v.id}" <eq name='v.id' value='school.school_type.cid0'>class="active"</eq>>{$v.name}</li>
+										</volist>
+									</ul>
+								</div>	
+
+							</td>				
+
+						</tr>
+						<tr>
+							<td  class="td1">学校性质：</td>
+							<td class="getdata">
+								<div class="selectGroup school-property" >
+									<div class="select school_type" date-value="<if condition="school.school_type">{$school.school_type}<else/>0</if>" >
+										<label class="text" id="sproperty"><if condition="school.school_type_name">{$school.school_type_name}<else/>学校性质</if></label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+									<volist name='schoolTypeList' id='v'>
+										<li date-value="{$v.id}" <eq name='v.id' value='school.school_type'>class="active"</eq>>{$v.name}</li>
+									</volist>
+									</ul>
+								</div>	
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">办学性质：</td>
+							<td class="getdata">
+								<div class="selectGroup school-running-property" >
+									<div class="select educational_type" date-value="<if condition="school.educational_type">{$school.educational_type}<else/>0</if>" >
+										<label class="text" id="srproperty"><if condition="school.educational_type_name">{$school.educational_type_name}<else/>办学性质</if></label>
+										<em class="bottomdirection"></em>
+									</div>
+									<ul class="select-items">
+										<volist name='educationalTypeList' id='v'>
+										<li date-value="{$v.id}" <eq name='v.id' value='school.educational_type'>class="active"</eq>>{$v.name}</li>
+									</volist>
+									</ul>
+								</div>	
+							</td>
+						</tr>						
+						{:W('AreaSelect',array('provId'=>$school['province'],'provName'=>$school['provName'],'cityId'=>$school['city'],'cityName'=>$school['cityName'],'areaId'=>$school['area'],'areaName'=>$school['areaName'],'schoolId'=>$school['id'],'schoolName'=>$school['school'],'address'=>'通信地址：','css'=>'selectGroup city addr','td1_css'=>'td1'))}
+						<tr>
+							<td  class="td1">详细地址：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="location" autocomplete="off" name='location' value="{$school.location}"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校邮编：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="code" autocomplete="off" name='zip_code' value="{$school.locaton}"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">联系电话：</td>
+							<td class="getdata">
+								<div class="input-box">
+									<input type="text" id="phone" autocomplete="off" name='phone' value="{$school.phone}"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td  class="td1">学校管理员：</td>
+							<td class="getdata" style="position:relative;">
+								<div class="dialog-admin">
+									<ul class="dialog-admin-ul">
+										
+									</ul>
+								</div>
+								<span class="fl admin_name">{$school.admin}</span>
+								 <php>if($permission['canBind']){</php>
+								<a href="javascript:;" class="cblue ml10 cxbd" >重新绑定</a>		
+								<php>}</php>					
+								<span class="fr" style="color:#929292">最多还可以输入<span id="text_num"><php>echo 100-strlen($school.intro);</php></span>个字</span>				
+							</td>
+						</tr>
+						<tr>
+							<td style="vertical-align:top" class="td1"  class="td1">学校简介：</td>
+							<td class="getdata" >
+								<div class="input-box">
+									<textarea class="textarea-schoolinfo" id="instruction" name='intro'>{$school.intro}</textarea>
+								</div>
+							</td>
+						</tr>
+
+					</table>	
+					</form>				
+				</div>
+			</div>
+			<div class='dialog' id='school_photo' style="display:none;"> <div class='overlayer' ></div> <div class='dialog-box' > <h1 class='title'>头像设置<a class="close fr" href="javascript:;"><i class="icons close"></i></a></h1> <div class='dialog-main'> <div class='row'>
+			<link type="text/css" rel="stylesheet" href="__THEME__/css/module.css?v={$site.sys_version}">
+<link type="text/css" rel="stylesheet" href="__THEME__/css/style.css?v={$site.sys_version}">
+<script src="__THEME__/js/module.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/common.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/module.common.js?v={$site.sys_version}"></script>
+<script src="__THEME__/js/jquery.form.js?v={$site.sys_version}"></script>
+<style type="text/css">
+.btn {
+	display: inline-block;
+	text-align: center;
+	border: none;
+	cursor: pointer;
+}
+
+.btn.photoset-confirm {
+	width: 118px;
+	height: 40px;
+	margin-top: 10px;
+	margin-left: 120px;
+	line-height: 40px;
+	background: url('__THEME__/images/photoset_confirm_btn.png') no-repeat
+		transparent;
+	color: #fff;
+	font-size: 16px;
+}
+
+.btn.photoset-cancel {
+	width: 118px;
+	height: 40px;
+	margin-top: 10px;
+	margin-left: 25px;
+	line-height: 40px;
+	background: url('__THEME__/images/photoset_cancel_btn.png') no-repeat
+		transparent;
+	color: #fff;
+	font-size: 16px;
+}
+#school_photo .dialog-box{
+	width:650px;
+}
+</style>
+	<div class="content-main peradd-main clearfix">
+		<!--tab菜单-->
+		<include file="_tabs" />
+		<div class="peradd-r">
+			<div class="peradd-r-box">
+				<div class="peradd-r-con photoset">
+
+					<form id='noflashUpload' model-node="avatar_upload_form"
+						enctype="multipart/form-data"
+						action="{:U('public/School/doSaveAvatar',array('step'=>'upload','sid'=>$school['id']))}"
+						method="post">
+						<dl class="form-avatar">
+							<dd>
+								<input event-node="select_file" type="file" name="Filedata"
+									class="" /> <span event-node="loading" style="display: none;"><img
+									src="__THEME__/image/load.gif" />加载中...</span>
+								<p>支持JPG,JPGE,PNG格式，大小限制15M以内</p>
+							</dd>
+							<dd>
+								<div model-node="avatar_scan" class="mod-avatar">
+									<div class="cut-1">
+										<img event-node="avatar_big" src="{$user_info['avatar_big']}"
+											width="200" />
+										<p>200*200</p>
+									</div>
+								</div>
+							</dd>
+						</dl>
+					</form>
+					<form model-node="avatar_setting_form"
+						enctype="multipart/form-data"
+						action="{:U('public/School/doSaveAvatar',array('step'=>'save','sid'=>$school['id']))}"
+						method="post" style="display: none;">
+						<dl class="form-avatar" style="margin: 30px 0 0 30px;">
+							<dd>
+								<div model-node="avatar_area" class="mod-avatar left"
+									style="width: 300px; margin-bottom: 10px; border-right: 1px solid #E5E5E5; vertical-align: top; float: left;"></div>
+								<div class="mod-avatar left"
+									style="padding-left: 15px; display: inline-block;">
+									<div model-node="avatar_preview" class="left"
+										style="width: 200px; height: 200px; border: 1px solid #B4B5AF; overflow: hidden;"></div>
+								</div>
+							</dd>
+							<dd>
+								<input event-node="avatar_picurl" type="hidden" name="picurl">
+								<input event-node="avatar_picwidth" type="hidden"
+									name="picwidth"> <input event-node="avatar_fullpicurl"
+									type="hidden" name="fullpicurl"> <input
+									event-node="avatar_x1" type="hidden" name="x1"> <input
+									event-node="avatar_y1" type="hidden" name="y1"> <input
+									event-node="avatar_x2" type="hidden" name="x2"> <input
+									event-node="avatar_y2" type="hidden" name="y2"> <input
+									event-node="avatar_w" type="hidden" name="w"> <input
+									event-node="avatar_h" type="hidden" name="h"> <a
+									event-node="avatar_save" event-args="tip=确认保存头像？"
+									class="btn-green-small" href="#"><span
+									class="btn photoset-confirm">保存</span></a> <a
+									event-node="avatar_reset" class="btn-cancel ml10" href="#"><span
+									class="btn photoset-cancel" style="padding: 0 0;">取消</span></a>
+							</dd>
+						</dl>
+					</form>
+					<script
+						src="__THEME__/js/module.form.js?v={$site.sys_version}"></script>
+					<script
+						src="__THEME__/js/avatar/module.avatar.js?v={$site.sys_version}"></script>
+					<script
+						src="__THEME__/js/avatar/avatar.js?v={$site.sys_version}"></script>
+					<script type="text/javascript">
+						var upload_callback = "nocallback"
+						var avatar_success = function(msg) {							
+								dreambox.dialog('提示',
+										'头像保存成功', function(){
+									$('#school_photo').hide();
+								}, 3);
+								$('#content .photo img').attr('src',msg.big);
+								$('.header-msg .avatar img').attr('src',msg.small);
+						};
+
+						var avatar_error = function() {
+							ui.error('头像保存失败');
+						};
+					</script>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<!--script -->
+<script type="text/javascript">
+	$(function() {
+		var height = document.body.scrollHeight;
+		var height_header = $("#header").height();
+		var height_foot = $("#footer").height();
+		var height_content = document.body.scrollHeight - height_foot
+				- height_header;
+		$("#content").height(height_content);
+
+	})
+</script>
+			
+			</div></div></div> </div>
+			<php>}</php>
+		</div>
+	</div>
+	<!--content end -->
+	<script type="text/javascript" src="__APP__/js/schoolDetail.js?v={$site.sys_version}"></script>
+<include file="__THEME__/public_footer" />

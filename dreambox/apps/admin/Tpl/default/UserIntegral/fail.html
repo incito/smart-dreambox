@@ -1,0 +1,73 @@
+<include file="__THEME__/admin_header" />
+<div id="container" class="so_main">
+	<div class="page_tit">
+    <php>if(C('DEVELOP_MODE')==true){</php>
+    <span onclick="admin.fold('page_config')">{:L('PUBLIC_PAGE_CONFIGURATION')}</span><php>if(!empty($searchKeyList)):</php>
+		<span onclick="admin.fold('search_config')">{:L('PUBLIC_SEARCH_PAGE')}</span><php>endif;</php>
+    <php>}</php>
+    {$pageTitle} 
+	</div>	
+<input type='hidden' id='delUrl' value='{$delUrl}'/>
+  <!-- START TAB框 -->
+  <php>if(!empty($pageTab)):</php>
+  <div class="tit_tab">
+    <ul>
+    <php> !$_REQUEST['tabHash'] && $_REQUEST['tabHash'] =  $pageTab[0]['tabHash'];</php>
+    <volist name='pageTab' id='t'>
+    <li><a href="{$t.url}&tabHash={$t.tabHash}" <php> if($t['tabHash'] == $_REQUEST['tabHash']){ echo 'class="on"';}</php>>{$t.title}</a></li>
+    </volist>
+    </ul>
+  </div>
+  <php>endif;</php>
+  <!-- END TAB框 -->
+
+ <!-- START TOOLBAR -->
+  <div class="Toolbar_inbox">
+    <div class="page right">
+    {$listData.html}
+    </div>  
+  	<volist name='pageButton' id='b'>
+  		<a onclick="{$b.onclick}" href="<php>if(empty($b['href'])){echo 'javascript:void(0)';}else{echo $b['href'];}</php>" class="btn_a"><span>{$b.title}</span></a>
+  	</volist>
+
+  </div>
+  <!-- END TOOLBAR -->
+  
+  <!-- START LIST -->
+  <div class="list" id='list'>
+  
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 	
+    <th style="width:30px;">
+        邮箱
+    </th>
+    <th style="width:30px;">
+    错误信息
+    </th>
+  </tr>
+  <php>if(!empty($msg)&& is_array($msg)){</php>
+  <volist name='msg' id='m'>
+  <tr overstyle="on">
+  	<td>{$m.email}</td>
+  	<td>{$m.info}</td>
+  </tr>
+  </volist>
+  <php>}else{</php>
+  <tr><td colspan='100'>{$msg}</td> </tr>
+  <php>}</php>
+  </table>
+  </div>
+  <!-- END LIST -->
+  
+  <!-- START BOTTOMBAR -->
+  <div class="Toolbar_inbox">
+    <div class="page right">
+    {$listData.html}
+    </div>   
+   	<volist name='pageButton' id='b'>
+    		<a onclick="{$b.onclick}" class="btn_a"><span>{$b.title}</span></a>
+    </volist>
+  </div>
+  <!-- END BOTTOMBAR -->
+</div>
+<include file="admin_footer" />

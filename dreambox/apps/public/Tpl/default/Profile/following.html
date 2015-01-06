@@ -1,0 +1,73 @@
+<include file="__THEME__/public_header" />
+
+<div id="content">
+		<include file="__THEME__/person_header" />
+		<div class="person-mid">
+			<div class="person-mid-main">
+				<div class="userList-mid-box">
+					<h1 class="title clearfix">
+						<span class="active first" href="{:U('public/Profile/following',array('uid'=>$uid))}">关注</span>
+						<span href="{:U('public/Profile/follower',array('uid'=>$uid))}">粉丝</span>
+						<span href="{:U('public/Profile/visitor',array('uid'=>$uid))}">访客</span>
+					</h1>
+					<div class="userList-part" style="display:block;">
+						<ul class="userList-part-ul">
+							<volist name="following_list.data" id="_following">
+                            <php> $img = !empty($_GET['show']) ? $user_info[$_following['fid']]['avatar_big']:$user_info[$_following['fid']]['avatar_small']; </php>
+							<li uid="{$_following['fid']}" <eq name="i % 2" value="0">class="even"</eq>>
+								<div class="up-wrap clearfix">
+									<div class="img">
+										<a class="avatar tiny" href="{:U('public/Profile/index',array('uid'=>$_following['fid']))}"><img src="{$img}" alt="头像" title="{$user_info[$_following['fid']]['uname']}"></a>
+									</div>
+									<div class="text">
+										<p>
+											<a href="{:U('public/Profile/index',array('uid'=>$_following['fid']))}" class="name">{$user_info[$_following['fid']]['uname']}</a>
+											<span class="sex mr10"><php>if($user_info[$_following['fid']]['sex'] == 1){</php>男<php>}else if($user_info[$_following['fid']]['sex'] == 2){</php>女<php>}</php></span>
+											<span class="address"><php>if($user_info[$_following['fid']]['location'] != ""){</php>{$user_info[$_following['fid']]['location']}<php>}</php></span>
+															
+										</p>
+										<p>
+											<span>关注{:(int)$user_count[$_following['fid']]['following_count']}</span>
+											<span class="mr10 ml10">|</span>
+											<span>粉丝{:(int)$user_count[$_following['fid']]['follower_count']}</span>
+											<span class="mr10 ml10">|</span>
+											<span>文章{:(int)$user_count[$_following['fid']]['blog_count']}</span>
+										</p>
+										<p class="p3">简介:<span>{$user_info[$_following['fid']]['intro']|getShort=100}</span></p>
+									</div>
+									<php>if($mid){</php>
+                                    <if condition="$mid neq $_following['fid']">
+										<div class="fr op" status="{$follow_state[$_following['fid']]['following']}"></div>
+									</if>
+                                    <php>}</php>
+								</div>
+							</li>
+							</volist>
+						</ul>
+						<php> $uri = 'public/Profile/following'; $data = $following_list; </php>
+						<include file="paging" />
+						
+						<php>if($following_list['count'] == 0){</php>
+							<span>没有相关数据！</span>
+						<php>}</php>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content-main person">
+			
+		</div>
+	</div>
+	<!--content end -->
+	<!--script -->
+	<script type="text/javascript" src="__APP__/js/user.relation.js?v={$site.sys_version}"></script>
+	<script type="text/javascript">
+	//content height
+	$(function(){
+		var minHeight = $(window).innerHeight() - $('#footer').innerHeight();
+		$('#content').innerHeight() < minHeight?$('#content').innerHeight(minHeight):0;
+	})
+	
+	</script>
+
+<include file="__THEME__/public_footer" />
