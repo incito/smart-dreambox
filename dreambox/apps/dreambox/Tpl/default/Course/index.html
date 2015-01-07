@@ -9,7 +9,7 @@
 			<if condition="$isAdmin == true">
 			<ul class="tabtop clearfix">
 				<li <if condition='$tab eq "showCourse"'>class="active"</if>><a
-					href="{:U('dreambox/Course/showCourse')}">课程管理</a></li>
+					href="{:U('dreambox/Course/showCourse',array('uid'=>$uid))}">课程管理</a></li>
 				<li <if condition='$tab eq "uploadCourse"'>class="active"</if>><a
 					href="{:U('dreambox/CourseManage/index')}">批量排课</a></li>
 			</ul>

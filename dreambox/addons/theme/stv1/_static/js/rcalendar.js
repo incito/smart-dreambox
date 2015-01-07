@@ -300,7 +300,7 @@ function rfill_rdates() {
 			m_add = '0';
 		}
 		if (d.getDate() == rnow.getDate() && d.getMonth() == rnow.getMonth() && d.getFullYear() == rnow.getFullYear()) {
-			color = '#ffffff';
+			color = 'red';
 		}
 		var font_weight = '';
 		if (d.getDate() == robj_date.getDate() && m_add == '0') {

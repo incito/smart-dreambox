@@ -21,6 +21,7 @@ class CourseManageAction extends Action {
 	);
 	public function index() {
 		if ($this->_checkPermission ()) {
+			$this->assign ( 'uid', $this->mid );
 			$this->display ( 'index' );
 		} else {
 			$this->error ( '你没权限批量排课' );
@@ -97,7 +98,7 @@ class CourseManageAction extends Action {
 		if (! $excel) {
 			$this->error ( '文件格式不正确，导入失败' );
 		} else {
-			$model->term = $term ;
+			$model->term = $term;
 			$model->uid = $this->mid;
 			// 导入excel
 			$model->importExcel ( $excel );

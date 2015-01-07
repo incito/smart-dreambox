@@ -127,8 +127,8 @@ a:active { color:#3b5999 }
 .page_tit span{float:right;padding-right:50px;font-size:12px;color:green;cursor:pointer}
 
 /*TAB*/
-.tit_tab { background:#D2DBEA; height:30px; padding:5px 5px 0; margin-bottom:10px; }
-.tit_tab ul { }
+.tit_tab { background:#D2DBEA; min-height:30px; padding:5px 5px 0; margin-bottom:10px; }
+.tit_tab ul {overflow:hidden; }
 .tit_tab li { float:left; }
 .tit_tab li a { padding:0 13px; line-height:30px; display:block; font-size:14px; }
 .tit_tab li a.on { background:#fff; color:#333 }
